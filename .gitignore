@@ -6,3 +6,6 @@
 /build
 /captures
 .externalNativeBuild
+malin.jks
+gradle.properties
+infer-out

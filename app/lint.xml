@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lint>
+    <issue id="IconMissingDensityFolder" severity="ignore" />
+
+    <!--tools:replace 和 tools:ignore同时出现，tools:replace 不生效-->
+    <issue id="GoogleAppIndexingWarning" severity="ignore"/>
+</lint>

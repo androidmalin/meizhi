@@ -1,0 +1,1627 @@
+Initialized native services in: /home/malin/.gradle/native
+Connected to daemon DaemonInfo{pid=6439, address=[974fbf2e-fae6-4500-9793-42db14e27b60 port:45528, addresses:[/0:0:0:0:0:0:0:1, /127.0.0.1]], state=Idle, lastBusy=1485933509285, context=DefaultDaemonContext[uid=a57c3e94-40ae-4e57-b7cf-3defde83a643,javaHome=/usr/lib/jvm/jdk1.8.0_121,daemonRegistryDir=/home/malin/.gradle/daemon,pid=6439,idleTimeout=10800000,daemonOpts=-XX:MaxPermSize=512m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]}. Dispatching request Build{id=41da7f6f-78b2-42a3-87d2-f30678d45f27.1, currentDir=/home/malin/malin_github/MeZhi}.
+Received result org.gradle.launcher.daemon.protocol.BuildStarted@56c4278e from daemon DaemonInfo{pid=6439, address=[974fbf2e-fae6-4500-9793-42db14e27b60 port:45528, addresses:[/0:0:0:0:0:0:0:1, /127.0.0.1]], state=Idle, lastBusy=1485933509285, context=DefaultDaemonContext[uid=a57c3e94-40ae-4e57-b7cf-3defde83a643,javaHome=/usr/lib/jvm/jdk1.8.0_121,daemonRegistryDir=/home/malin/.gradle/daemon,pid=6439,idleTimeout=10800000,daemonOpts=-XX:MaxPermSize=512m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]} (build should be starting).
+The client will now receive all logging from the daemon (pid: 6439). The daemon log file: /home/malin/.gradle/daemon/3.3/daemon-6439.out.log
+Starting 67th build in daemon [uptime: 5 hrs 11 mins 18.977 secs, performance: 97%, no major garbage collections]
+Executing build with daemon context: DefaultDaemonContext[uid=a57c3e94-40ae-4e57-b7cf-3defde83a643,javaHome=/usr/lib/jvm/jdk1.8.0_121,daemonRegistryDir=/home/malin/.gradle/daemon,pid=6439,idleTimeout=10800000,daemonOpts=-XX:MaxPermSize=512m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]
+Creating new cache for plugin-use-metadata, path /home/malin/.gradle/caches/3.3/plugin-resolution/plugin-use-metadata.bin, access org.gradle.cache.internal.DefaultCacheAccess@71a8f971
+Creating new cache for client-status, path /home/malin/.gradle/caches/3.3/plugin-resolution/client-status.bin, access org.gradle.cache.internal.DefaultCacheAccess@71a8f971
+Starting Build
+Settings evaluated using settings file '/home/malin/malin_github/MeZhi/settings.gradle'.
+Projects loaded. Root project using build file '/home/malin/malin_github/MeZhi/build.gradle'.
+Included projects: [root project 'MeZhi', project ':app', project ':pvlibrary']
+Parallel execution with configuration on demand is an incubating feature.
+Evaluating root project 'MeZhi' using build file '/home/malin/malin_github/MeZhi/build.gradle'.
+Creating new cache for metadata-2.23/module-metadata, path /home/malin/.gradle/caches/modules-2/metadata-2.23/module-metadata.bin, access org.gradle.cache.internal.DefaultCacheAccess@25ced668
+Creating new cache for metadata-2.23/artifact-at-repository, path /home/malin/.gradle/caches/modules-2/metadata-2.23/artifact-at-repository.bin, access org.gradle.cache.internal.DefaultCacheAccess@25ced668
+Using 4 worker leases.
+Evaluating project ':app' using build file '/home/malin/malin_github/MeZhi/app/build.gradle'.
+Creating configuration compile
+Creating configuration apk
+Creating configuration provided
+Creating configuration wearApp
+Creating configuration annotationProcessor
+Creating configuration androidTestCompile
+Creating configuration androidTestApk
+Creating configuration androidTestProvided
+Creating configuration androidTestWearApp
+Creating configuration androidTestAnnotationProcessor
+Creating configuration testCompile
+Creating configuration testApk
+Creating configuration testProvided
+Creating configuration testWearApp
+Creating configuration testAnnotationProcessor
+Creating configuration debugCompile
+Creating configuration debugApk
+Creating configuration debugProvided
+Creating configuration debugWearApp
+Creating configuration debugAnnotationProcessor
+Creating configuration testDebugCompile
+Creating configuration testDebugApk
+Creating configuration testDebugProvided
+Creating configuration testDebugWearApp
+Creating configuration testDebugAnnotationProcessor
+Creating configuration releaseCompile
+Creating configuration releaseApk
+Creating configuration releaseProvided
+Creating configuration releaseWearApp
+Creating configuration releaseAnnotationProcessor
+Creating configuration testReleaseCompile
+Creating configuration testReleaseApk
+Creating configuration testReleaseProvided
+Creating configuration testReleaseWearApp
+Creating configuration testReleaseAnnotationProcessor
+Parsing the SDK, no caching allowed
+Parsing legacy package: /opt/sdk/add-ons/addon-google_apis-google-21
+Exception while marshalling /opt/sdk/add-ons/addon-google_apis-google-21/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/add-ons/addon-google_apis-google-22
+Exception while marshalling /opt/sdk/add-ons/addon-google_apis-google-22/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/add-ons/addon-google_apis-google-23
+Exception while marshalling /opt/sdk/add-ons/addon-google_apis-google-23/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/add-ons/addon-google_apis-google-24
+Exception while marshalling /opt/sdk/add-ons/addon-google_apis-google-24/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/19.1.0
+Exception while marshalling /opt/sdk/build-tools/19.1.0/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/20.0.0
+Exception while marshalling /opt/sdk/build-tools/20.0.0/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/21.1.2
+Exception while marshalling /opt/sdk/build-tools/21.1.2/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/22.0.1
+Exception while marshalling /opt/sdk/build-tools/22.0.1/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/23.0.1
+Exception while marshalling /opt/sdk/build-tools/23.0.1/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/23.0.2
+Exception while marshalling /opt/sdk/build-tools/23.0.2/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/23.0.3
+Exception while marshalling /opt/sdk/build-tools/23.0.3/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/24.0.0
+Exception while marshalling /opt/sdk/build-tools/24.0.0/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/24.0.1
+Exception while marshalling /opt/sdk/build-tools/24.0.1/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/24.0.2
+Exception while marshalling /opt/sdk/build-tools/24.0.2/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/24.0.3
+Exception while marshalling /opt/sdk/build-tools/24.0.3/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/25.0.0
+Exception while marshalling /opt/sdk/build-tools/25.0.0/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/25.0.1
+Exception while marshalling /opt/sdk/build-tools/25.0.1/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/build-tools/25.0.2
+Exception while marshalling /opt/sdk/build-tools/25.0.2/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/docs
+Exception while marshalling /opt/sdk/docs/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/android/m2repository
+Exception while marshalling /opt/sdk/extras/android/m2repository/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/android/support
+Exception while marshalling /opt/sdk/extras/android/support/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/auto
+Exception while marshalling /opt/sdk/extras/google/auto/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/gcm
+Exception while marshalling /opt/sdk/extras/google/gcm/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/google_play_services
+Exception while marshalling /opt/sdk/extras/google/google_play_services/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/google_play_services_fit_preview
+Exception while marshalling /opt/sdk/extras/google/google_play_services_fit_preview/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/google_play_services_froyo
+Exception while marshalling /opt/sdk/extras/google/google_play_services_froyo/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/m2repository
+Exception while marshalling /opt/sdk/extras/google/m2repository/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/play_apk_expansion
+Exception while marshalling /opt/sdk/extras/google/play_apk_expansion/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/play_billing
+Exception while marshalling /opt/sdk/extras/google/play_billing/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/play_licensing
+Exception while marshalling /opt/sdk/extras/google/play_licensing/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/simulators
+Exception while marshalling /opt/sdk/extras/google/simulators/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/usb_driver
+Exception while marshalling /opt/sdk/extras/google/usb_driver/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/google/webdriver
+Exception while marshalling /opt/sdk/extras/google/webdriver/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/extras/intel/Hardware_Accelerated_Execution_Manager
+Exception while marshalling /opt/sdk/extras/intel/Hardware_Accelerated_Execution_Manager/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platform-tools
+Exception while marshalling /opt/sdk/platform-tools/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-10
+Exception while marshalling /opt/sdk/platforms/android-10/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-12
+Exception while marshalling /opt/sdk/platforms/android-12/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-13
+Exception while marshalling /opt/sdk/platforms/android-13/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-14
+Exception while marshalling /opt/sdk/platforms/android-14/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-15
+Exception while marshalling /opt/sdk/platforms/android-15/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-16
+Exception while marshalling /opt/sdk/platforms/android-16/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-17
+Exception while marshalling /opt/sdk/platforms/android-17/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-18
+Exception while marshalling /opt/sdk/platforms/android-18/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-19
+Exception while marshalling /opt/sdk/platforms/android-19/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-20
+Exception while marshalling /opt/sdk/platforms/android-20/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-21
+Exception while marshalling /opt/sdk/platforms/android-21/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-22
+Exception while marshalling /opt/sdk/platforms/android-22/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-23
+Exception while marshalling /opt/sdk/platforms/android-23/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-24
+Exception while marshalling /opt/sdk/platforms/android-24/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-25
+Exception while marshalling /opt/sdk/platforms/android-25/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-8
+Exception while marshalling /opt/sdk/platforms/android-8/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/platforms/android-MNC
+Exception while marshalling /opt/sdk/platforms/android-MNC/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/samples/android-10
+Exception while marshalling /opt/sdk/samples/android-10/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/samples/android-19
+Exception while marshalling /opt/sdk/samples/android-19/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/samples/android-20
+Exception while marshalling /opt/sdk/samples/android-20/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/samples/android-21
+Exception while marshalling /opt/sdk/samples/android-21/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/samples/android-22
+Exception while marshalling /opt/sdk/samples/android-22/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/samples/android-MNC
+Exception while marshalling /opt/sdk/samples/android-MNC/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-15
+Exception while marshalling /opt/sdk/sources/android-15/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-16
+Exception while marshalling /opt/sdk/sources/android-16/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-17
+Exception while marshalling /opt/sdk/sources/android-17/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-18
+Exception while marshalling /opt/sdk/sources/android-18/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-19
+Exception while marshalling /opt/sdk/sources/android-19/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-20
+Exception while marshalling /opt/sdk/sources/android-20/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-21
+Exception while marshalling /opt/sdk/sources/android-21/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-22
+Exception while marshalling /opt/sdk/sources/android-22/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-23
+Exception while marshalling /opt/sdk/sources/android-23/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-24
+Exception while marshalling /opt/sdk/sources/android-24/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-25
+Exception while marshalling /opt/sdk/sources/android-25/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/sources/android-MNC
+Exception while marshalling /opt/sdk/sources/android-MNC/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/system-images/android-19/default/armeabi-v7a
+Exception while marshalling /opt/sdk/system-images/android-19/default/armeabi-v7a/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/system-images/android-19/default/x86
+Exception while marshalling /opt/sdk/system-images/android-19/default/x86/package.xml. Probably the SDK is read-only
+Parsing legacy package: /opt/sdk/tools
+Exception while marshalling /opt/sdk/tools/package.xml. Probably the SDK is read-only
+Evaluating project ':pvlibrary' using build file '/home/malin/malin_github/MeZhi/pvlibrary/build.gradle'.
+Creating configuration compile
+Creating configuration publish
+Creating configuration provided
+Creating configuration wearApp
+Creating configuration annotationProcessor
+Creating configuration androidTestCompile
+Creating configuration androidTestPublish
+Creating configuration androidTestProvided
+Creating configuration androidTestWearApp
+Creating configuration androidTestAnnotationProcessor
+Creating configuration testCompile
+Creating configuration testPublish
+Creating configuration testProvided
+Creating configuration testWearApp
+Creating configuration testAnnotationProcessor
+Creating configuration debugCompile
+Creating configuration debugPublish
+Creating configuration debugProvided
+Creating configuration debugWearApp
+Creating configuration debugAnnotationProcessor
+Creating configuration testDebugCompile
+Creating configuration testDebugPublish
+Creating configuration testDebugProvided
+Creating configuration testDebugWearApp
+Creating configuration testDebugAnnotationProcessor
+Creating configuration releaseCompile
+Creating configuration releasePublish
+Creating configuration releaseProvided
+Creating configuration releaseWearApp
+Creating configuration releaseAnnotationProcessor
+Creating configuration testReleaseCompile
+Creating configuration testReleasePublish
+Creating configuration testReleaseProvided
+Creating configuration testReleaseWearApp
+Creating configuration testReleaseAnnotationProcessor
+Parsing the SDK, no caching allowed
+The JavaCompile.setDependencyCacheDir() method has been deprecated and is scheduled to be removed in Gradle 4.0.
+Using incremental javac compilation.
+Incremental java compilation is an incubating feature.
+Not using incremental javac compilation.
+The TaskInputs.source(Object) method has been deprecated and is scheduled to be removed in Gradle 4.0. Please use TaskInputs.file(Object).skipWhenEmpty() instead.
+Using incremental javac compilation.
+Not using incremental javac compilation.
+Not using incremental javac compilation.
+Creating new cache for metadata-2.23/module-artifacts, path /home/malin/.gradle/caches/modules-2/metadata-2.23/module-artifacts.bin, access org.gradle.cache.internal.DefaultCacheAccess@25ced668
+Using incremental javac compilation.
+Not using incremental javac compilation.
+Using incremental javac compilation.
+Not using incremental javac compilation.
+Not using incremental javac compilation.
+Selected primary task 'build' from project :
+All projects evaluated.
+Tasks to be executed: [task ':app:preBuild', task ':app:preDebugBuild', task ':app:checkDebugManifest', task ':app:extractProguardFiles', task ':app:preReleaseBuild', task ':pvlibrary:preBuild', task ':pvlibrary:preReleaseBuild', task ':pvlibrary:checkReleaseManifest', task ':pvlibrary:preDebugAndroidTestBuild', task ':pvlibrary:preDebugBuild', task ':pvlibrary:preDebugUnitTestBuild', task ':pvlibrary:preReleaseUnitTestBuild', task ':pvlibrary:prepareComAndroidSupportSupportCompat2510Library', task ':pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library', task ':pvlibrary:prepareReleaseDependencies', task ':pvlibrary:compileReleaseAidl', task ':pvlibrary:compileReleaseNdk', task ':pvlibrary:compileLint', task ':pvlibrary:copyReleaseLint', task ':pvlibrary:compileReleaseRenderscript', task ':pvlibrary:generateReleaseBuildConfig', task ':pvlibrary:generateReleaseResValues', task ':pvlibrary:generateReleaseResources', task ':pvlibrary:mergeReleaseResources', task ':pvlibrary:processReleaseManifest', task ':pvlibrary:processReleaseResources', task ':pvlibrary:generateReleaseSources', task ':pvlibrary:incrementalReleaseJavaCompilationSafeguard', task ':pvlibrary:compileReleaseJavaWithJavac', task ':pvlibrary:extractReleaseAnnotations', task ':pvlibrary:mergeReleaseShaders', task ':pvlibrary:compileReleaseShaders', task ':pvlibrary:generateReleaseAssets', task ':pvlibrary:mergeReleaseAssets', task ':pvlibrary:mergeReleaseProguardFiles', task ':pvlibrary:packageReleaseRenderscript', task ':pvlibrary:packageReleaseResources', task ':pvlibrary:processReleaseJavaRes', task ':pvlibrary:transformResourcesWithMergeJavaResForRelease', task ':pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease', task ':pvlibrary:mergeReleaseJniLibFolders', task ':pvlibrary:transformNative_libsWithMergeJniLibsForRelease', task ':pvlibrary:transformNative_libsWithSyncJniLibsForRelease', task ':pvlibrary:bundleRelease', task ':app:prepareComAndroidSupportAnimatedVectorDrawable2510Library', task ':app:prepareComAndroidSupportAppcompatV72510Library', task ':app:prepareComAndroidSupportCardviewV72510Library', task ':app:prepareComAndroidSupportRecyclerviewV72510Library', task ':app:prepareComAndroidSupportSupportCompat2510Library', task ':app:prepareComAndroidSupportSupportCoreUi2510Library', task ':app:prepareComAndroidSupportSupportCoreUtils2510Library', task ':app:prepareComAndroidSupportSupportFragment2510Library', task ':app:prepareComAndroidSupportSupportMediaCompat2510Library', task ':app:prepareComAndroidSupportSupportV42510Library', task ':app:prepareComAndroidSupportSupportVectorDrawable2510Library', task ':app:prepareComGithubBumptechGlideOkhttp3Integration140Library', task ':app:prepareIoReactivexRxandroid121Library', task ':app:prepareMeZhiPvlibraryUnspecifiedLibrary', task ':app:prepareDebugDependencies', task ':app:compileDebugAidl', task ':app:compileDebugRenderscript', task ':app:generateDebugBuildConfig', task ':app:generateDebugResValues', task ':app:generateDebugResources', task ':app:mergeDebugResources', task ':app:processDebugManifest', task ':app:processDebugResources', task ':app:generateDebugSources', task ':app:incrementalDebugJavaCompilationSafeguard', task ':app:compileDebugJavaWithJavac', task ':app:compileDebugNdk', task ':app:compileDebugSources', task ':app:mergeDebugShaders', task ':app:compileDebugShaders', task ':app:generateDebugAssets', task ':app:mergeDebugAssets', task ':app:transformClassesWithDexForDebug', task ':app:mergeDebugJniLibFolders', task ':app:transformNative_libsWithMergeJniLibsForDebug', task ':app:processDebugJavaRes', task ':app:transformResourcesWithMergeJavaResForDebug', task ':app:validateSigningDebug', task ':app:packageDebug', task ':app:assembleDebug', task ':app:checkReleaseManifest', task ':app:prepareReleaseDependencies', task ':app:compileReleaseAidl', task ':app:compileReleaseRenderscript', task ':app:generateReleaseBuildConfig', task ':app:generateReleaseResValues', task ':app:generateReleaseResources', task ':app:mergeReleaseResources', task ':app:processReleaseManifest', task ':app:processReleaseResources', task ':app:generateReleaseSources', task ':app:incrementalReleaseJavaCompilationSafeguard', task ':app:compileReleaseJavaWithJavac', task ':app:compileReleaseNdk', task ':app:compileReleaseSources', task ':app:lintVitalRelease', task ':app:mergeReleaseShaders', task ':app:compileReleaseShaders', task ':app:generateReleaseAssets', task ':app:mergeReleaseAssets', task ':app:processReleaseJavaRes', task ':app:transformResourcesWithMergeJavaResForRelease', task ':app:transformClassesAndResourcesWithProguardForRelease', task ':app:transformClassesWithDexForRelease', task ':app:transformClassesWithShrinkResForRelease', task ':app:mergeReleaseJniLibFolders', task ':app:transformNative_libsWithMergeJniLibsForRelease', task ':app:validateSigningRelease', task ':app:packageRelease', task ':app:assembleRelease', task ':app:assemble', task ':app:lint', task ':app:incrementalDebugUnitTestJavaCompilationSafeguard', task ':app:preDebugUnitTestBuild', task ':app:prepareDebugUnitTestDependencies', task ':app:compileDebugUnitTestJavaWithJavac', task ':app:processDebugUnitTestJavaRes', task ':app:compileDebugUnitTestSources', task ':app:mockableAndroidJar', task ':app:assembleDebugUnitTest', task ':app:testDebugUnitTest', task ':app:incrementalReleaseUnitTestJavaCompilationSafeguard', task ':app:preReleaseUnitTestBuild', task ':app:prepareReleaseUnitTestDependencies', task ':app:compileReleaseUnitTestJavaWithJavac', task ':app:processReleaseUnitTestJavaRes', task ':app:compileReleaseUnitTestSources', task ':app:assembleReleaseUnitTest', task ':app:testReleaseUnitTest', task ':app:test', task ':app:check', task ':app:build', task ':pvlibrary:checkDebugManifest', task ':pvlibrary:prepareDebugDependencies', task ':pvlibrary:compileDebugAidl', task ':pvlibrary:compileDebugNdk', task ':pvlibrary:copyDebugLint', task ':pvlibrary:compileDebugRenderscript', task ':pvlibrary:generateDebugBuildConfig', task ':pvlibrary:generateDebugResValues', task ':pvlibrary:generateDebugResources', task ':pvlibrary:mergeDebugResources', task ':pvlibrary:processDebugManifest', task ':pvlibrary:processDebugResources', task ':pvlibrary:generateDebugSources', task ':pvlibrary:incrementalDebugJavaCompilationSafeguard', task ':pvlibrary:compileDebugJavaWithJavac', task ':pvlibrary:extractDebugAnnotations', task ':pvlibrary:mergeDebugShaders', task ':pvlibrary:compileDebugShaders', task ':pvlibrary:generateDebugAssets', task ':pvlibrary:mergeDebugAssets', task ':pvlibrary:mergeDebugProguardFiles', task ':pvlibrary:packageDebugRenderscript', task ':pvlibrary:packageDebugResources', task ':pvlibrary:processDebugJavaRes', task ':pvlibrary:transformResourcesWithMergeJavaResForDebug', task ':pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug', task ':pvlibrary:mergeDebugJniLibFolders', task ':pvlibrary:transformNative_libsWithMergeJniLibsForDebug', task ':pvlibrary:transformNative_libsWithSyncJniLibsForDebug', task ':pvlibrary:bundleDebug', task ':pvlibrary:compileDebugSources', task ':pvlibrary:assembleDebug', task ':pvlibrary:compileReleaseSources', task ':pvlibrary:assembleRelease', task ':pvlibrary:assemble', task ':pvlibrary:lint', task ':pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard', task ':pvlibrary:prepareDebugUnitTestDependencies', task ':pvlibrary:compileDebugUnitTestJavaWithJavac', task ':pvlibrary:processDebugUnitTestJavaRes', task ':pvlibrary:compileDebugUnitTestSources', task ':pvlibrary:mockableAndroidJar', task ':pvlibrary:assembleDebugUnitTest', task ':pvlibrary:testDebugUnitTest', task ':pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard', task ':pvlibrary:prepareReleaseUnitTestDependencies', task ':pvlibrary:compileReleaseUnitTestJavaWithJavac', task ':pvlibrary:processReleaseUnitTestJavaRes', task ':pvlibrary:compileReleaseUnitTestSources', task ':pvlibrary:assembleReleaseUnitTest', task ':pvlibrary:testReleaseUnitTest', task ':pvlibrary:test', task ':pvlibrary:check', task ':pvlibrary:build']
+Creating new cache for fileHashes, path /home/malin/malin_github/MeZhi/.gradle/3.3/taskArtifacts/fileHashes.bin, access org.gradle.cache.internal.DefaultCacheAccess@706ac7ed
+In-memory cache of /home/malin/malin_github/MeZhi/.gradle/3.3/taskArtifacts/fileHashes.bin: Size{2422}, CacheStats{hitCount=138362, missCount=2422, loadSuccessCount=2422, loadExceptionCount=0, totalLoadTime=238938137, evictionCount=0}
+Creating new cache for fileSnapshots, path /home/malin/malin_github/MeZhi/.gradle/3.3/taskArtifacts/fileSnapshots.bin, access org.gradle.cache.internal.DefaultCacheAccess@706ac7ed
+In-memory cache of /home/malin/malin_github/MeZhi/.gradle/3.3/taskArtifacts/fileSnapshots.bin: Size{6501}, CacheStats{hitCount=7314, missCount=0, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
+Creating new cache for taskArtifacts, path /home/malin/malin_github/MeZhi/.gradle/3.3/taskArtifacts/taskArtifacts.bin, access org.gradle.cache.internal.DefaultCacheAccess@706ac7ed
+In-memory cache of /home/malin/malin_github/MeZhi/.gradle/3.3/taskArtifacts/taskArtifacts.bin: Size{141}, CacheStats{hitCount=2556, missCount=141, loadSuccessCount=141, loadExceptionCount=0, totalLoadTime=71496525, evictionCount=0}
+:app:preBuild (Thread[Task worker,5,main]) started.
+:app:preBuild
+Skipping task ':app:preBuild' as it has no actions.
+:app:preBuild UP-TO-DATE
+:pvlibrary:preBuild (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:preBuild
+Skipping task ':pvlibrary:preBuild' as it has no actions.
+:pvlibrary:preBuild UP-TO-DATE
+:pvlibrary:preBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:preReleaseBuild (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:preReleaseBuild
+Skipping task ':pvlibrary:preReleaseBuild' as it has no actions.
+:pvlibrary:preReleaseBuild UP-TO-DATE
+:pvlibrary:preReleaseBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:checkReleaseManifest (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:checkReleaseManifest
+Putting task artifact state for task ':pvlibrary:checkReleaseManifest' into context took 0.0 secs.
+Executing task ':pvlibrary:checkReleaseManifest' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:pvlibrary:checkReleaseManifest (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:preDebugAndroidTestBuild (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:preDebugAndroidTestBuild
+Skipping task ':pvlibrary:preDebugAndroidTestBuild' as it has no actions.
+:pvlibrary:preDebugAndroidTestBuild UP-TO-DATE
+:pvlibrary:preDebugAndroidTestBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:preDebugBuild (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:preDebugBuild
+Skipping task ':pvlibrary:preDebugBuild' as it has no actions.
+:pvlibrary:preDebugBuild UP-TO-DATE
+:pvlibrary:preDebugBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:preDebugUnitTestBuild (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:preDebugUnitTestBuild
+Skipping task ':pvlibrary:preDebugUnitTestBuild' as it has no actions.
+:pvlibrary:preDebugUnitTestBuild UP-TO-DATE
+:pvlibrary:preDebugUnitTestBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:preReleaseUnitTestBuild (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:preReleaseUnitTestBuild
+Skipping task ':pvlibrary:preReleaseUnitTestBuild' as it has no actions.
+:pvlibrary:preReleaseUnitTestBuild UP-TO-DATE
+:pvlibrary:preReleaseUnitTestBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:preDebugBuild (Thread[Task worker Thread 2,5,main]) started.
+:app:preDebugBuild
+Skipping task ':app:preDebugBuild' as it has no actions.
+:pvlibrary:prepareComAndroidSupportSupportCompat2510Library (Thread[Daemon worker Thread 40,5,main]) started.
+:app:preBuild (Thread[Task worker,5,main]) completed. Took 0.002 secs.
+:app:preDebugBuild UP-TO-DATE
+:pvlibrary:prepareComAndroidSupportSupportCompat2510Library
+:app:checkDebugManifest (Thread[Task worker Thread 3,5,main]) started.
+:app:preDebugBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+Putting task artifact state for task ':pvlibrary:prepareComAndroidSupportSupportCompat2510Library' into context took 0.0 secs.
+:app:checkDebugManifest
+Putting task artifact state for task ':app:checkDebugManifest' into context took 0.0 secs.
+Task :pvlibrary:prepareComAndroidSupportSupportCompat2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:prepareComAndroidSupportSupportCompat2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Executing task ':app:checkDebugManifest' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:checkDebugManifest (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:app:extractProguardFiles (Thread[Task worker,5,main]) started.
+:app:extractProguardFiles
+Putting task artifact state for task ':app:extractProguardFiles' into context took 0.0 secs.
+Executing task ':app:extractProguardFiles' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+Skipping task ':pvlibrary:prepareComAndroidSupportSupportCompat2510Library' as it is up-to-date (took 0.001 secs).
+:pvlibrary:prepareComAndroidSupportSupportCompat2510Library UP-TO-DATE
+:pvlibrary:prepareComAndroidSupportSupportCompat2510Library (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library
+Putting task artifact state for task ':pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library' into context took 0.0 secs.
+Task :pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:app:preReleaseBuild (Thread[Task worker Thread 2,5,main]) started.
+:app:preReleaseBuild
+Skipping task ':app:preReleaseBuild' as it has no actions.
+:app:preReleaseBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:extractProguardFiles (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:generateDebugBuildConfig (Thread[Daemon worker Thread 40,5,main]) started.
+:app:generateDebugBuildConfig
+Putting task artifact state for task ':app:generateDebugBuildConfig' into context took 0.0 secs.
+Skipping task ':pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library' as it is up-to-date (took 0.0 secs).
+:pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library UP-TO-DATE
+:pvlibrary:prepareComAndroidSupportSupportCoreUtils2510Library (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:pvlibrary:prepareReleaseDependencies (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:prepareReleaseDependencies
+Putting task artifact state for task ':pvlibrary:prepareReleaseDependencies' into context took 0.0 secs.
+Executing task ':pvlibrary:prepareReleaseDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:pvlibrary:prepareReleaseDependencies (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileReleaseAidl (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:compileReleaseAidl
+Putting task artifact state for task ':pvlibrary:compileReleaseAidl' into context took 0.0 secs.
+Task :pvlibrary:compileReleaseAidl class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileReleaseAidl actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Task :app:generateDebugBuildConfig class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:generateDebugBuildConfig actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileReleaseAidl' as it is up-to-date (took 0.001 secs).
+:pvlibrary:compileReleaseAidl UP-TO-DATE
+:pvlibrary:compileReleaseAidl (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:compileReleaseNdk (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:compileReleaseNdk
+Putting task artifact state for task ':pvlibrary:compileReleaseNdk' into context took 0.0 secs.
+Skipping task ':pvlibrary:compileReleaseNdk' as it has no source files and no previous output files.
+:pvlibrary:compileReleaseNdk UP-TO-DATE
+:pvlibrary:compileReleaseNdk (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileLint (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:compileLint
+Putting task artifact state for task ':pvlibrary:compileLint' into context took 0.0 secs.
+Task :pvlibrary:compileLint class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileLint actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileLint' as it is up-to-date (took 0.0 secs).
+:pvlibrary:compileLint UP-TO-DATE
+:pvlibrary:compileLint (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:copyReleaseLint (Thread[Task worker,5,main]) started.
+:pvlibrary:copyReleaseLint
+Putting task artifact state for task ':pvlibrary:copyReleaseLint' into context took 0.0 secs.
+Skipping task ':pvlibrary:copyReleaseLint' as it has no source files and no previous output files.
+:pvlibrary:copyReleaseLint UP-TO-DATE
+:pvlibrary:copyReleaseLint (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileReleaseRenderscript (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:compileReleaseRenderscript
+Putting task artifact state for task ':pvlibrary:compileReleaseRenderscript' into context took 0.0 secs.
+Task :pvlibrary:compileReleaseRenderscript class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileReleaseRenderscript actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileReleaseRenderscript' as it is up-to-date (took 0.0 secs).
+:pvlibrary:compileReleaseRenderscript UP-TO-DATE
+:pvlibrary:compileReleaseRenderscript (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:pvlibrary:generateReleaseBuildConfig (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:generateReleaseBuildConfig
+Putting task artifact state for task ':pvlibrary:generateReleaseBuildConfig' into context took 0.0 secs.
+Task :pvlibrary:generateReleaseBuildConfig class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:generateReleaseBuildConfig actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:generateReleaseBuildConfig' as it is up-to-date (took 0.001 secs).
+:pvlibrary:generateReleaseBuildConfig UP-TO-DATE
+:pvlibrary:generateReleaseBuildConfig (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:generateReleaseResValues (Thread[Task worker,5,main]) started.
+:pvlibrary:generateReleaseResValues
+Putting task artifact state for task ':pvlibrary:generateReleaseResValues' into context took 0.0 secs.
+Task :pvlibrary:generateReleaseResValues class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:generateReleaseResValues actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:generateReleaseResValues' as it is up-to-date (took 0.0 secs).
+:pvlibrary:generateReleaseResValues UP-TO-DATE
+:pvlibrary:generateReleaseResValues (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:generateReleaseResources (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:generateReleaseResources
+Skipping task ':pvlibrary:generateReleaseResources' as it has no actions.
+:pvlibrary:generateReleaseResources UP-TO-DATE
+:pvlibrary:generateReleaseResources (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:mergeReleaseResources (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:mergeReleaseResources
+Putting task artifact state for task ':pvlibrary:mergeReleaseResources' into context took 0.0 secs.
+Task :pvlibrary:mergeReleaseResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeReleaseResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeReleaseResources' as it is up-to-date (took 0.0 secs).
+:pvlibrary:mergeReleaseResources UP-TO-DATE
+:pvlibrary:mergeReleaseResources (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:processReleaseManifest (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:processReleaseManifest
+Putting task artifact state for task ':pvlibrary:processReleaseManifest' into context took 0.0 secs.
+Task :pvlibrary:processReleaseManifest class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:processReleaseManifest actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:processReleaseManifest' as it is up-to-date (took 0.0 secs).
+:pvlibrary:processReleaseManifest UP-TO-DATE
+:pvlibrary:processReleaseManifest (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:processReleaseResources (Thread[Task worker,5,main]) started.
+:pvlibrary:processReleaseResources
+Putting task artifact state for task ':pvlibrary:processReleaseResources' into context took 0.0 secs.
+Task :pvlibrary:processReleaseResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:processReleaseResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:processReleaseResources' as it is up-to-date (took 0.0 secs).
+:pvlibrary:processReleaseResources UP-TO-DATE
+:pvlibrary:processReleaseResources (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:pvlibrary:generateReleaseSources (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:generateReleaseSources
+Skipping task ':pvlibrary:generateReleaseSources' as it has no actions.
+:pvlibrary:generateReleaseSources UP-TO-DATE
+:pvlibrary:generateReleaseSources (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:incrementalReleaseJavaCompilationSafeguard (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:incrementalReleaseJavaCompilationSafeguard
+Putting task artifact state for task ':pvlibrary:incrementalReleaseJavaCompilationSafeguard' into context took 0.0 secs.
+Task :pvlibrary:incrementalReleaseJavaCompilationSafeguard class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:incrementalReleaseJavaCompilationSafeguard actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:incrementalReleaseJavaCompilationSafeguard' as it is up-to-date (took 0.0 secs).
+:pvlibrary:incrementalReleaseJavaCompilationSafeguard UP-TO-DATE
+:pvlibrary:incrementalReleaseJavaCompilationSafeguard (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileReleaseJavaWithJavac (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:compileReleaseJavaWithJavac
+Putting task artifact state for task ':pvlibrary:compileReleaseJavaWithJavac' into context took 0.0 secs.
+Task :pvlibrary:compileReleaseJavaWithJavac class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileReleaseJavaWithJavac actions class loader hash: c0392fe7862192859e1c7ea574f1f69a
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/release/java', not found
+Skipping task ':pvlibrary:compileReleaseJavaWithJavac' as it is up-to-date (took 0.001 secs).
+:pvlibrary:compileReleaseJavaWithJavac UP-TO-DATE
+:pvlibrary:compileReleaseJavaWithJavac (Thread[Task worker Thread 2,5,main]) completed. Took 0.002 secs.
+:pvlibrary:extractReleaseAnnotations (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:extractReleaseAnnotations
+Putting task artifact state for task ':pvlibrary:extractReleaseAnnotations' into context took 0.0 secs.
+Task :pvlibrary:extractReleaseAnnotations class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:extractReleaseAnnotations actions class loader hash: ceb0806b082cc6264bc77c3b4ad6b96a
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/release/java', not found
+Skipping task ':pvlibrary:extractReleaseAnnotations' as it is up-to-date (took 0.001 secs).
+:pvlibrary:extractReleaseAnnotations UP-TO-DATE
+:pvlibrary:extractReleaseAnnotations (Thread[Task worker Thread 2,5,main]) completed. Took 0.002 secs.
+:pvlibrary:mergeReleaseShaders (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:mergeReleaseShaders
+Putting task artifact state for task ':pvlibrary:mergeReleaseShaders' into context took 0.0 secs.
+Task :pvlibrary:mergeReleaseShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeReleaseShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeReleaseShaders' as it is up-to-date (took 0.001 secs).
+:pvlibrary:mergeReleaseShaders UP-TO-DATE
+:pvlibrary:mergeReleaseShaders (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:compileReleaseShaders (Thread[Task worker,5,main]) started.
+:pvlibrary:compileReleaseShaders
+Putting task artifact state for task ':pvlibrary:compileReleaseShaders' into context took 0.0 secs.
+Task :pvlibrary:compileReleaseShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileReleaseShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileReleaseShaders' as it is up-to-date (took 0.0 secs).
+:pvlibrary:compileReleaseShaders UP-TO-DATE
+:pvlibrary:compileReleaseShaders (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:generateReleaseAssets (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:generateReleaseAssets
+Skipping task ':pvlibrary:generateReleaseAssets' as it has no actions.
+Skipping task ':app:generateDebugBuildConfig' as it is up-to-date (took 0.013 secs).
+:app:generateDebugBuildConfig UP-TO-DATE
+:app:generateDebugBuildConfig (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.015 secs.
+:pvlibrary:generateReleaseAssets UP-TO-DATE
+:app:generateDebugResValues (Thread[Task worker,5,main]) started.
+:app:generateDebugResValues
+:pvlibrary:generateReleaseAssets (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+Putting task artifact state for task ':app:generateDebugResValues' into context took 0.0 secs.
+Task :app:generateDebugResValues class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:generateDebugResValues actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:pvlibrary:mergeReleaseAssets (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:mergeReleaseAssets
+Putting task artifact state for task ':pvlibrary:mergeReleaseAssets' into context took 0.0 secs.
+Skipping task ':app:generateDebugResValues' as it is up-to-date (took 0.001 secs).
+:app:generateDebugResValues UP-TO-DATE
+Task :pvlibrary:mergeReleaseAssets class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeReleaseAssets actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:app:generateDebugResValues (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:incrementalDebugJavaCompilationSafeguard (Thread[Task worker,5,main]) started.
+:app:incrementalDebugJavaCompilationSafeguard
+Putting task artifact state for task ':app:incrementalDebugJavaCompilationSafeguard' into context took 0.0 secs.
+Skipping task ':pvlibrary:mergeReleaseAssets' as it is up-to-date (took 0.0 secs).
+:pvlibrary:mergeReleaseAssets UP-TO-DATE
+:pvlibrary:mergeReleaseAssets (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:mergeReleaseProguardFiles (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:mergeReleaseProguardFiles
+Putting task artifact state for task ':pvlibrary:mergeReleaseProguardFiles' into context took 0.0 secs.
+Task :pvlibrary:mergeReleaseProguardFiles class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeReleaseProguardFiles actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeReleaseProguardFiles' as it is up-to-date (took 0.001 secs).
+:pvlibrary:mergeReleaseProguardFiles UP-TO-DATE
+:pvlibrary:mergeReleaseProguardFiles (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:packageReleaseRenderscript (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:packageReleaseRenderscript
+Putting task artifact state for task ':pvlibrary:packageReleaseRenderscript' into context took 0.0 secs.
+Skipping task ':pvlibrary:packageReleaseRenderscript' as it has no source files and no previous output files.
+:pvlibrary:packageReleaseRenderscript UP-TO-DATE
+:pvlibrary:packageReleaseRenderscript (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:packageReleaseResources (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:packageReleaseResources
+Putting task artifact state for task ':pvlibrary:packageReleaseResources' into context took 0.0 secs.
+Task :pvlibrary:packageReleaseResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:packageReleaseResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:packageReleaseResources' as it is up-to-date (took 0.001 secs).
+:pvlibrary:packageReleaseResources UP-TO-DATE
+:pvlibrary:packageReleaseResources (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:processReleaseJavaRes (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:processReleaseJavaRes
+Putting task artifact state for task ':pvlibrary:processReleaseJavaRes' into context took 0.0 secs.
+Skipping task ':pvlibrary:processReleaseJavaRes' as it has no source files and no previous output files.
+:pvlibrary:processReleaseJavaRes UP-TO-DATE
+:pvlibrary:processReleaseJavaRes (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:transformResourcesWithMergeJavaResForRelease (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:transformResourcesWithMergeJavaResForRelease
+Putting task artifact state for task ':pvlibrary:transformResourcesWithMergeJavaResForRelease' into context took 0.0 secs.
+Task :pvlibrary:transformResourcesWithMergeJavaResForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformResourcesWithMergeJavaResForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformResourcesWithMergeJavaResForRelease' as it is up-to-date (took 0.001 secs).
+:pvlibrary:transformResourcesWithMergeJavaResForRelease UP-TO-DATE
+:pvlibrary:transformResourcesWithMergeJavaResForRelease (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease
+Putting task artifact state for task ':pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease' into context took 0.0 secs.
+Task :pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease' as it is up-to-date (took 0.001 secs).
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease UP-TO-DATE
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForRelease (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:pvlibrary:mergeReleaseJniLibFolders (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:mergeReleaseJniLibFolders
+Putting task artifact state for task ':pvlibrary:mergeReleaseJniLibFolders' into context took 0.001 secs.
+Task :pvlibrary:mergeReleaseJniLibFolders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeReleaseJniLibFolders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeReleaseJniLibFolders' as it is up-to-date (took 0.0 secs).
+:pvlibrary:mergeReleaseJniLibFolders UP-TO-DATE
+:pvlibrary:mergeReleaseJniLibFolders (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:pvlibrary:transformNative_libsWithMergeJniLibsForRelease (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:transformNative_libsWithMergeJniLibsForRelease
+Putting task artifact state for task ':pvlibrary:transformNative_libsWithMergeJniLibsForRelease' into context took 0.0 secs.
+Task :pvlibrary:transformNative_libsWithMergeJniLibsForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformNative_libsWithMergeJniLibsForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformNative_libsWithMergeJniLibsForRelease' as it is up-to-date (took 0.0 secs).
+:pvlibrary:transformNative_libsWithMergeJniLibsForRelease UP-TO-DATE
+:pvlibrary:transformNative_libsWithMergeJniLibsForRelease (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:transformNative_libsWithSyncJniLibsForRelease (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:transformNative_libsWithSyncJniLibsForRelease
+Putting task artifact state for task ':pvlibrary:transformNative_libsWithSyncJniLibsForRelease' into context took 0.0 secs.
+Task :pvlibrary:transformNative_libsWithSyncJniLibsForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformNative_libsWithSyncJniLibsForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformNative_libsWithSyncJniLibsForRelease' as it is up-to-date (took 0.0 secs).
+:pvlibrary:transformNative_libsWithSyncJniLibsForRelease UP-TO-DATE
+:pvlibrary:transformNative_libsWithSyncJniLibsForRelease (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:bundleRelease (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:bundleRelease
+Putting task artifact state for task ':pvlibrary:bundleRelease' into context took 0.0 secs.
+Task :pvlibrary:bundleRelease class loader hash: 7064e588920e76a48571db060884e368
+Task :pvlibrary:bundleRelease actions class loader hash: e73b7abdd73d9346265974d08e88519c
+Skipping task ':pvlibrary:bundleRelease' as it is up-to-date (took 0.001 secs).
+:pvlibrary:bundleRelease UP-TO-DATE
+:pvlibrary:bundleRelease (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:pvlibrary:checkDebugManifest (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:checkDebugManifest
+Putting task artifact state for task ':pvlibrary:checkDebugManifest' into context took 0.0 secs.
+Executing task ':pvlibrary:checkDebugManifest' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:pvlibrary:checkDebugManifest (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:prepareDebugDependencies (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:prepareDebugDependencies
+Putting task artifact state for task ':pvlibrary:prepareDebugDependencies' into context took 0.0 secs.
+Executing task ':pvlibrary:prepareDebugDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:pvlibrary:prepareDebugDependencies (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileDebugAidl (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:compileDebugAidl
+Putting task artifact state for task ':pvlibrary:compileDebugAidl' into context took 0.0 secs.
+Task :pvlibrary:compileDebugAidl class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileDebugAidl actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileDebugAidl' as it is up-to-date (took 0.086 secs).
+:pvlibrary:compileDebugAidl UP-TO-DATE
+:pvlibrary:compileDebugAidl (Thread[Task worker Thread 2,5,main]) completed. Took 0.087 secs.
+:pvlibrary:compileDebugNdk (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:compileDebugNdk
+Putting task artifact state for task ':pvlibrary:compileDebugNdk' into context took 0.0 secs.
+Skipping task ':pvlibrary:compileDebugNdk' as it has no source files and no previous output files.
+:pvlibrary:compileDebugNdk UP-TO-DATE
+:pvlibrary:compileDebugNdk (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:copyDebugLint (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:copyDebugLint
+Putting task artifact state for task ':pvlibrary:copyDebugLint' into context took 0.0 secs.
+Skipping task ':pvlibrary:copyDebugLint' as it has no source files and no previous output files.
+:pvlibrary:copyDebugLint UP-TO-DATE
+:pvlibrary:copyDebugLint (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileDebugRenderscript (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:compileDebugRenderscript
+Putting task artifact state for task ':pvlibrary:compileDebugRenderscript' into context took 0.0 secs.
+Task :pvlibrary:compileDebugRenderscript class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileDebugRenderscript actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileDebugRenderscript' as it is up-to-date (took 0.048 secs).
+:pvlibrary:compileDebugRenderscript UP-TO-DATE
+:pvlibrary:compileDebugRenderscript (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.048 secs.
+:pvlibrary:generateDebugBuildConfig (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:generateDebugBuildConfig
+Putting task artifact state for task ':pvlibrary:generateDebugBuildConfig' into context took 0.0 secs.
+Task :pvlibrary:generateDebugBuildConfig class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:generateDebugBuildConfig actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Task :app:incrementalDebugJavaCompilationSafeguard class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:incrementalDebugJavaCompilationSafeguard actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:generateDebugBuildConfig' as it is up-to-date (took 0.092 secs).
+:pvlibrary:generateDebugBuildConfig UP-TO-DATE
+:pvlibrary:generateDebugBuildConfig (Thread[Task worker Thread 2,5,main]) completed. Took 0.092 secs.
+:pvlibrary:generateDebugResValues (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:generateDebugResValues
+Putting task artifact state for task ':pvlibrary:generateDebugResValues' into context took 0.0 secs.
+Task :pvlibrary:generateDebugResValues class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:generateDebugResValues actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:generateDebugResValues' as it is up-to-date (took 0.034 secs).
+:pvlibrary:generateDebugResValues UP-TO-DATE
+:pvlibrary:generateDebugResValues (Thread[Task worker Thread 3,5,main]) completed. Took 0.035 secs.
+:pvlibrary:generateDebugResources (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:generateDebugResources
+Skipping task ':pvlibrary:generateDebugResources' as it has no actions.
+:pvlibrary:generateDebugResources UP-TO-DATE
+:pvlibrary:generateDebugResources (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:pvlibrary:mergeDebugResources (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:mergeDebugResources
+Putting task artifact state for task ':pvlibrary:mergeDebugResources' into context took 0.0 secs.
+Task :pvlibrary:mergeDebugResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeDebugResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeDebugResources' as it is up-to-date (took 0.068 secs).
+:pvlibrary:mergeDebugResources UP-TO-DATE
+:pvlibrary:mergeDebugResources (Thread[Task worker Thread 2,5,main]) completed. Took 0.069 secs.
+:pvlibrary:processDebugManifest (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:processDebugManifest
+Putting task artifact state for task ':pvlibrary:processDebugManifest' into context took 0.0 secs.
+Task :pvlibrary:processDebugManifest class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:processDebugManifest actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:processDebugManifest' as it is up-to-date (took 0.001 secs).
+:pvlibrary:processDebugManifest UP-TO-DATE
+:pvlibrary:processDebugManifest (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:pvlibrary:processDebugResources (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:processDebugResources
+Putting task artifact state for task ':pvlibrary:processDebugResources' into context took 0.0 secs.
+Task :pvlibrary:processDebugResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:processDebugResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Executing task ':app:incrementalDebugJavaCompilationSafeguard' (up-to-date check took 0.195 secs) due to:
+  Input property 'source' file /home/malin/malin_github/MeZhi/app/build/generated/source/r/debug/android has been added.
+  Input property 'source' file /home/malin/malin_github/MeZhi/app/build/generated/source/r/debug/android/support has been added.
+  Input property 'source' file /home/malin/malin_github/MeZhi/app/build/generated/source/r/debug/android/support/v7 has been added.
+Skipping task ':pvlibrary:processDebugResources' as it is up-to-date (took 0.198 secs).
+:pvlibrary:processDebugResources UP-TO-DATE
+:pvlibrary:processDebugResources (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.198 secs.
+:pvlibrary:generateDebugSources (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:generateDebugSources
+Skipping task ':pvlibrary:generateDebugSources' as it has no actions.
+:pvlibrary:generateDebugSources UP-TO-DATE
+:pvlibrary:generateDebugSources (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:incrementalDebugJavaCompilationSafeguard (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:incrementalDebugJavaCompilationSafeguard
+Putting task artifact state for task ':pvlibrary:incrementalDebugJavaCompilationSafeguard' into context took 0.0 secs.
+Task :pvlibrary:incrementalDebugJavaCompilationSafeguard class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:incrementalDebugJavaCompilationSafeguard actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:incrementalDebugJavaCompilationSafeguard' as it is up-to-date (took 0.042 secs).
+:pvlibrary:incrementalDebugJavaCompilationSafeguard UP-TO-DATE
+:pvlibrary:incrementalDebugJavaCompilationSafeguard (Thread[Task worker Thread 3,5,main]) completed. Took 0.043 secs.
+:pvlibrary:compileDebugJavaWithJavac (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:compileDebugJavaWithJavac
+Putting task artifact state for task ':pvlibrary:compileDebugJavaWithJavac' into context took 0.001 secs.
+Task :pvlibrary:compileDebugJavaWithJavac class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileDebugJavaWithJavac actions class loader hash: c0392fe7862192859e1c7ea574f1f69a
+:app:incrementalDebugJavaCompilationSafeguard (Thread[Task worker,5,main]) completed. Took 0.587 secs.
+:app:prepareComAndroidSupportAnimatedVectorDrawable2510Library (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareComAndroidSupportAnimatedVectorDrawable2510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportAnimatedVectorDrawable2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportAnimatedVectorDrawable2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportAnimatedVectorDrawable2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportAnimatedVectorDrawable2510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportAnimatedVectorDrawable2510Library UP-TO-DATE
+:app:prepareComAndroidSupportAnimatedVectorDrawable2510Library (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:prepareComAndroidSupportAppcompatV72510Library (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareComAndroidSupportAppcompatV72510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportAppcompatV72510Library' into context took 0.001 secs.
+Task :app:prepareComAndroidSupportAppcompatV72510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportAppcompatV72510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportAppcompatV72510Library' as it is up-to-date (took 0.009 secs).
+:app:prepareComAndroidSupportAppcompatV72510Library UP-TO-DATE
+:app:prepareComAndroidSupportAppcompatV72510Library (Thread[Task worker Thread 2,5,main]) completed. Took 0.011 secs.
+:app:prepareComAndroidSupportCardviewV72510Library (Thread[Task worker Thread 3,5,main]) started.
+:app:prepareComAndroidSupportCardviewV72510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportCardviewV72510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportCardviewV72510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportCardviewV72510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportCardviewV72510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportCardviewV72510Library UP-TO-DATE
+:app:prepareComAndroidSupportCardviewV72510Library (Thread[Task worker Thread 3,5,main]) completed. Took 0.002 secs.
+:app:prepareComAndroidSupportRecyclerviewV72510Library (Thread[Task worker,5,main]) started.
+:app:prepareComAndroidSupportRecyclerviewV72510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportRecyclerviewV72510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportRecyclerviewV72510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportRecyclerviewV72510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportRecyclerviewV72510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportRecyclerviewV72510Library UP-TO-DATE
+:app:prepareComAndroidSupportRecyclerviewV72510Library (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:prepareComAndroidSupportSupportCompat2510Library (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareComAndroidSupportSupportCompat2510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportCompat2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportCompat2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportCompat2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportCompat2510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportSupportCompat2510Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportCompat2510Library (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:prepareComAndroidSupportSupportCoreUi2510Library (Thread[Task worker Thread 3,5,main]) started.
+:app:prepareComAndroidSupportSupportCoreUi2510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportCoreUi2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportCoreUi2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportCoreUi2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportCoreUi2510Library' as it is up-to-date (took 0.0 secs).
+:app:prepareComAndroidSupportSupportCoreUi2510Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportCoreUi2510Library (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:app:prepareComAndroidSupportSupportCoreUtils2510Library (Thread[Task worker,5,main]) started.
+:app:prepareComAndroidSupportSupportCoreUtils2510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportCoreUtils2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportCoreUtils2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportCoreUtils2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportCoreUtils2510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportSupportCoreUtils2510Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportCoreUtils2510Library (Thread[Task worker,5,main]) completed. Took 0.002 secs.
+:app:prepareComAndroidSupportSupportFragment2510Library (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareComAndroidSupportSupportFragment2510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportFragment2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportFragment2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportFragment2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportFragment2510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportSupportFragment2510Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportFragment2510Library (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:prepareComAndroidSupportSupportMediaCompat2510Library (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareComAndroidSupportSupportMediaCompat2510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportMediaCompat2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportMediaCompat2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportMediaCompat2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportMediaCompat2510Library' as it is up-to-date (took 0.003 secs).
+:app:prepareComAndroidSupportSupportMediaCompat2510Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportMediaCompat2510Library (Thread[Task worker Thread 2,5,main]) completed. Took 0.004 secs.
+:app:prepareComAndroidSupportSupportV42510Library (Thread[Task worker Thread 3,5,main]) started.
+:app:prepareComAndroidSupportSupportV42510Library
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportV42510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportV42510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportV42510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportV42510Library' as it is up-to-date (took 0.0 secs).
+:app:prepareComAndroidSupportSupportV42510Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportV42510Library (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:app:prepareComAndroidSupportSupportVectorDrawable2510Library (Thread[Task worker,5,main]) started.
+:app:prepareComAndroidSupportSupportVectorDrawable2510Library
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/debug/java', not found
+Putting task artifact state for task ':app:prepareComAndroidSupportSupportVectorDrawable2510Library' into context took 0.0 secs.
+Task :app:prepareComAndroidSupportSupportVectorDrawable2510Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComAndroidSupportSupportVectorDrawable2510Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareComAndroidSupportSupportVectorDrawable2510Library' as it is up-to-date (took 0.001 secs).
+:app:prepareComAndroidSupportSupportVectorDrawable2510Library UP-TO-DATE
+Skipping task ':pvlibrary:compileDebugJavaWithJavac' as it is up-to-date (took 0.03 secs).
+:app:prepareComAndroidSupportSupportVectorDrawable2510Library (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:pvlibrary:compileDebugJavaWithJavac UP-TO-DATE
+:app:prepareComGithubBumptechGlideOkhttp3Integration140Library (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:compileDebugJavaWithJavac (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.031 secs.
+:app:prepareComGithubBumptechGlideOkhttp3Integration140Library
+Putting task artifact state for task ':app:prepareComGithubBumptechGlideOkhttp3Integration140Library' into context took 0.0 secs.
+:pvlibrary:extractDebugAnnotations (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:extractDebugAnnotations
+Task :app:prepareComGithubBumptechGlideOkhttp3Integration140Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareComGithubBumptechGlideOkhttp3Integration140Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Putting task artifact state for task ':pvlibrary:extractDebugAnnotations' into context took 0.001 secs.
+Skipping task ':app:prepareComGithubBumptechGlideOkhttp3Integration140Library' as it is up-to-date (took 0.001 secs).
+Task :pvlibrary:extractDebugAnnotations class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:extractDebugAnnotations actions class loader hash: ceb0806b082cc6264bc77c3b4ad6b96a
+:app:prepareComGithubBumptechGlideOkhttp3Integration140Library UP-TO-DATE
+:app:prepareComGithubBumptechGlideOkhttp3Integration140Library (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:prepareIoReactivexRxandroid121Library (Thread[Task worker,5,main]) started.
+:app:prepareIoReactivexRxandroid121Library
+Putting task artifact state for task ':app:prepareIoReactivexRxandroid121Library' into context took 0.0 secs.
+Task :app:prepareIoReactivexRxandroid121Library class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareIoReactivexRxandroid121Library actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:prepareIoReactivexRxandroid121Library' as it is up-to-date (took 0.0 secs).
+:app:prepareIoReactivexRxandroid121Library UP-TO-DATE
+:app:prepareIoReactivexRxandroid121Library (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/debug/java', not found
+:app:prepareMeZhiPvlibraryUnspecifiedLibrary (Thread[Daemon worker Thread 40,5,main]) started.
+:app:prepareMeZhiPvlibraryUnspecifiedLibrary
+Putting task artifact state for task ':app:prepareMeZhiPvlibraryUnspecifiedLibrary' into context took 0.0 secs.
+Task :app:prepareMeZhiPvlibraryUnspecifiedLibrary class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:prepareMeZhiPvlibraryUnspecifiedLibrary actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:extractDebugAnnotations' as it is up-to-date (took 0.002 secs).
+:pvlibrary:extractDebugAnnotations UP-TO-DATE
+:pvlibrary:extractDebugAnnotations (Thread[Task worker Thread 3,5,main]) completed. Took 0.003 secs.
+Skipping task ':app:prepareMeZhiPvlibraryUnspecifiedLibrary' as it is up-to-date (took 0.0 secs).
+:app:prepareMeZhiPvlibraryUnspecifiedLibrary UP-TO-DATE
+:pvlibrary:mergeDebugShaders (Thread[Task worker Thread 3,5,main]) started.
+:app:prepareMeZhiPvlibraryUnspecifiedLibrary (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:app:prepareDebugDependencies (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:mergeDebugShaders
+:app:prepareDebugDependencies
+Putting task artifact state for task ':app:prepareDebugDependencies' into context took 0.0 secs.
+Executing task ':app:prepareDebugDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:prepareDebugDependencies (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:app:compileDebugAidl (Thread[Task worker Thread 2,5,main]) started.
+Putting task artifact state for task ':pvlibrary:mergeDebugShaders' into context took 0.001 secs.
+:app:compileDebugAidl
+Putting task artifact state for task ':app:compileDebugAidl' into context took 0.0 secs.
+Task :app:compileDebugAidl class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileDebugAidl actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Task :pvlibrary:mergeDebugShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeDebugShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeDebugShaders' as it is up-to-date (took 0.002 secs).
+:pvlibrary:mergeDebugShaders UP-TO-DATE
+:pvlibrary:mergeDebugShaders (Thread[Task worker Thread 3,5,main]) completed. Took 0.004 secs.
+:pvlibrary:compileDebugShaders (Thread[Task worker,5,main]) started.
+:pvlibrary:compileDebugShaders
+Putting task artifact state for task ':pvlibrary:compileDebugShaders' into context took 0.0 secs.
+Task :pvlibrary:compileDebugShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:compileDebugShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:compileDebugShaders' as it is up-to-date (took 0.0 secs).
+:pvlibrary:compileDebugShaders UP-TO-DATE
+:pvlibrary:compileDebugShaders (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:generateDebugAssets (Thread[Daemon worker Thread 40,5,main]) started.
+:pvlibrary:generateDebugAssets
+Skipping task ':pvlibrary:generateDebugAssets' as it has no actions.
+:pvlibrary:generateDebugAssets UP-TO-DATE
+Skipping task ':app:compileDebugAidl' as it is up-to-date (took 0.004 secs).
+:app:compileDebugAidl UP-TO-DATE
+:pvlibrary:generateDebugAssets (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:pvlibrary:mergeDebugAssets (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:mergeDebugAssets
+:app:compileDebugAidl (Thread[Task worker Thread 2,5,main]) completed. Took 0.005 secs.
+Putting task artifact state for task ':pvlibrary:mergeDebugAssets' into context took 0.0 secs.
+Task :pvlibrary:mergeDebugAssets class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeDebugAssets actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:app:compileDebugRenderscript (Thread[Task worker Thread 2,5,main]) started.
+:app:compileDebugRenderscript
+Putting task artifact state for task ':app:compileDebugRenderscript' into context took 0.0 secs.
+Skipping task ':pvlibrary:mergeDebugAssets' as it is up-to-date (took 0.001 secs).
+:pvlibrary:mergeDebugAssets UP-TO-DATE
+Task :app:compileDebugRenderscript class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileDebugRenderscript actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:pvlibrary:mergeDebugAssets (Thread[Task worker Thread 3,5,main]) completed. Took 0.002 secs.
+:pvlibrary:mergeDebugProguardFiles (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:mergeDebugProguardFiles
+Skipping task ':app:compileDebugRenderscript' as it is up-to-date (took 0.001 secs).
+:app:compileDebugRenderscript UP-TO-DATE
+Putting task artifact state for task ':pvlibrary:mergeDebugProguardFiles' into context took 0.0 secs.
+Task :pvlibrary:mergeDebugProguardFiles class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeDebugProguardFiles actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:app:generateDebugResources (Thread[Task worker,5,main]) started.
+:app:generateDebugResources
+Skipping task ':app:generateDebugResources' as it has no actions.
+:app:compileDebugRenderscript (Thread[Task worker Thread 2,5,main]) completed. Took 0.002 secs.
+Skipping task ':pvlibrary:mergeDebugProguardFiles' as it is up-to-date (took 0.001 secs).
+:app:generateDebugResources UP-TO-DATE
+:pvlibrary:mergeDebugProguardFiles UP-TO-DATE
+:app:generateDebugResources (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:mergeDebugResources (Thread[Daemon worker Thread 40,5,main]) started.
+:app:mergeDebugResources
+Putting task artifact state for task ':app:mergeDebugResources' into context took 0.0 secs.
+Task :app:mergeDebugResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeDebugResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:pvlibrary:mergeDebugProguardFiles (Thread[Task worker Thread 3,5,main]) completed. Took 0.003 secs.
+:pvlibrary:packageDebugRenderscript (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:packageDebugRenderscript
+Putting task artifact state for task ':pvlibrary:packageDebugRenderscript' into context took 0.0 secs.
+Skipping task ':pvlibrary:packageDebugRenderscript' as it has no source files and no previous output files.
+:pvlibrary:packageDebugRenderscript UP-TO-DATE
+:pvlibrary:packageDebugRenderscript (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:packageDebugResources (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:packageDebugResources
+Putting task artifact state for task ':pvlibrary:packageDebugResources' into context took 0.0 secs.
+Task :pvlibrary:packageDebugResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:packageDebugResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:packageDebugResources' as it is up-to-date (took 0.041 secs).
+:pvlibrary:packageDebugResources UP-TO-DATE
+:pvlibrary:packageDebugResources (Thread[Task worker Thread 2,5,main]) completed. Took 0.043 secs.
+:pvlibrary:processDebugJavaRes (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:processDebugJavaRes
+Putting task artifact state for task ':pvlibrary:processDebugJavaRes' into context took 0.0 secs.
+Skipping task ':pvlibrary:processDebugJavaRes' as it has no source files and no previous output files.
+:pvlibrary:processDebugJavaRes UP-TO-DATE
+:pvlibrary:processDebugJavaRes (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:transformResourcesWithMergeJavaResForDebug (Thread[Task worker,5,main]) started.
+:pvlibrary:transformResourcesWithMergeJavaResForDebug
+Putting task artifact state for task ':pvlibrary:transformResourcesWithMergeJavaResForDebug' into context took 0.0 secs.
+Task :pvlibrary:transformResourcesWithMergeJavaResForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformResourcesWithMergeJavaResForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformResourcesWithMergeJavaResForDebug' as it is up-to-date (took 0.016 secs).
+:pvlibrary:transformResourcesWithMergeJavaResForDebug UP-TO-DATE
+:pvlibrary:transformResourcesWithMergeJavaResForDebug (Thread[Task worker,5,main]) completed. Took 0.017 secs.
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug
+Putting task artifact state for task ':pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug' into context took 0.0 secs.
+Task :pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug' as it is up-to-date (took 0.002 secs).
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug UP-TO-DATE
+:pvlibrary:transformClassesAndResourcesWithSyncLibJarsForDebug (Thread[Task worker Thread 2,5,main]) completed. Took 0.002 secs.
+:pvlibrary:mergeDebugJniLibFolders (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:mergeDebugJniLibFolders
+Putting task artifact state for task ':pvlibrary:mergeDebugJniLibFolders' into context took 0.0 secs.
+Task :pvlibrary:mergeDebugJniLibFolders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mergeDebugJniLibFolders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mergeDebugJniLibFolders' as it is up-to-date (took 0.037 secs).
+:pvlibrary:mergeDebugJniLibFolders UP-TO-DATE
+:pvlibrary:mergeDebugJniLibFolders (Thread[Task worker Thread 3,5,main]) completed. Took 0.038 secs.
+:pvlibrary:transformNative_libsWithMergeJniLibsForDebug (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:transformNative_libsWithMergeJniLibsForDebug
+Putting task artifact state for task ':pvlibrary:transformNative_libsWithMergeJniLibsForDebug' into context took 0.0 secs.
+Task :pvlibrary:transformNative_libsWithMergeJniLibsForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformNative_libsWithMergeJniLibsForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformNative_libsWithMergeJniLibsForDebug' as it is up-to-date (took 0.001 secs).
+:pvlibrary:transformNative_libsWithMergeJniLibsForDebug UP-TO-DATE
+:pvlibrary:transformNative_libsWithMergeJniLibsForDebug (Thread[Task worker Thread 3,5,main]) completed. Took 0.002 secs.
+:pvlibrary:transformNative_libsWithSyncJniLibsForDebug (Thread[Task worker,5,main]) started.
+:pvlibrary:transformNative_libsWithSyncJniLibsForDebug
+Putting task artifact state for task ':pvlibrary:transformNative_libsWithSyncJniLibsForDebug' into context took 0.0 secs.
+Task :pvlibrary:transformNative_libsWithSyncJniLibsForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:transformNative_libsWithSyncJniLibsForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:transformNative_libsWithSyncJniLibsForDebug' as it is up-to-date (took 0.0 secs).
+:pvlibrary:transformNative_libsWithSyncJniLibsForDebug UP-TO-DATE
+:pvlibrary:transformNative_libsWithSyncJniLibsForDebug (Thread[Task worker,5,main]) completed. Took 0.002 secs.
+:pvlibrary:bundleDebug (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:bundleDebug
+Putting task artifact state for task ':pvlibrary:bundleDebug' into context took 0.0 secs.
+Task :pvlibrary:bundleDebug class loader hash: 7064e588920e76a48571db060884e368
+Task :pvlibrary:bundleDebug actions class loader hash: e73b7abdd73d9346265974d08e88519c
+Skipping task ':pvlibrary:bundleDebug' as it is up-to-date (took 0.002 secs).
+:pvlibrary:bundleDebug UP-TO-DATE
+:pvlibrary:bundleDebug (Thread[Task worker Thread 2,5,main]) completed. Took 0.003 secs.
+:pvlibrary:compileDebugSources (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:compileDebugSources
+Skipping task ':pvlibrary:compileDebugSources' as it has no actions.
+:pvlibrary:compileDebugSources UP-TO-DATE
+:pvlibrary:compileDebugSources (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:assembleDebug (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:assembleDebug
+Skipping task ':pvlibrary:assembleDebug' as it has no actions.
+:pvlibrary:assembleDebug UP-TO-DATE
+:pvlibrary:assembleDebug (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:pvlibrary:compileReleaseSources (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:compileReleaseSources
+Skipping task ':pvlibrary:compileReleaseSources' as it has no actions.
+:pvlibrary:compileReleaseSources UP-TO-DATE
+:pvlibrary:compileReleaseSources (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:assembleRelease (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:assembleRelease
+Skipping task ':pvlibrary:assembleRelease' as it has no actions.
+:pvlibrary:assembleRelease UP-TO-DATE
+:pvlibrary:assembleRelease (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:assemble (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:assemble
+Skipping task ':pvlibrary:assemble' as it has no actions.
+:pvlibrary:assemble UP-TO-DATE
+:pvlibrary:assemble (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:pvlibrary:lint (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:lint
+Putting task artifact state for task ':pvlibrary:lint' into context took 0.0 secs.
+Executing task ':pvlibrary:lint' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+Ran lint on variant debug: 2 issues found
+Ran lint on variant release: 2 issues found
+Wrote HTML report to file:///home/malin/malin_github/MeZhi/pvlibrary/build/outputs/lint-results-debug.html
+Wrote XML report to file:///home/malin/malin_github/MeZhi/pvlibrary/build/outputs/lint-results-debug.xml
+:pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard (Thread[Task worker,5,main]) started.
+:pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard
+Putting task artifact state for task ':pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard' into context took 0.0 secs.
+Skipping task ':pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard' as it has no source files and no previous output files.
+:pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard UP-TO-DATE
+:pvlibrary:incrementalDebugUnitTestJavaCompilationSafeguard (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:pvlibrary:prepareDebugUnitTestDependencies (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:lint (Thread[Task worker Thread 3,5,main]) completed. Took 1.389 secs.
+:pvlibrary:prepareDebugUnitTestDependencies
+Putting task artifact state for task ':pvlibrary:prepareDebugUnitTestDependencies' into context took 0.0 secs.
+Executing task ':pvlibrary:prepareDebugUnitTestDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:pvlibrary:prepareDebugUnitTestDependencies (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileDebugUnitTestJavaWithJavac (Thread[Task worker,5,main]) started.
+:pvlibrary:compileDebugUnitTestJavaWithJavac
+Putting task artifact state for task ':pvlibrary:compileDebugUnitTestJavaWithJavac' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/test/java', not found
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/testDebug/java', not found
+Skipping task ':pvlibrary:compileDebugUnitTestJavaWithJavac' as it has no source files and no previous output files.
+:pvlibrary:compileDebugUnitTestJavaWithJavac UP-TO-DATE
+:pvlibrary:compileDebugUnitTestJavaWithJavac (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:processDebugUnitTestJavaRes (Thread[Task worker,5,main]) started.
+:pvlibrary:processDebugUnitTestJavaRes
+Putting task artifact state for task ':pvlibrary:processDebugUnitTestJavaRes' into context took 0.0 secs.
+Skipping task ':pvlibrary:processDebugUnitTestJavaRes' as it has no source files and no previous output files.
+:pvlibrary:processDebugUnitTestJavaRes UP-TO-DATE
+:pvlibrary:processDebugUnitTestJavaRes (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:pvlibrary:compileDebugUnitTestSources (Thread[Task worker,5,main]) started.
+:pvlibrary:compileDebugUnitTestSources
+Skipping task ':pvlibrary:compileDebugUnitTestSources' as it has no actions.
+:pvlibrary:compileDebugUnitTestSources UP-TO-DATE
+:pvlibrary:compileDebugUnitTestSources (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:mockableAndroidJar (Thread[Task worker,5,main]) started.
+:pvlibrary:mockableAndroidJar
+Putting task artifact state for task ':pvlibrary:mockableAndroidJar' into context took 0.0 secs.
+Task :pvlibrary:mockableAndroidJar class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :pvlibrary:mockableAndroidJar actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':pvlibrary:mockableAndroidJar' as it is up-to-date (took 0.0 secs).
+:pvlibrary:mockableAndroidJar UP-TO-DATE
+:pvlibrary:mockableAndroidJar (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:assembleDebugUnitTest (Thread[Task worker,5,main]) started.
+:pvlibrary:assembleDebugUnitTest
+Skipping task ':pvlibrary:assembleDebugUnitTest' as it has no actions.
+:pvlibrary:assembleDebugUnitTest UP-TO-DATE
+:pvlibrary:assembleDebugUnitTest (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:testDebugUnitTest (Thread[Task worker,5,main]) started.
+:pvlibrary:testDebugUnitTest
+Putting task artifact state for task ':pvlibrary:testDebugUnitTest' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/build/intermediates/classes/test/debug', not found
+Skipping task ':pvlibrary:testDebugUnitTest' as it has no source files and no previous output files.
+:pvlibrary:testDebugUnitTest UP-TO-DATE
+:pvlibrary:testDebugUnitTest (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard (Thread[Task worker,5,main]) started.
+:pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard
+Putting task artifact state for task ':pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard' into context took 0.0 secs.
+Skipping task ':pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard' as it has no source files and no previous output files.
+:pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard UP-TO-DATE
+:pvlibrary:incrementalReleaseUnitTestJavaCompilationSafeguard (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:prepareReleaseUnitTestDependencies (Thread[Task worker,5,main]) started.
+:pvlibrary:prepareReleaseUnitTestDependencies
+Putting task artifact state for task ':pvlibrary:prepareReleaseUnitTestDependencies' into context took 0.0 secs.
+Executing task ':pvlibrary:prepareReleaseUnitTestDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:pvlibrary:prepareReleaseUnitTestDependencies (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileReleaseUnitTestJavaWithJavac (Thread[Task worker,5,main]) started.
+:pvlibrary:compileReleaseUnitTestJavaWithJavac
+Putting task artifact state for task ':pvlibrary:compileReleaseUnitTestJavaWithJavac' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/test/java', not found
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/src/testRelease/java', not found
+Skipping task ':pvlibrary:compileReleaseUnitTestJavaWithJavac' as it has no source files and no previous output files.
+:pvlibrary:compileReleaseUnitTestJavaWithJavac UP-TO-DATE
+:pvlibrary:compileReleaseUnitTestJavaWithJavac (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:pvlibrary:processReleaseUnitTestJavaRes (Thread[Task worker,5,main]) started.
+:pvlibrary:processReleaseUnitTestJavaRes
+Putting task artifact state for task ':pvlibrary:processReleaseUnitTestJavaRes' into context took 0.0 secs.
+Skipping task ':pvlibrary:processReleaseUnitTestJavaRes' as it has no source files and no previous output files.
+:pvlibrary:processReleaseUnitTestJavaRes UP-TO-DATE
+:pvlibrary:processReleaseUnitTestJavaRes (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:compileReleaseUnitTestSources (Thread[Task worker,5,main]) started.
+:pvlibrary:compileReleaseUnitTestSources
+Skipping task ':pvlibrary:compileReleaseUnitTestSources' as it has no actions.
+:pvlibrary:compileReleaseUnitTestSources UP-TO-DATE
+:pvlibrary:compileReleaseUnitTestSources (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:assembleReleaseUnitTest (Thread[Task worker,5,main]) started.
+:pvlibrary:assembleReleaseUnitTest
+Skipping task ':pvlibrary:assembleReleaseUnitTest' as it has no actions.
+:pvlibrary:assembleReleaseUnitTest UP-TO-DATE
+:pvlibrary:assembleReleaseUnitTest (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:testReleaseUnitTest (Thread[Task worker,5,main]) started.
+:pvlibrary:testReleaseUnitTest
+Putting task artifact state for task ':pvlibrary:testReleaseUnitTest' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/pvlibrary/build/intermediates/classes/test/release', not found
+Skipping task ':pvlibrary:testReleaseUnitTest' as it has no source files and no previous output files.
+:pvlibrary:testReleaseUnitTest UP-TO-DATE
+:pvlibrary:testReleaseUnitTest (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:pvlibrary:test (Thread[Task worker Thread 3,5,main]) started.
+:pvlibrary:test
+Skipping task ':pvlibrary:test' as it has no actions.
+:pvlibrary:test UP-TO-DATE
+:pvlibrary:test (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:pvlibrary:check (Thread[Task worker Thread 2,5,main]) started.
+:pvlibrary:check
+Skipping task ':pvlibrary:check' as it has no actions.
+:pvlibrary:check (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:pvlibrary:build (Thread[Task worker,5,main]) started.
+:pvlibrary:build
+Skipping task ':pvlibrary:build' as it has no actions.
+:pvlibrary:build (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+Skipping task ':app:mergeDebugResources' as it is up-to-date (took 1.602 secs).
+:app:mergeDebugResources UP-TO-DATE
+:app:mergeDebugResources (Thread[Daemon worker Thread 40,5,main]) completed. Took 1.602 secs.
+:app:processDebugManifest (Thread[Task worker Thread 3,5,main]) started.
+:app:processDebugManifest
+Putting task artifact state for task ':app:processDebugManifest' into context took 0.0 secs.
+Task :app:processDebugManifest class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:processDebugManifest actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:processDebugManifest' as it is up-to-date (took 0.001 secs).
+:app:processDebugManifest UP-TO-DATE
+:app:processDebugManifest (Thread[Task worker Thread 3,5,main]) completed. Took 0.002 secs.
+:app:processDebugResources (Thread[Task worker,5,main]) started.
+:app:processDebugResources
+Putting task artifact state for task ':app:processDebugResources' into context took 0.0 secs.
+Task :app:processDebugResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:processDebugResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:processDebugResources' as it is up-to-date (took 0.029 secs).
+:app:processDebugResources UP-TO-DATE
+:app:processDebugResources (Thread[Task worker,5,main]) completed. Took 0.03 secs.
+:app:generateDebugSources (Thread[Task worker Thread 3,5,main]) started.
+:app:generateDebugSources
+Skipping task ':app:generateDebugSources' as it has no actions.
+:app:generateDebugSources UP-TO-DATE
+:app:generateDebugSources (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:app:compileDebugJavaWithJavac (Thread[Task worker Thread 2,5,main]) started.
+:app:compileDebugJavaWithJavac
+Putting task artifact state for task ':app:compileDebugJavaWithJavac' into context took 0.0 secs.
+Task :app:compileDebugJavaWithJavac class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileDebugJavaWithJavac actions class loader hash: c0392fe7862192859e1c7ea574f1f69a
+file or directory '/home/malin/malin_github/MeZhi/app/src/debug/java', not found
+Executing task ':app:compileDebugJavaWithJavac' (up-to-date check took 0.002 secs) due to:
+  Output property 'destinationDir' file /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug has changed.
+  Output property 'destinationDir' file /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/android has been removed.
+  Output property 'destinationDir' file /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/android/support has been removed.
+All input files are considered out-of-date for incremental task ':app:compileDebugJavaWithJavac'.
+Compiling with source level 1.7 and target level 1.7.
+Creating new cache for classAnalysis, path /home/malin/.gradle/caches/3.3/classAnalysis/classAnalysis.bin, access org.gradle.cache.internal.DefaultCacheAccess@45626aff
+Creating new cache for jarSnapshots, path /home/malin/.gradle/caches/3.3/jarSnapshots/jarSnapshots.bin, access org.gradle.cache.internal.DefaultCacheAccess@4dda054b
+:app:compileDebugJavaWithJavac - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+file or directory '/home/malin/malin_github/MeZhi/app/src/debug/java', not found
+Compiling with JDK Java compiler API.
+Creating new cache for localClassSetAnalysis, path /home/malin/malin_github/MeZhi/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin, access org.gradle.cache.internal.DefaultCacheAccess@1345b2b4
+Class dependency analysis for incremental compilation took 0.051 secs.
+Created jar classpath snapshot for incremental compilation in 0.009 secs.
+Creating new cache for localJarClasspathSnapshot, path /home/malin/malin_github/MeZhi/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin, access org.gradle.cache.internal.DefaultCacheAccess@556cc97b
+Written jar classpath snapshot for incremental compilation in 0.004 secs.
+:app:compileDebugNdk (Thread[Daemon worker Thread 40,5,main]) started.
+:app:compileDebugNdk
+Putting task artifact state for task ':app:compileDebugNdk' into context took 0.0 secs.
+Skipping task ':app:compileDebugNdk' as it has no source files and no previous output files.
+:app:compileDebugNdk UP-TO-DATE
+:app:compileDebugNdk (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:app:compileDebugSources (Thread[Daemon worker Thread 40,5,main]) started.
+:app:compileDebugSources
+Skipping task ':app:compileDebugSources' as it has no actions.
+:app:compileDebugSources (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:app:mergeDebugShaders (Thread[Daemon worker Thread 40,5,main]) started.
+:app:mergeDebugShaders
+Putting task artifact state for task ':app:mergeDebugShaders' into context took 0.0 secs.
+Task :app:mergeDebugShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeDebugShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeDebugShaders' as it is up-to-date (took 0.001 secs).
+:app:mergeDebugShaders UP-TO-DATE
+:app:mergeDebugShaders (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:app:compileDebugShaders (Thread[Daemon worker Thread 40,5,main]) started.
+:app:compileDebugShaders
+Putting task artifact state for task ':app:compileDebugShaders' into context took 0.0 secs.
+Task :app:compileDebugShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileDebugShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+:app:compileDebugJavaWithJavac (Thread[Task worker Thread 2,5,main]) completed. Took 0.224 secs.
+Skipping task ':app:compileDebugShaders' as it is up-to-date (took 0.03 secs).
+:app:compileDebugShaders UP-TO-DATE
+:app:compileDebugShaders (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.031 secs.
+:app:generateDebugAssets (Thread[Task worker Thread 2,5,main]) started.
+:app:generateDebugAssets
+Skipping task ':app:generateDebugAssets' as it has no actions.
+:app:generateDebugAssets UP-TO-DATE
+:app:generateDebugAssets (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:mergeDebugAssets (Thread[Daemon worker Thread 40,5,main]) started.
+:app:mergeDebugAssets
+Putting task artifact state for task ':app:mergeDebugAssets' into context took 0.0 secs.
+Task :app:mergeDebugAssets class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeDebugAssets actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeDebugAssets' as it is up-to-date (took 0.001 secs).
+:app:mergeDebugAssets UP-TO-DATE
+:app:mergeDebugAssets (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.002 secs.
+:app:transformClassesWithDexForDebug (Thread[Task worker Thread 2,5,main]) started.
+:app:transformClassesWithDexForDebug
+Putting task artifact state for task ':app:transformClassesWithDexForDebug' into context took 0.0 secs.
+Task :app:transformClassesWithDexForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformClassesWithDexForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Executing task ':app:transformClassesWithDexForDebug' (up-to-date check took 0.032 secs) due to:
+  Input property 'streamInputs' file /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$4.class has changed.
+  Input property 'streamInputs' file /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$6.class has changed.
+  Input property 'streamInputs' file /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$7.class has changed.
+Transform inputs calculations based on following changes
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$4.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$6.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$7.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$5.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$3.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$2.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$2$1.class:CHANGED
+/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment.class:CHANGED
+Task is incremental : true
+JarInputs ImmutableJarInput{name=32e6d3566ca8b9a13a21ea181e05bf288f815bdc, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=06f17f624a7d3a530b2c76578d13842fa53b07db, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=1308ebfd10593fdde0e22fb67f245213fa213a84, file=/home/malin/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.10/2ac360e8a47601a8dfd044e646f05b99d151f2e0/rxjava-1.1.10.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=54c64aba89f2553b2c4f5c4b220a3279c6775b73, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=356bd590702814ef9cfbd56d245e11cf8dadb3e9, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=c3a02ed7d490d45f04a05dfa56a21782de17a060, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.1/c7c4f9e35c2fd5900da24f9872e3971801f08ce0/okhttp-3.4.1.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=2ac85fae5bc852d709946dcae052a9bedbf9affa, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=3f06f6a2bd22a1ddd54420ec750923ebc914e16e, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=63b05b3e61da3ceb3a29aecc0574dd70024f4c8e, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=d07405da3f823f33c864337fad46daa6f3461633, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.github.bumptech.glide/okhttp3-integration/1.4.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=358e5ab3ae64e14c68b3881fdce0d6e2b3017ada, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/adapter-rxjava/2.1.0/693eddc23e87ab13f9cf5001707ce8e7e1d1ff01/adapter-rxjava-2.1.0.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=9f1c8895cf2e2eab2aee62b34aed6b7fcd0207e6, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=bed6152a7ab086cf5732c109cc82eaafbf106949, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=f73aa2803a4808c4765becedc9890bf8ec02f8dd, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.1.0/aa557d71ead91cbf26e0c316a0f593d168303309/converter-gson-2.1.0.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=fc77b2fcfce13f11151aa0dfa5be1036a8dc2a03, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=8fc192594b999052422940ef9bdb15120e124f99, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.2.1/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=7a185f577411cd5220b1b3ca20603e7a3712a1af, file=/opt/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=1abfdddd015db2bb1fc109dc901f19286bbad3c9, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=e4a5cf3002a4572949f7a97030635ba2d717edc2, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=f2966c517accc508de3475d8ac80a947c0166dc5, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=333240bc6a242c13a35217d39f9165c9aeadad16, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=8f2f7b38dde053c6a8393ac8a7858e78d46b7144, file=/home/malin/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar, contentTypes=CLASSES, scopes=EXTERNAL_LIBRARIES, status=NOTCHANGED},ImmutableJarInput{name=92129bf6a27ac5fba97753ac02103175b3e10e64, file=/home/malin/malin_github/MeZhi/app/build/intermediates/exploded-aar/MeZhi/pvlibrary/unspecified/jars/classes.jar, contentTypes=CLASSES, scopes=SUB_PROJECTS, status=NOTCHANGED}
+DirInputs ImmutableDirectoryInput{name=423e43417127144f6ab455770c94da6862947703, file=/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug, contentTypes=CLASSES, scopes=PROJECT, changedFiles={/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$4.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$7.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$2.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$2$1.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$6.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$5.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment.class=CHANGED, /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$3.class=CHANGED}}
+Changed file for /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug are /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$4.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$7.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$2.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$2$1.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$6.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$5.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment.class=CHANGED,/home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug/meizhi/meizhi/malin/fragment/ImageListFragment$3.class=CHANGED
+inputFiles : /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug=/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/debug_423e43417127144f6ab455770c94da6862947703.jar
+externalLibs :
+Adding PreDexTask for /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug : com.android.build.gradle.internal.transforms.DexTransform$PreDexTask@435a12e2
+predex called for /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug
+AndroidBuilder::preDexLibrary /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug
+AndroidBuilder::preDexLibraryNoCache /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug
+Dexing in-process : /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug
+Dexing /home/malin/malin_github/MeZhi/app/build/intermediates/classes/debug took 62.59 ms.
+Done with all dexing
+Dexing in-process : /home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/gson-2.7_63b05b3e61da3ceb3a29aecc0574dd70024f4c8e.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/io.reactivex-rxandroid-1.2.1_8fc192594b999052422940ef9bdb15120e124f99.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.1.0_32e6d3566ca8b9a13a21ea181e05bf288f815bdc.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.1.0_54c64aba89f2553b2c4f5c4b220a3279c6775b73.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.0_9f1c8895cf2e2eab2aee62b34aed6b7fcd0207e6.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.1.0_fc77b2fcfce13f11151aa0dfa5be1036a8dc2a03.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-25.1.0_2ac85fae5bc852d709946dcae052a9bedbf9affa.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.1.0_3f06f6a2bd22a1ddd54420ec750923ebc914e16e.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.0_333240bc6a242c13a35217d39f9165c9aeadad16.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/retrofit-2.1.0_8f2f7b38dde053c6a8393ac8a7858e78d46b7144.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.github.bumptech.glide-okhttp3-integration-1.4.0_d07405da3f823f33c864337fad46daa6f3461633.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/debug_423e43417127144f6ab455770c94da6862947703.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/adapter-rxjava-2.1.0_358e5ab3ae64e14c68b3881fdce0d6e2b3017ada.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.0_356bd590702814ef9cfbd56d245e11cf8dadb3e9.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/okhttp-3.4.1_c3a02ed7d490d45f04a05dfa56a21782de17a060.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.1.0_1abfdddd015db2bb1fc109dc901f19286bbad3c9.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/converter-gson-2.1.0_f73aa2803a4808c4765becedc9890bf8ec02f8dd.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.0_7a185f577411cd5220b1b3ca20603e7a3712a1af.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/rxjava-1.1.10_1308ebfd10593fdde0e22fb67f245213fa213a84.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/MeZhi-pvlibrary-unspecified_92129bf6a27ac5fba97753ac02103175b3e10e64.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/okio-1.9.0_e4a5cf3002a4572949f7a97030635ba2d717edc2.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/glide-3.7.0_f2966c517accc508de3475d8ac80a947c0166dc5.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.1.0_06f17f624a7d3a530b2c76578d13842fa53b07db.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.1.0_bed6152a7ab086cf5732c109cc82eaafbf106949.jar
+Dexing /home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/gson-2.7_63b05b3e61da3ceb3a29aecc0574dd70024f4c8e.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/io.reactivex-rxandroid-1.2.1_8fc192594b999052422940ef9bdb15120e124f99.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.1.0_32e6d3566ca8b9a13a21ea181e05bf288f815bdc.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.1.0_54c64aba89f2553b2c4f5c4b220a3279c6775b73.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.0_9f1c8895cf2e2eab2aee62b34aed6b7fcd0207e6.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.1.0_fc77b2fcfce13f11151aa0dfa5be1036a8dc2a03.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-25.1.0_2ac85fae5bc852d709946dcae052a9bedbf9affa.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.1.0_3f06f6a2bd22a1ddd54420ec750923ebc914e16e.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.0_333240bc6a242c13a35217d39f9165c9aeadad16.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/retrofit-2.1.0_8f2f7b38dde053c6a8393ac8a7858e78d46b7144.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.github.bumptech.glide-okhttp3-integration-1.4.0_d07405da3f823f33c864337fad46daa6f3461633.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/debug_423e43417127144f6ab455770c94da6862947703.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/adapter-rxjava-2.1.0_358e5ab3ae64e14c68b3881fdce0d6e2b3017ada.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.0_356bd590702814ef9cfbd56d245e11cf8dadb3e9.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/okhttp-3.4.1_c3a02ed7d490d45f04a05dfa56a21782de17a060.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.1.0_1abfdddd015db2bb1fc109dc901f19286bbad3c9.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/converter-gson-2.1.0_f73aa2803a4808c4765becedc9890bf8ec02f8dd.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.0_7a185f577411cd5220b1b3ca20603e7a3712a1af.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/rxjava-1.1.10_1308ebfd10593fdde0e22fb67f245213fa213a84.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/MeZhi-pvlibrary-unspecified_92129bf6a27ac5fba97753ac02103175b3e10e64.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/okio-1.9.0_e4a5cf3002a4572949f7a97030635ba2d717edc2.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/glide-3.7.0_f2966c517accc508de3475d8ac80a947c0166dc5.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.1.0_06f17f624a7d3a530b2c76578d13842fa53b07db.jar,/home/malin/malin_github/MeZhi/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.1.0_bed6152a7ab086cf5732c109cc82eaafbf106949.jar took 302.7 ms.
+:app:transformClassesWithDexForDebug (Thread[Task worker Thread 2,5,main]) completed. Took 0.421 secs.
+:app:mergeDebugJniLibFolders (Thread[Task worker Thread 3,5,main]) started.
+:app:mergeDebugJniLibFolders
+Putting task artifact state for task ':app:mergeDebugJniLibFolders' into context took 0.0 secs.
+Task :app:mergeDebugJniLibFolders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeDebugJniLibFolders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeDebugJniLibFolders' as it is up-to-date (took 0.0 secs).
+:app:mergeDebugJniLibFolders UP-TO-DATE
+:app:mergeDebugJniLibFolders (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:app:transformNative_libsWithMergeJniLibsForDebug (Thread[Task worker Thread 3,5,main]) started.
+:app:transformNative_libsWithMergeJniLibsForDebug
+Putting task artifact state for task ':app:transformNative_libsWithMergeJniLibsForDebug' into context took 0.0 secs.
+Task :app:transformNative_libsWithMergeJniLibsForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformNative_libsWithMergeJniLibsForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformNative_libsWithMergeJniLibsForDebug' as it is up-to-date (took 0.001 secs).
+:app:transformNative_libsWithMergeJniLibsForDebug UP-TO-DATE
+:app:transformNative_libsWithMergeJniLibsForDebug (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:app:processDebugJavaRes (Thread[Task worker Thread 3,5,main]) started.
+:app:processDebugJavaRes
+Putting task artifact state for task ':app:processDebugJavaRes' into context took 0.0 secs.
+Skipping task ':app:processDebugJavaRes' as it has no source files and no previous output files.
+:app:processDebugJavaRes UP-TO-DATE
+:app:processDebugJavaRes (Thread[Task worker Thread 3,5,main]) completed. Took 0.0 secs.
+:app:transformResourcesWithMergeJavaResForDebug (Thread[Task worker Thread 3,5,main]) started.
+:app:transformResourcesWithMergeJavaResForDebug
+Putting task artifact state for task ':app:transformResourcesWithMergeJavaResForDebug' into context took 0.0 secs.
+Task :app:transformResourcesWithMergeJavaResForDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformResourcesWithMergeJavaResForDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformResourcesWithMergeJavaResForDebug' as it is up-to-date (took 0.029 secs).
+:app:transformResourcesWithMergeJavaResForDebug UP-TO-DATE
+:app:transformResourcesWithMergeJavaResForDebug (Thread[Task worker Thread 3,5,main]) completed. Took 0.03 secs.
+:app:validateSigningDebug (Thread[Task worker Thread 2,5,main]) started.
+:app:validateSigningDebug
+Putting task artifact state for task ':app:validateSigningDebug' into context took 0.0 secs.
+Executing task ':app:validateSigningDebug' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:validateSigningDebug (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:packageDebug (Thread[Task worker Thread 3,5,main]) started.
+:app:packageDebug
+Putting task artifact state for task ':app:packageDebug' into context took 0.0 secs.
+Task :app:packageDebug class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:packageDebug actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Executing task ':app:packageDebug' (up-to-date check took 0.042 secs) due to:
+  Input property 'dexFolders' file /home/malin/malin_github/MeZhi/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex has changed.
+:app:packageDebug (Thread[Task worker Thread 3,5,main]) completed. Took 0.487 secs.
+:app:assembleDebug (Thread[Task worker Thread 3,5,main]) started.
+:app:assembleDebug
+Skipping task ':app:assembleDebug' as it has no actions.
+:app:assembleDebug (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:app:checkReleaseManifest (Thread[Task worker Thread 2,5,main]) started.
+:app:checkReleaseManifest
+Putting task artifact state for task ':app:checkReleaseManifest' into context took 0.0 secs.
+Executing task ':app:checkReleaseManifest' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:checkReleaseManifest (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:prepareReleaseDependencies (Thread[Task worker,5,main]) started.
+:app:prepareReleaseDependencies
+Putting task artifact state for task ':app:prepareReleaseDependencies' into context took 0.0 secs.
+Executing task ':app:prepareReleaseDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:prepareReleaseDependencies (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:compileReleaseAidl (Thread[Task worker Thread 2,5,main]) started.
+:app:compileReleaseAidl
+Putting task artifact state for task ':app:compileReleaseAidl' into context took 0.0 secs.
+Task :app:compileReleaseAidl class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileReleaseAidl actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:compileReleaseAidl' as it is up-to-date (took 0.002 secs).
+:app:compileReleaseAidl UP-TO-DATE
+:app:compileReleaseAidl (Thread[Task worker Thread 2,5,main]) completed. Took 0.002 secs.
+:app:compileReleaseRenderscript (Thread[Daemon worker Thread 40,5,main]) started.
+:app:compileReleaseRenderscript
+Putting task artifact state for task ':app:compileReleaseRenderscript' into context took 0.001 secs.
+Task :app:compileReleaseRenderscript class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileReleaseRenderscript actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:compileReleaseRenderscript' as it is up-to-date (took 0.0 secs).
+:app:compileReleaseRenderscript UP-TO-DATE
+:app:compileReleaseRenderscript (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.002 secs.
+:app:generateReleaseBuildConfig (Thread[Daemon worker Thread 40,5,main]) started.
+:app:generateReleaseBuildConfig
+Putting task artifact state for task ':app:generateReleaseBuildConfig' into context took 0.0 secs.
+Task :app:generateReleaseBuildConfig class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:generateReleaseBuildConfig actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:generateReleaseBuildConfig' as it is up-to-date (took 0.001 secs).
+:app:generateReleaseBuildConfig UP-TO-DATE
+:app:generateReleaseBuildConfig (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.002 secs.
+:app:generateReleaseResValues (Thread[Task worker,5,main]) started.
+:app:generateReleaseResValues
+Putting task artifact state for task ':app:generateReleaseResValues' into context took 0.0 secs.
+Task :app:generateReleaseResValues class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:generateReleaseResValues actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:generateReleaseResValues' as it is up-to-date (took 0.0 secs).
+:app:generateReleaseResValues UP-TO-DATE
+:app:generateReleaseResValues (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:app:generateReleaseResources (Thread[Task worker,5,main]) started.
+:app:generateReleaseResources
+Skipping task ':app:generateReleaseResources' as it has no actions.
+:app:generateReleaseResources UP-TO-DATE
+:app:generateReleaseResources (Thread[Task worker,5,main]) completed. Took 0.0 secs.
+:app:mergeReleaseResources (Thread[Task worker,5,main]) started.
+:app:mergeReleaseResources
+Putting task artifact state for task ':app:mergeReleaseResources' into context took 0.0 secs.
+Task :app:mergeReleaseResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeReleaseResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeReleaseResources' as it is up-to-date (took 0.016 secs).
+:app:mergeReleaseResources UP-TO-DATE
+:app:mergeReleaseResources (Thread[Task worker,5,main]) completed. Took 0.016 secs.
+:app:processReleaseManifest (Thread[Task worker Thread 2,5,main]) started.
+:app:processReleaseManifest
+Putting task artifact state for task ':app:processReleaseManifest' into context took 0.0 secs.
+Task :app:processReleaseManifest class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:processReleaseManifest actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:processReleaseManifest' as it is up-to-date (took 0.0 secs).
+:app:processReleaseManifest UP-TO-DATE
+:app:processReleaseManifest (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:processReleaseResources (Thread[Daemon worker Thread 40,5,main]) started.
+:app:processReleaseResources
+Putting task artifact state for task ':app:processReleaseResources' into context took 0.0 secs.
+Task :app:processReleaseResources class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:processReleaseResources actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:processReleaseResources' as it is up-to-date (took 0.006 secs).
+:app:processReleaseResources UP-TO-DATE
+:app:processReleaseResources (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.007 secs.
+:app:generateReleaseSources (Thread[Task worker Thread 2,5,main]) started.
+:app:generateReleaseSources
+Skipping task ':app:generateReleaseSources' as it has no actions.
+:app:generateReleaseSources UP-TO-DATE
+:app:generateReleaseSources (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:incrementalReleaseJavaCompilationSafeguard (Thread[Daemon worker Thread 40,5,main]) started.
+:app:incrementalReleaseJavaCompilationSafeguard
+Putting task artifact state for task ':app:incrementalReleaseJavaCompilationSafeguard' into context took 0.0 secs.
+Task :app:incrementalReleaseJavaCompilationSafeguard class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:incrementalReleaseJavaCompilationSafeguard actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:incrementalReleaseJavaCompilationSafeguard' as it is up-to-date (took 0.0 secs).
+:app:incrementalReleaseJavaCompilationSafeguard UP-TO-DATE
+:app:incrementalReleaseJavaCompilationSafeguard (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:app:compileReleaseJavaWithJavac (Thread[Task worker Thread 2,5,main]) started.
+:app:compileReleaseJavaWithJavac
+Putting task artifact state for task ':app:compileReleaseJavaWithJavac' into context took 0.0 secs.
+Task :app:compileReleaseJavaWithJavac class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileReleaseJavaWithJavac actions class loader hash: c0392fe7862192859e1c7ea574f1f69a
+file or directory '/home/malin/malin_github/MeZhi/app/src/release/java', not found
+Skipping task ':app:compileReleaseJavaWithJavac' as it is up-to-date (took 0.002 secs).
+:app:compileReleaseJavaWithJavac UP-TO-DATE
+:app:compileReleaseJavaWithJavac (Thread[Task worker Thread 2,5,main]) completed. Took 0.003 secs.
+:app:compileReleaseNdk (Thread[Daemon worker Thread 40,5,main]) started.
+:app:compileReleaseNdk
+Putting task artifact state for task ':app:compileReleaseNdk' into context took 0.0 secs.
+Skipping task ':app:compileReleaseNdk' as it has no source files and no previous output files.
+:app:compileReleaseNdk UP-TO-DATE
+:app:compileReleaseNdk (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.0 secs.
+:app:compileReleaseSources (Thread[Task worker Thread 2,5,main]) started.
+:app:compileReleaseSources
+Skipping task ':app:compileReleaseSources' as it has no actions.
+:app:compileReleaseSources UP-TO-DATE
+:app:compileReleaseSources (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:lintVitalRelease (Thread[Task worker Thread 2,5,main]) started.
+:app:lintVitalRelease
+Putting task artifact state for task ':app:lintVitalRelease' into context took 0.0 secs.
+Executing task ':app:lintVitalRelease' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:lintVitalRelease (Thread[Task worker Thread 2,5,main]) completed. Took 0.396 secs.
+:app:mergeReleaseShaders (Thread[Task worker Thread 3,5,main]) started.
+:app:mergeReleaseShaders
+Putting task artifact state for task ':app:mergeReleaseShaders' into context took 0.001 secs.
+Task :app:mergeReleaseShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeReleaseShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeReleaseShaders' as it is up-to-date (took 0.0 secs).
+:app:mergeReleaseShaders UP-TO-DATE
+:app:mergeReleaseShaders (Thread[Task worker Thread 3,5,main]) completed. Took 0.002 secs.
+:app:compileReleaseShaders (Thread[Task worker Thread 2,5,main]) started.
+:app:compileReleaseShaders
+Putting task artifact state for task ':app:compileReleaseShaders' into context took 0.0 secs.
+Task :app:compileReleaseShaders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:compileReleaseShaders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:compileReleaseShaders' as it is up-to-date (took 0.0 secs).
+:app:compileReleaseShaders UP-TO-DATE
+:app:compileReleaseShaders (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:generateReleaseAssets (Thread[Task worker Thread 2,5,main]) started.
+:app:generateReleaseAssets
+Skipping task ':app:generateReleaseAssets' as it has no actions.
+:app:generateReleaseAssets UP-TO-DATE
+:app:generateReleaseAssets (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:mergeReleaseAssets (Thread[Task worker,5,main]) started.
+:app:mergeReleaseAssets
+Putting task artifact state for task ':app:mergeReleaseAssets' into context took 0.0 secs.
+Task :app:mergeReleaseAssets class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeReleaseAssets actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeReleaseAssets' as it is up-to-date (took 0.002 secs).
+:app:mergeReleaseAssets UP-TO-DATE
+:app:mergeReleaseAssets (Thread[Task worker,5,main]) completed. Took 0.002 secs.
+:app:processReleaseJavaRes (Thread[Task worker,5,main]) started.
+:app:processReleaseJavaRes
+Putting task artifact state for task ':app:processReleaseJavaRes' into context took 0.0 secs.
+Skipping task ':app:processReleaseJavaRes' as it has no source files and no previous output files.
+:app:processReleaseJavaRes UP-TO-DATE
+:app:processReleaseJavaRes (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:transformResourcesWithMergeJavaResForRelease (Thread[Task worker,5,main]) started.
+:app:transformResourcesWithMergeJavaResForRelease
+Putting task artifact state for task ':app:transformResourcesWithMergeJavaResForRelease' into context took 0.0 secs.
+Task :app:transformResourcesWithMergeJavaResForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformResourcesWithMergeJavaResForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformResourcesWithMergeJavaResForRelease' as it is up-to-date (took 0.001 secs).
+:app:transformResourcesWithMergeJavaResForRelease UP-TO-DATE
+:app:transformResourcesWithMergeJavaResForRelease (Thread[Task worker,5,main]) completed. Took 0.003 secs.
+:app:transformClassesAndResourcesWithProguardForRelease (Thread[Task worker,5,main]) started.
+:app:transformClassesAndResourcesWithProguardForRelease
+Putting task artifact state for task ':app:transformClassesAndResourcesWithProguardForRelease' into context took 0.0 secs.
+Task :app:transformClassesAndResourcesWithProguardForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformClassesAndResourcesWithProguardForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformClassesAndResourcesWithProguardForRelease' as it is up-to-date (took 0.002 secs).
+:app:transformClassesAndResourcesWithProguardForRelease UP-TO-DATE
+:app:transformClassesWithDexForRelease (Thread[Daemon worker Thread 40,5,main]) started.
+:app:transformClassesWithDexForRelease
+Putting task artifact state for task ':app:transformClassesWithDexForRelease' into context took 0.001 secs.
+Task :app:transformClassesWithDexForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformClassesWithDexForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformClassesWithDexForRelease' as it is up-to-date (took 0.001 secs).
+:app:transformClassesWithDexForRelease UP-TO-DATE
+:app:transformClassesWithDexForRelease (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.002 secs.
+:app:transformClassesWithShrinkResForRelease (Thread[Task worker Thread 3,5,main]) started.
+:app:transformClassesWithShrinkResForRelease
+:app:transformClassesAndResourcesWithProguardForRelease (Thread[Task worker,5,main]) completed. Took 0.005 secs.
+Putting task artifact state for task ':app:transformClassesWithShrinkResForRelease' into context took 0.0 secs.
+Task :app:transformClassesWithShrinkResForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformClassesWithShrinkResForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformClassesWithShrinkResForRelease' as it is up-to-date (took 0.007 secs).
+:app:transformClassesWithShrinkResForRelease UP-TO-DATE
+:app:transformClassesWithShrinkResForRelease (Thread[Task worker Thread 3,5,main]) completed. Took 0.008 secs.
+:app:mergeReleaseJniLibFolders (Thread[Task worker Thread 3,5,main]) started.
+:app:mergeReleaseJniLibFolders
+Putting task artifact state for task ':app:mergeReleaseJniLibFolders' into context took 0.0 secs.
+Task :app:mergeReleaseJniLibFolders class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mergeReleaseJniLibFolders actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mergeReleaseJniLibFolders' as it is up-to-date (took 0.0 secs).
+:app:mergeReleaseJniLibFolders UP-TO-DATE
+:app:mergeReleaseJniLibFolders (Thread[Task worker Thread 3,5,main]) completed. Took 0.001 secs.
+:app:transformNative_libsWithMergeJniLibsForRelease (Thread[Daemon worker Thread 40,5,main]) started.
+:app:transformNative_libsWithMergeJniLibsForRelease
+Putting task artifact state for task ':app:transformNative_libsWithMergeJniLibsForRelease' into context took 0.0 secs.
+Task :app:transformNative_libsWithMergeJniLibsForRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:transformNative_libsWithMergeJniLibsForRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:transformNative_libsWithMergeJniLibsForRelease' as it is up-to-date (took 0.002 secs).
+:app:transformNative_libsWithMergeJniLibsForRelease UP-TO-DATE
+:app:transformNative_libsWithMergeJniLibsForRelease (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.002 secs.
+:app:validateSigningRelease (Thread[Daemon worker Thread 40,5,main]) started.
+:app:validateSigningRelease
+Putting task artifact state for task ':app:validateSigningRelease' into context took 0.0 secs.
+Executing task ':app:validateSigningRelease' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:validateSigningRelease (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:app:packageRelease (Thread[Daemon worker Thread 40,5,main]) started.
+:app:packageRelease
+Putting task artifact state for task ':app:packageRelease' into context took 0.001 secs.
+Task :app:packageRelease class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:packageRelease actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:packageRelease' as it is up-to-date (took 0.002 secs).
+:app:packageRelease UP-TO-DATE
+:app:packageRelease (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.006 secs.
+:app:assembleRelease (Thread[Task worker Thread 2,5,main]) started.
+:app:assembleRelease
+Skipping task ':app:assembleRelease' as it has no actions.
+:app:assembleRelease (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:assemble (Thread[Daemon worker Thread 40,5,main]) started.
+:app:assemble
+Skipping task ':app:assemble' as it has no actions.
+:app:assemble (Thread[Daemon worker Thread 40,5,main]) completed. Took 0.001 secs.
+:app:lint (Thread[Task worker Thread 3,5,main]) started.
+:app:lint
+Putting task artifact state for task ':app:lint' into context took 0.0 secs.
+Executing task ':app:lint' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+Ran lint on variant release: 1 issues found
+Ran lint on variant debug: 1 issues found
+Wrote HTML report to file:///home/malin/malin_github/MeZhi/app/build/outputs/lint-results-debug.html
+Wrote XML report to file:///home/malin/malin_github/MeZhi/app/build/outputs/lint-results-debug.xml
+:app:lint (Thread[Task worker Thread 3,5,main]) completed. Took 1.357 secs.
+:app:incrementalDebugUnitTestJavaCompilationSafeguard (Thread[Task worker,5,main]) started.
+:app:incrementalDebugUnitTestJavaCompilationSafeguard
+Putting task artifact state for task ':app:incrementalDebugUnitTestJavaCompilationSafeguard' into context took 0.0 secs.
+Skipping task ':app:incrementalDebugUnitTestJavaCompilationSafeguard' as it has no source files and no previous output files.
+:app:incrementalDebugUnitTestJavaCompilationSafeguard UP-TO-DATE
+:app:incrementalDebugUnitTestJavaCompilationSafeguard (Thread[Task worker,5,main]) completed. Took 0.001 secs.
+:app:preDebugUnitTestBuild (Thread[Task worker Thread 2,5,main]) started.
+:app:preDebugUnitTestBuild
+Skipping task ':app:preDebugUnitTestBuild' as it has no actions.
+:app:preDebugUnitTestBuild UP-TO-DATE
+:app:preDebugUnitTestBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:prepareDebugUnitTestDependencies (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareDebugUnitTestDependencies
+Putting task artifact state for task ':app:prepareDebugUnitTestDependencies' into context took 0.0 secs.
+Executing task ':app:prepareDebugUnitTestDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:prepareDebugUnitTestDependencies (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:compileDebugUnitTestJavaWithJavac (Thread[Task worker Thread 2,5,main]) started.
+:app:compileDebugUnitTestJavaWithJavac
+Putting task artifact state for task ':app:compileDebugUnitTestJavaWithJavac' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/app/src/test/java', not found
+file or directory '/home/malin/malin_github/MeZhi/app/src/testDebug/java', not found
+Skipping task ':app:compileDebugUnitTestJavaWithJavac' as it has no source files and no previous output files.
+:app:compileDebugUnitTestJavaWithJavac UP-TO-DATE
+:app:compileDebugUnitTestJavaWithJavac (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:processDebugUnitTestJavaRes (Thread[Task worker Thread 2,5,main]) started.
+:app:processDebugUnitTestJavaRes
+Putting task artifact state for task ':app:processDebugUnitTestJavaRes' into context took 0.0 secs.
+Skipping task ':app:processDebugUnitTestJavaRes' as it has no source files and no previous output files.
+:app:processDebugUnitTestJavaRes UP-TO-DATE
+:app:processDebugUnitTestJavaRes (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:compileDebugUnitTestSources (Thread[Task worker Thread 2,5,main]) started.
+:app:compileDebugUnitTestSources
+Skipping task ':app:compileDebugUnitTestSources' as it has no actions.
+:app:compileDebugUnitTestSources UP-TO-DATE
+:app:compileDebugUnitTestSources (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:mockableAndroidJar (Thread[Task worker Thread 2,5,main]) started.
+:app:mockableAndroidJar
+Putting task artifact state for task ':app:mockableAndroidJar' into context took 0.0 secs.
+Task :app:mockableAndroidJar class loader hash: b22759b132d4683e853fee25cc900eb5
+Task :app:mockableAndroidJar actions class loader hash: d702fb1696f5727956b13bf7d0f6a68f
+Skipping task ':app:mockableAndroidJar' as it is up-to-date (took 0.001 secs).
+:app:mockableAndroidJar UP-TO-DATE
+:app:mockableAndroidJar (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:assembleDebugUnitTest (Thread[Task worker Thread 2,5,main]) started.
+:app:assembleDebugUnitTest
+Skipping task ':app:assembleDebugUnitTest' as it has no actions.
+:app:assembleDebugUnitTest UP-TO-DATE
+:app:assembleDebugUnitTest (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:testDebugUnitTest (Thread[Task worker Thread 2,5,main]) started.
+:app:testDebugUnitTest
+Putting task artifact state for task ':app:testDebugUnitTest' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/app/build/intermediates/classes/test/debug', not found
+Skipping task ':app:testDebugUnitTest' as it has no source files and no previous output files.
+:app:testDebugUnitTest UP-TO-DATE
+:app:testDebugUnitTest (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:incrementalReleaseUnitTestJavaCompilationSafeguard (Thread[Task worker Thread 2,5,main]) started.
+:app:incrementalReleaseUnitTestJavaCompilationSafeguard
+Putting task artifact state for task ':app:incrementalReleaseUnitTestJavaCompilationSafeguard' into context took 0.0 secs.
+Skipping task ':app:incrementalReleaseUnitTestJavaCompilationSafeguard' as it has no source files and no previous output files.
+:app:incrementalReleaseUnitTestJavaCompilationSafeguard UP-TO-DATE
+:app:incrementalReleaseUnitTestJavaCompilationSafeguard (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:preReleaseUnitTestBuild (Thread[Task worker Thread 2,5,main]) started.
+:app:preReleaseUnitTestBuild
+Skipping task ':app:preReleaseUnitTestBuild' as it has no actions.
+:app:preReleaseUnitTestBuild (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:prepareReleaseUnitTestDependencies (Thread[Task worker Thread 2,5,main]) started.
+:app:prepareReleaseUnitTestDependencies
+Putting task artifact state for task ':app:prepareReleaseUnitTestDependencies' into context took 0.0 secs.
+Executing task ':app:prepareReleaseUnitTestDependencies' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:app:prepareReleaseUnitTestDependencies (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:compileReleaseUnitTestJavaWithJavac (Thread[Task worker Thread 2,5,main]) started.
+:app:compileReleaseUnitTestJavaWithJavac
+Putting task artifact state for task ':app:compileReleaseUnitTestJavaWithJavac' into context took 0.0 secs.
+file or directory '/home/malin/malin_github/MeZhi/app/src/test/java', not found
+file or directory '/home/malin/malin_github/MeZhi/app/src/testRelease/java', not found
+Skipping task ':app:compileReleaseUnitTestJavaWithJavac' as it has no source files and no previous output files.
+:app:compileReleaseUnitTestJavaWithJavac UP-TO-DATE
+:app:compileReleaseUnitTestJavaWithJavac (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:processReleaseUnitTestJavaRes (Thread[Task worker Thread 2,5,main]) started.
+:app:processReleaseUnitTestJavaRes
+Putting task artifact state for task ':app:processReleaseUnitTestJavaRes' into context took 0.0 secs.
+Skipping task ':app:processReleaseUnitTestJavaRes' as it has no source files and no previous output files.
+:app:processReleaseUnitTestJavaRes UP-TO-DATE
+:app:processReleaseUnitTestJavaRes (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:compileReleaseUnitTestSources (Thread[Task worker Thread 2,5,main]) started.
+:app:compileReleaseUnitTestSources
+Skipping task ':app:compileReleaseUnitTestSources' as it has no actions.
+:app:compileReleaseUnitTestSources UP-TO-DATE
+:app:compileReleaseUnitTestSources (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:assembleReleaseUnitTest (Thread[Task worker Thread 2,5,main]) started.
+:app:assembleReleaseUnitTest
+Skipping task ':app:assembleReleaseUnitTest' as it has no actions.
+:app:assembleReleaseUnitTest UP-TO-DATE
+:app:assembleReleaseUnitTest (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:testReleaseUnitTest (Thread[Task worker Thread 2,5,main]) started.
+:app:testReleaseUnitTest
+Putting task artifact state for task ':app:testReleaseUnitTest' into context took 0.001 secs.
+file or directory '/home/malin/malin_github/MeZhi/app/build/intermediates/classes/test/release', not found
+Skipping task ':app:testReleaseUnitTest' as it has no source files and no previous output files.
+:app:testReleaseUnitTest UP-TO-DATE
+:app:testReleaseUnitTest (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+:app:test (Thread[Task worker Thread 2,5,main]) started.
+:app:test
+Skipping task ':app:test' as it has no actions.
+:app:test UP-TO-DATE
+:app:test (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:check (Thread[Task worker Thread 2,5,main]) started.
+:app:check
+Skipping task ':app:check' as it has no actions.
+:app:check (Thread[Task worker Thread 2,5,main]) completed. Took 0.0 secs.
+:app:build (Thread[Task worker Thread 2,5,main]) started.
+:app:build
+Skipping task ':app:build' as it has no actions.
+:app:build (Thread[Task worker Thread 2,5,main]) completed. Took 0.001 secs.
+
+BUILD SUCCESSFUL
+
+Total time: 6.519 secs
+Stopped 0 worker daemon(s).
+Received result Success[value=null] from daemon DaemonInfo{pid=6439, address=[974fbf2e-fae6-4500-9793-42db14e27b60 port:45528, addresses:[/0:0:0:0:0:0:0:1, /127.0.0.1]], state=Idle, lastBusy=1485933509285, context=DefaultDaemonContext[uid=a57c3e94-40ae-4e57-b7cf-3defde83a643,javaHome=/usr/lib/jvm/jdk1.8.0_121,daemonRegistryDir=/home/malin/.gradle/daemon,pid=6439,idleTimeout=10800000,daemonOpts=-XX:MaxPermSize=512m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]} (build should be done).
+
+
+
+Note: meizhi.meizhi.malin.utils.PhoneScreenUtil: can't find dynamically referenced class android.os.SystemProperties
+Note: the configuration keeps the entry point 'uk.co.senab.photoview.PhotoView { void setOnMatrixChangeListener(uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener); }', but not the descriptor class 'uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener'
+Note: the configuration keeps the entry point 'uk.co.senab.photoview.PhotoView { void setOnPhotoTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener); }', but not the descriptor class 'uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener'
+Note: the configuration keeps the entry point 'uk.co.senab.photoview.PhotoView { void setOnViewTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener); }', but not the descriptor class 'uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener'
+Note: the configuration keeps the entry point 'uk.co.senab.photoview.PhotoView { void setOnScaleChangeListener(uk.co.senab.photoview.PhotoViewAttacher$OnScaleChangeListener); }', but not the descriptor class 'uk.co.senab.photoview.PhotoViewAttacher$OnScaleChangeListener'
+Note: the configuration keeps the entry point 'uk.co.senab.photoview.PhotoView { void setOnSingleFlingListener(uk.co.senab.photoview.PhotoViewAttacher$OnSingleFlingListener); }', but not the descriptor class 'uk.co.senab.photoview.PhotoViewAttacher$OnSingleFlingListener'
+Note: there were 5 unkept descriptor classes in kept class members.
+      You should consider explicitly keeping the mentioned classes
+      (using '-keep').
+      (http://proguard.sourceforge.net/manual/troubleshooting.html#descriptorclass)
+Note: there were 1 unresolved dynamic references to classes or interfaces.
+      You should check if you need to specify additional program jars.
+      (http://proguard.sourceforge.net/manual/troubleshooting.html#dynamicalclass)

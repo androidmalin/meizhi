@@ -2,7 +2,9 @@ package meizhi.meizhi.malin.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import meizhi.meizhi.malin.R;
@@ -27,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setDefaultFragment();
+        setNavigationBarColor();
+    }
+
+    private void setNavigationBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
+        }
     }
 
     private void setDefaultFragment() {

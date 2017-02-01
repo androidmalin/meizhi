@@ -122,9 +122,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         };
         mRecyclerView.addOnScrollListener(mEndlessListener);
         mSwipeRefreshLayout.setColorSchemeResources(
-                R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark
+                R.color.colorAccent
         );
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
