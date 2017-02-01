@@ -1,7 +1,5 @@
 package meizhi.meizhi.malin.network.services;
 
-import android.content.Context;
-
 import meizhi.meizhi.malin.network.api.ImageApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -42,13 +40,13 @@ public final class ImageService {
 
     private volatile static ImageApi mImageApi = null;
 
-    public ImageApi getLogin(Context context) {
+    public ImageApi getLogin() {
         if (mImageApi == null) {
             synchronized (ImageService.class) {
                 if (mImageApi == null) {
                     mImageApi = new Retrofit.Builder()
                             .baseUrl("http://gank.io")
-                            .client(getOkHttpClientSign(context))
+                            .client(getOkHttpClientSign())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .build()
@@ -64,11 +62,28 @@ public final class ImageService {
      *
      * @return OkHttpClient
      */
-    private static OkHttpClient getOkHttpClientSign(Context context) {
+    private static OkHttpClient getOkHttpClientSign() {
         OkHttpClient okHttpClient = null;
         okHttpClient = new OkHttpClient.Builder()
                 .build();
         return okHttpClient;
+    }
+
+    /**
+     * 下载
+     *
+     * @param tClass
+     * @param hostURL
+     * @param <T>
+     * @return
+     */
+    public <T> T getDownLoadService(Class<T> tClass, String hostURL) {
+        return new Retrofit.Builder()
+                .baseUrl(hostURL)
+                .client(getOkHttpClientSign())
+                .build()
+                .create(tClass);
+
     }
 
 }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,6 +36,16 @@ public class ImagePagerAdapter extends PagerAdapter {
         mLayoutInflater = LayoutInflater.from(context);
     }
 
+    private downLoadClickListener mDownLoadClickListener;
+
+    public interface downLoadClickListener {
+        void downImageListener(String url);
+    }
+
+    public void setDownLoadListener(downLoadClickListener listener) {
+        this.mDownLoadClickListener = listener;
+    }
+
     @Override
     public int getCount() {
         return mList != null ? mList.size() : 0;
@@ -53,14 +62,14 @@ public class ImagePagerAdapter extends PagerAdapter {
         downLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "downLoad", Toast.LENGTH_SHORT).show();
+                mDownLoadClickListener.downImageListener(mList.get(position).url);
             }
         });
 
         photoView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
+                mDownLoadClickListener.downImageListener(mList.get(position).url);
                 return false;
             }
         });

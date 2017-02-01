@@ -146,7 +146,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     private void getFangs(final int currentPage) {
 
-        ImageApi aip = ImageService.getInstance().getLogin((mActivity));
+        ImageApi aip = ImageService.getInstance().getLogin();
         Observable<ImageInfo> observable = aip.getkey(NUMBER, currentPage);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

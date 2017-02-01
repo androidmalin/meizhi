@@ -1,8 +1,12 @@
 package meizhi.meizhi.malin.network.api;
 
 import meizhi.meizhi.malin.network.bean.ImageInfo;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -29,4 +33,9 @@ public interface ImageApi {
             @Path("num") int num,
             @Path("page") int page
     );
+
+
+    @Streaming
+    @GET
+    Call<ResponseBody> download(@Url String imageUrl);
 }
