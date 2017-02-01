@@ -6,6 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
@@ -20,21 +23,34 @@ import meizhi.meizhi.malin.fragment.ImageListFragment;
  * 修改备注:
  * 版本:
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageListFragment mImageListFragment;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setDefaultFragment();
         setNavigationBarColor();
+        setContentView(R.layout.activity_main);
+        initView();
+        initListener();
+        initToolBar();
+        setDefaultFragment();
     }
+
+    private void initListener() {
+        findViewById(R.id.tv_content).setOnClickListener(this);
+    }
+
+    private void initView() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+    }
+
 
     private void setNavigationBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
     }
 
@@ -45,7 +61,29 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.root_layout, mImageListFragment, "ImageListFragment");
+        fragmentTransaction.add(R.id.fragment_content_layout, mImageListFragment, "ImageListFragment");
         fragmentTransaction.commit();
+    }
+
+    private void initToolBar() {
+        if (mToolbar != null) {
+            mToolbar.setTitle("");
+            mToolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//标题颜色
+            mToolbar.setSubtitle("");
+            mToolbar.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//副标题颜色
+            mToolbar.setLogo(null);
+            mToolbar.setNavigationIcon(null);//导航图标,最左边的图标
+            setSupportActionBar(mToolbar);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_content: {
+                Toast.makeText(this, "关于", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
     }
 }

@@ -86,6 +86,7 @@ dependencies {
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["cardview"]
     compile rootProject.ext.dependencies["recyclerview"]
+    compile rootProject.ext.dependencies["design"]
 
     //Glide
     compile rootProject.ext.dependencies["glide"]

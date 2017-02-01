@@ -1,12 +1,14 @@
 package meizhi.meizhi.malin.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -34,28 +36,35 @@ public class ImageDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_detail);
+        StatusBarColor();
         setNavigationBarColor();
+        setContentView(R.layout.activity_image_detail);
         Intent intent = getIntent();
         if (intent != null) {
             mPosition = intent.getIntExtra("position", 0);
             mList = intent.getParcelableArrayListExtra("datas");
         }
-
         ViewPager mViewPager = (HackyViewPager) findViewById(R.id.view_pager_iv);
         setContentView(mViewPager);
-
         ImagePagerAdapter adapter = new ImagePagerAdapter();
-
-        adapter.setData(mList, mPosition, this);
+        adapter.setData(mList, this);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(mPosition);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
     }
 
+    private void StatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
     private void setNavigationBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
     }
 }
