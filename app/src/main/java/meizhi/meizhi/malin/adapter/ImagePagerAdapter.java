@@ -18,7 +18,9 @@ import java.util.ArrayList;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.network.bean.ImageBean;
+import meizhi.meizhi.malin.utils.ConstantUtils;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
+import meizhi.meizhi.malin.utils.UrlUtils;
 import uk.co.senab.photoview.PhotoView;
 
 public class ImagePagerAdapter extends PagerAdapter {
@@ -30,7 +32,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     private int mItemWidth;
     private int mItemHeight;
     private LayoutInflater mLayoutInflater;
-
+    private String mImageUrl;
 
     public void setData(ArrayList<ImageBean> mList, Context context) {
         this.mList = mList;
@@ -68,44 +70,55 @@ public class ImagePagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 if (mDownLoadClickListener == null) return;
-                mDownLoadClickListener.downImageListener(mList.get(position).url);
+                String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
+                utrImg = ConstantUtils.getRightUrl(utrImg, true);
+                mDownLoadClickListener.downImageListener(utrImg);
             }
         });
 
-        final ImageView holder = (ImageView) rootView.findViewById(R.id.iv_holder);
+        final ImageView imgHolder = (ImageView) rootView.findViewById(R.id.iv_holder);
 
         Glide.with(mContext)
                 .load(R.drawable.image_loading_holder_two)
                 .asGif()
                 .override((int) PhoneScreenUtil.dipToPx(mContext, 100.0f), (int) PhoneScreenUtil.dipToPx(mContext, 100.0f))
-                .into(holder);
+                .into(imgHolder);
 
-        Glide.with(mContext)
-                .load(mList.get(position).url + "?imageView2/0/w/500")
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
+        if (mList != null && mList.get(position) != null && mList.get(position).url != null) {
+            mImageUrl = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
+            mImageUrl = ConstantUtils.getRightUrl(mImageUrl, true);
+            Glide.with(mContext)
+                    .load(mImageUrl)
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            imgHolder.setVisibility(View.GONE);
+                            return false;
+                        }
 
-                    //这个用于监听图片是否加载完成
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        holder.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
-                .centerCrop()
-                .override(mItemWidth, mItemHeight)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(photoView);
+                        //这个用于监听图片是否加载完成
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            imgHolder.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .centerCrop()
+                    .override(mItemWidth, mItemHeight)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(photoView);
+        } else {
+            imgHolder.setVisibility(View.GONE);
+        }
 
 
         photoView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if (mDownLoadClickListener != null) {
-                    mDownLoadClickListener.downImageListener(mList.get(position).url);
+                    String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
+                    utrImg = ConstantUtils.getRightUrl(utrImg, true);
+                    mDownLoadClickListener.downImageListener(utrImg);
                 }
                 return false;
             }

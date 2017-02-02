@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,20 +103,15 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     private void initData() {
         mActivity = getActivity();
-        mAdapter = new ImageAdapter(mActivity);
+        mAdapter = new ImageAdapter(mActivity, ImageListFragment.this);
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
         mEndlessListener = new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore(final int currentPage) {
-                showLoadingView(true);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getFangs(currentPage);
-                    }
-                }, 1000);
+                getFangs(currentPage);
+                //delayLoadMoreData(currentPage);
             }
         };
         mRecyclerView.addOnScrollListener(mEndlessListener);
@@ -140,6 +134,22 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     }
 
 
+    /**
+     * 延时加载下一页，同时显示SwipeRefresh
+     *
+     * @param currentPage currentPage
+     */
+    private void delayLoadMoreData(final int currentPage) {
+        showLoadingView(true);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getFangs(currentPage);
+            }
+        }, 1000);
+    }
+
+
     private void initListener() {
         mAdapter.setOnItemClickListener(this);
     }
@@ -153,12 +163,10 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                 .subscribe(new Subscriber<ImageInfo>() {
                     @Override
                     public void onCompleted() {
-                        Log.d("", "onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("", "onError");
                         showLoadingView(false);
                         showEmptyView(false);
                         setSuccessFlag(false);
@@ -171,7 +179,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
                     @Override
                     public void onNext(ImageInfo imageInfo) {
-                        Log.d("", "onNext");
                         showLoadingView(false);
                         showErrorView(false);
                         setSuccessFlag(true);

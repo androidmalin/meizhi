@@ -19,7 +19,7 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
 
     private int previousTotal = 0; // The total number of items in the dataset after the last load
     private boolean loading = true; // True if we are still waiting for the last set of data to load.
-    private int visibleThreshold = 0; // The minimum amount of items to have below your current scroll position before loading more.
+    private int visibleThreshold = 6; // The minimum amount of items to have below your current scroll position before loading more.
     private int firstVisibleItem;
     private int visibleItemCount;
     private int totalItemCount;
@@ -27,12 +27,13 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     private int currentPage = 1;
 
     private RecyclerViewPositionHelper mRecyclerViewHelper;
-    private boolean isBottom;
+    private boolean isBottom = true;
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        isBottom = isSlideToBottom(recyclerView);
+        //isBottom = isSlideToBottom(recyclerView);
+        dy = 1000;
         if (dy > 0) {
             mRecyclerViewHelper = RecyclerViewPositionHelper.createHelper(recyclerView);
             visibleItemCount = recyclerView.getChildCount();
@@ -90,12 +91,12 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
 
     private boolean mIsZero = false;
 
-    public void setZeroFlag(boolean isZero){
+    public void setZeroFlag(boolean isZero) {
         mIsZero = isZero;
     }
 
     public void resetCurrentPage() {
-        mIsSuccess= true;
+        mIsSuccess = true;
         mIsZero = false;
         previousTotal = 0;
         loading = true;

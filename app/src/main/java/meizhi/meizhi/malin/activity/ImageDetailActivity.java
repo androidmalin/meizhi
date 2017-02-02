@@ -54,7 +54,7 @@ import rx.schedulers.Schedulers;
  */
 public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener {
     private static final String TAG = ImageDetailActivity.class.getSimpleName();
-    private static final String FILE_IMAGE = "MeZhi";
+    private static final String FILE_IMAGE = "0MeZhi";
     private static final int TEMP = 4 * 1024;
     private ArrayList<ImageBean> mList;
     private int mPosition;
