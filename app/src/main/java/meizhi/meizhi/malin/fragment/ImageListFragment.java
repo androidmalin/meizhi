@@ -26,6 +26,7 @@ import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.bean.ImageInfo;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
+import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
 import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
 import meizhi.meizhi.malin.utils.RxUtils;
 import rx.Observable;
@@ -57,7 +58,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private EndlessRecyclerOnScrollListener mEndlessListener;
     private Activity mActivity;
-    private static final int NUMBER = 15;
+    private static final int NUMBER = 10;
     private Subscription mSubscription;
     private Subscription mSubscription2;
 
@@ -113,7 +114,9 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         mActivity = getActivity();
         mAdapter = new ImageAdapter(mActivity, ImageListFragment.this);
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        StaggeredGridLayoutManager manager = new FastScrollLinearLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        //StaggeredGridLayoutManager  manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
         mEndlessListener = new EndlessRecyclerOnScrollListener() {
             @Override
@@ -385,6 +388,15 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         }
         return num == list1.size();
     }
+
+
+//    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//    int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+//
+//    if (firstVisibleItemPosition > mVisibleCount) {
+//        recyclerView.scrollToPosition(mVisibleCount);
+//    }
+//    recyclerView.smoothScrollToPosition(0);
 
 
     public void scrollToTop() {
