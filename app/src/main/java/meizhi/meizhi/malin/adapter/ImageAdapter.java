@@ -93,6 +93,9 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public ArrayList<ImageBean> getData() {
+        if (mData == null) {
+            mData = new ArrayList<>();
+        }
         return mData;
     }
 
@@ -123,7 +126,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             imageUrl = UrlUtils.getUrl(bean.url, UrlUtils.orj360);
 
-            imageUrl = ConstantUtils.getRightUrl(imageUrl,false);
+            imageUrl = ConstantUtils.getRightUrl(imageUrl, false);
 
             Glide.with(mFragment)
                     .load(imageUrl)

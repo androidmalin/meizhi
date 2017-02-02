@@ -1,7 +1,6 @@
 package meizhi.meizhi.malin.network.bean;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 类描述:
@@ -14,5 +13,5 @@ import java.util.List;
  * 版本:
  */
 public class ImageInfo {
-    public List<ImageBean> results = new ArrayList<>();
+    public ArrayList<ImageBean> results = new ArrayList<>();
 }

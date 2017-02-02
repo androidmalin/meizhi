@@ -27,12 +27,16 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     private int currentPage = 1;
 
     private RecyclerViewPositionHelper mRecyclerViewHelper;
-    private boolean isBottom = true;
+    private boolean isBottom = false;
+    private boolean isLoadMore = true;
+
+    private boolean mIsSuccess = true;
+    private boolean mIsZero = false;
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        //isBottom = isSlideToBottom(recyclerView);
+        isBottom = isSlideToBottom(recyclerView);
         dy = 1000;
         if (dy > 0) {
             mRecyclerViewHelper = RecyclerViewPositionHelper.createHelper(recyclerView);
@@ -67,29 +71,32 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
 
-        if (isBottom && !mIsSuccess && newState == RecyclerView.SCROLL_STATE_IDLE) {
+        if (isLoadMore && isBottom && !mIsSuccess && newState == RecyclerView.SCROLL_STATE_IDLE) {
             onLoadMore(currentPage);
             return;
         }
 
-        if (isBottom && mIsZero && newState == RecyclerView.SCROLL_STATE_IDLE) {
+        if (isLoadMore && isBottom && mIsZero && newState == RecyclerView.SCROLL_STATE_IDLE) {
             currentPage++;
             onLoadMore(currentPage);
             loading = true;
         }
     }
 
-    private boolean mIsSuccess = true;
+
+    public void setLoadMoreFlag(boolean is) {
+        this.isLoadMore = is;
+    }
 
     /**
      * 网络请求成功的标示
+     *
      * @param isOk isOk
      */
     public void setErrorFlag(boolean isOk) {
         this.mIsSuccess = isOk;
     }
 
-    private boolean mIsZero = false;
 
     public void setZeroFlag(boolean isZero) {
         mIsZero = isZero;
@@ -100,11 +107,13 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         mIsZero = false;
         previousTotal = 0;
         loading = true;
-        visibleThreshold = 0;
+        visibleThreshold = 6;
         firstVisibleItem = 0;
         visibleItemCount = 0;
         totalItemCount = 0;
         currentPage = 1;
+        isBottom = false;
+        isLoadMore = true;
     }
 
     //Start loading
