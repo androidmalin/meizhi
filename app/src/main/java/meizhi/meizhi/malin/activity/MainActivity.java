@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
@@ -81,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_content: {
-                Toast.makeText(this, "关于", Toast.LENGTH_SHORT).show();
+                if (mImageListFragment != null) {
+                    mImageListFragment.scrollToTop();
+                }
                 break;
             }
         }

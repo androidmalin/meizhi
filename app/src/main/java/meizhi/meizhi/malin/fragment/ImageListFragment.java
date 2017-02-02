@@ -26,6 +26,7 @@ import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.bean.ImageInfo;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
+import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
 import meizhi.meizhi.malin.utils.RxUtils;
 import rx.Observable;
 import rx.Subscriber;
@@ -56,7 +57,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private EndlessRecyclerOnScrollListener mEndlessListener;
     private Activity mActivity;
-    private static final int NUMBER = 10;
+    private static final int NUMBER = 15;
     private Subscription mSubscription;
     private Subscription mSubscription2;
 
@@ -385,4 +386,15 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         return num == list1.size();
     }
 
+
+    public void scrollToTop() {
+        if (mRecyclerView == null) return;
+        RecyclerViewPositionHelper helper = RecyclerViewPositionHelper.createHelper(mRecyclerView);
+        int firstVisibleItemPosition = helper.findFirstVisibleItemPosition();
+        int mVisibleCount = helper.getItemCount();
+        if (firstVisibleItemPosition > mVisibleCount) {
+            mRecyclerView.scrollToPosition(mVisibleCount);
+        }
+        mRecyclerView.smoothScrollToPosition(0);
+    }
 }
