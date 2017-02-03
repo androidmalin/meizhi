@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initListener() {
         findViewById(R.id.tv_content).setOnClickListener(this);
+        findViewById(R.id.view_top).setOnClickListener(this);
     }
 
     private void initView() {
@@ -90,9 +92,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.tv_content: {
                 if (mImageListFragment != null) {
-                    //mImageListFragment.scrollToTop();
                     startActivity(new Intent(this, AboutActivity.class));
                 }
+                break;
+            }
+
+            case R.id.view_top: {
+                doubleClick();
+                break;
+            }
+
+            default: {
                 break;
             }
         }
@@ -108,5 +118,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    //存储时间的数组
+    private long[] mHits = new long[2];
+
+    /**
+     * 双击事件响应
+     */
+    public void doubleClick() {
+        /**
+         * arraycopy,拷贝数组
+         * src 要拷贝的源数组
+         * srcPos 源数组开始拷贝的下标位置
+         * dst 目标数组
+         * dstPos 开始存放的下标位置
+         * length 要拷贝的长度（元素的个数）
+         */
+        //实现数组的移位操作，点击一次，左移一位，末尾补上当前开机时间（cpu的时间）
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        //双击事件的时间间隔500ms
+        if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+            //双击后具体的操作
+            if (mImageListFragment == null) return;
+            mImageListFragment.scrollToTop();
+        }
     }
 }

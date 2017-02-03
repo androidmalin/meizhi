@@ -27,7 +27,7 @@
                 app:elevation="@dimen/common_dimen_3dip"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
@@ -41,6 +41,11 @@
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/common_dimen_16sp" />
 
+                    <View
+                        android:id="@+id/view_top"
+                        android:layout_width="@dimen/common_dimen_0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/tv_content"
@@ -48,13 +53,13 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/common_dimen_15dip"
+                        android:paddingLeft="@dimen/common_dimen_50dip"
                         android:paddingRight="@dimen/common_dimen_15dip"
                         android:text="@string/content_txt"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/common_dimen_16sp" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

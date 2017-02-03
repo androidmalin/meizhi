@@ -6,6 +6,7 @@
     <dimen name="common_dimen_16dip">16dip</dimen>
     <dimen name="common_dimen_20dip">20dip</dimen>
     <dimen name="common_dimen_30dip">30dip</dimen>
+    <dimen name="common_dimen_50dip">50dip</dimen>
     <dimen name="common_dimen_80dip">80dip</dimen>
     <dimen name="common_dimen_100dip">100dip</dimen>
 
