@@ -71,7 +71,6 @@ public class ImagePagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if (mDownLoadClickListener == null) return;
                 String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                utrImg = ConstantUtils.getRightUrl(utrImg, true);
                 mDownLoadClickListener.downImageListener(utrImg,position,true);
             }
         });
@@ -86,7 +85,6 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         if (mList != null && mList.get(position) != null && mList.get(position).url != null) {
             mImageUrl = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-            mImageUrl = ConstantUtils.getRightUrl(mImageUrl, true);
             Glide.with(mContext)
                     .load(mImageUrl)
                     .listener(new RequestListener<String, GlideDrawable>() {
@@ -117,7 +115,6 @@ public class ImagePagerAdapter extends PagerAdapter {
             public boolean onLongClick(View v) {
                 if (mDownLoadClickListener != null) {
                     String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                    utrImg = ConstantUtils.getRightUrl(utrImg, true);
                     mDownLoadClickListener.downImageListener(utrImg,position,false);
                 }
                 return false;

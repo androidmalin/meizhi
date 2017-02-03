@@ -59,6 +59,7 @@ public final class UrlUtils {
     public static final String mw720_ = "mw720";
     public static final String mw1024_ = "mw1024";
     public static final String large_ = "large";
+    public static final String clouddn = "?imageView/2/h/500";
 
 
 //    http://wwx.sinaimg.cn/thumbnail/xxx.jpg（缩略图）
@@ -81,7 +82,7 @@ public final class UrlUtils {
                     result = url;
                 }
             } else if (url.contains("glb.clouddn.com") || url.contains("clouddn.com")) {
-                result = url + "?imageView/2/h/500";
+                result = url + clouddn;
             } else {
                 result = url;
             }

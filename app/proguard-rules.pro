@@ -86,18 +86,6 @@
 -dontwarn sun.misc.Unsafe
 -dontnote sun.misc.Unsafe
 
-#-------------------------------tencent.bugly-------------------------------
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
-
--keep class com.tencent.bugly.unity.UnityAgent
--dontwarn com.tencent.bugly.unity.UnityAgent
--dontnote com.tencent.bugly.unity.UnityAgent
-
--keep class com.tencent.bugly.cocos.Cocos2dxAgent
--dontwarn com.tencent.bugly.cocos.Cocos2dxAgent
--dontnote com.tencent.bugly.cocos.Cocos2dxAgent
-#-------------------------------tencent.bugly-------------------------------
 
 
 #-------------------------------RxJava-------------------------------
