@@ -17,7 +17,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
  * 类描述: 关于页面
@@ -58,8 +61,13 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_git_log:
+            case R.id.rl_git_log: {
+                MobclickAgent.onEvent(this, UMengEvent.ClickGithubLogo);
+                startBrowser(getResources().getString(R.string.git_mm));
+                break;
+            }
             case R.id.tv_git: {
+                MobclickAgent.onEvent(this, UMengEvent.ClickGithubLink);
                 startBrowser(getResources().getString(R.string.git_mm));
                 break;
             }
@@ -89,6 +97,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if (textView != null) {
                     if (isClick) {
+                        MobclickAgent.onEvent(AboutActivity.this, UMengEvent.ClickGankLink);
                         startBrowser(URL_THANKS);
                     }
                 }

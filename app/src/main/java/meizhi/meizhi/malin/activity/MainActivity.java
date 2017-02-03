@@ -15,6 +15,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
+import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
  * 类描述:
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initListener() {
-        findViewById(R.id.tv_content).setOnClickListener(this);
+        findViewById(R.id.tv_about_content).setOnClickListener(this);
         findViewById(R.id.view_top).setOnClickListener(this);
     }
 
@@ -90,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_content: {
+            case R.id.tv_about_content: {
+                MobclickAgent.onEvent(this, UMengEvent.ClickAbout);
                 if (mImageListFragment != null) {
                     startActivity(new Intent(this, AboutActivity.class));
                 }
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
             //双击后具体的操作
             if (mImageListFragment == null) return;
+            MobclickAgent.onEvent(this, UMengEvent.DoubleClickTop);
             mImageListFragment.scrollToTop();
         }
     }
