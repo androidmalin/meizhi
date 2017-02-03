@@ -80,6 +80,8 @@ public final class UrlUtils {
                 } else {
                     result = url;
                 }
+            } else if (url.contains("glb.clouddn.com") || url.contains("clouddn.com")) {
+                result = url + "?imageView/2/h/500";
             } else {
                 result = url;
             }
@@ -89,6 +91,10 @@ public final class UrlUtils {
         }
         return result;
     }
+
+
+    //http://7xi8d6.com1.z0.glb.clouddn.com/16123958_1630476787257847_7576387494862651392_n.jpg?imageView/2/h/500
+    //http://ac-olwhhm4o.clouddn.com/4063qegYjlC8nx6uEqxV0kT3hn6hdqJqVWPKpdrS?imageView/2/h/500
 
 
     public static String getUrl2(String url, int type) {

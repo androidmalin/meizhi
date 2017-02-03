@@ -5,6 +5,6 @@
     android:gravity="center"
     android:text="@string/load_error_text"
     android:textColor="@color/colorAccent"
-    android:textSize="16sp">
+    android:textSize="@dimen/common_dimen_17sp">
 
 </TextView>

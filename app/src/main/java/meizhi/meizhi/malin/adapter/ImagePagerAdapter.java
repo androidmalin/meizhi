@@ -46,7 +46,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     private downLoadClickListener mDownLoadClickListener;
 
     public interface downLoadClickListener {
-        void downImageListener(String url);
+        void downImageListener(String url,int position,boolean singleClickDown);
     }
 
     public void setDownLoadListener(downLoadClickListener listener) {
@@ -72,14 +72,14 @@ public class ImagePagerAdapter extends PagerAdapter {
                 if (mDownLoadClickListener == null) return;
                 String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
                 utrImg = ConstantUtils.getRightUrl(utrImg, true);
-                mDownLoadClickListener.downImageListener(utrImg);
+                mDownLoadClickListener.downImageListener(utrImg,position,true);
             }
         });
 
         final ImageView imgHolder = (ImageView) rootView.findViewById(R.id.iv_holder);
 
         Glide.with(mContext)
-                .load(R.drawable.image_loading_holder_two)
+                .load(R.drawable.image_loading_holder)
                 .asGif()
                 .override((int) PhoneScreenUtil.dipToPx(mContext, 100.0f), (int) PhoneScreenUtil.dipToPx(mContext, 100.0f))
                 .into(imgHolder);
@@ -118,7 +118,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                 if (mDownLoadClickListener != null) {
                     String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
                     utrImg = ConstantUtils.getRightUrl(utrImg, true);
-                    mDownLoadClickListener.downImageListener(utrImg);
+                    mDownLoadClickListener.downImageListener(utrImg,position,false);
                 }
                 return false;
             }

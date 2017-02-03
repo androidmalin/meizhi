@@ -14,12 +14,13 @@
         android:id="@+id/iv_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:layout_gravity="center" />
 
     <RelativeLayout
         android:id="@+id/rl_download"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/common_dimen_80dip"
+        android:layout_height="@dimen/common_dimen_80dip"
         android:layout_gravity="right"
         android:layout_marginTop="20dp">
 
@@ -27,6 +28,7 @@
             android:layout_width="@dimen/common_dimen_20dip"
             android:layout_height="@dimen/common_dimen_20dip"
             android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
             android:src="@mipmap/ic_toolbar_menu_download" />
 
     </RelativeLayout>

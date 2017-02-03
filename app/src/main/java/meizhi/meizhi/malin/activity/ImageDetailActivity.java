@@ -15,12 +15,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.DepthPageTransformer;
@@ -30,6 +33,7 @@ import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.HackyViewPager;
 import meizhi.meizhi.malin.utils.RxUtils;
+import meizhi.meizhi.malin.utils.UMengEvent;
 import okhttp3.HttpUrl;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -96,12 +100,19 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     }
 
     @Override
-    public void downImageListener(String url) {
-        downloadFile(url);
+    public void downImageListener(String url, int position, boolean singleClickDown) {
+        downloadFile(url, position, singleClickDown);
     }
 
 
-    private void downloadFile(final String fileUrl) {
+    private void downloadFile(final String fileUrl, int position, boolean singleClickDown) {
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("url", fileUrl);
+        map.put("position", "" + position);
+        MobclickAgent.onEvent(this, singleClickDown ? UMengEvent.ClickDownLoad : UMengEvent.LongClickDownLoad, map);
+
+
         ImageApi biLiApi = ImageService.getInstance().getDownLoadService(ImageApi.class, getBaseUrl(fileUrl));
         Call<ResponseBody> call = biLiApi.download(fileUrl);
         call.enqueue(new Callback<ResponseBody>() {
@@ -168,7 +179,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         }
         return baseUrl;
     }
-
 
 
     private void writeImageToDisk(ResponseBody body) {
@@ -274,5 +284,17 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     protected void onDestroy() {
         super.onDestroy();
         RxUtils.unSubscribeIfNotNull(mSubscription);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

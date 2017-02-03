@@ -4,7 +4,7 @@
     android:text="@string/no_data_txt"
     android:textColor="@color/colorAccent"
     android:gravity="center"
-    android:textSize="17sp"
+    android:textSize="@dimen/common_dimen_17sp"
     android:layout_height="match_parent">
 
 </TextView>

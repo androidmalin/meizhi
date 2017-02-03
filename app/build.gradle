@@ -104,4 +104,6 @@ dependencies {
     //OkHttp
     compile rootProject.ext.dependencies["okhttp"]
     compile project(path: ':pvlibrary')
+
+    compile rootProject.ext.dependencies["umeng"]
 }

@@ -1,7 +1,7 @@
-package meizhi.meizhi.malin.utils; /**
+package meizhi.meizhi.malin.utils;
+/**
  * RecyclerView position helper class for any LayoutManager.
  * <p>
- * compile 'com.android.support:recyclerview-v7:22.0.0'
  */
 
 import android.support.v7.widget.OrientationHelper;
@@ -83,7 +83,7 @@ public final class RecyclerViewPositionHelper {
     }
 
     private View findOneVisibleChild(int fromIndex, int toIndex, boolean completelyVisible,
-                             boolean acceptPartiallyVisible) {
+                                     boolean acceptPartiallyVisible) {
         OrientationHelper helper;
         if (layoutManager.canScrollVertically()) {
             helper = OrientationHelper.createVerticalHelper(layoutManager);

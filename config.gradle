@@ -6,11 +6,12 @@ ext {
             minSdkVersion    : 15,
             targetSdkVersion : 22,
             applicationId    : "meizhi.meizhi.malin",
-            versionCode      : 2,
-            versionName      : "2.0"
+            versionCode      : 3,
+            versionName      : "3.0"
 
     ]
     dependencies = [
+            'umeng'                       : 'com.umeng.analytics:analytics:latest.integration',
             'fresco'                      : 'com.facebook.fresco:fresco:1.0.1',
             'imagepipeline-base'          : 'com.facebook.fresco:imagepipeline-base:1.0.1',
             'imagepipeline'               : 'com.facebook.fresco:imagepipeline:1.0.1',

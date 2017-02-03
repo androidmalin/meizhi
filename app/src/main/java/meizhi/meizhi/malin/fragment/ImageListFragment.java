@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.util.ArrayList;
 
 import meizhi.meizhi.malin.R;
@@ -29,6 +31,7 @@ import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
 import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
 import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
 import meizhi.meizhi.malin.utils.RxUtils;
+import meizhi.meizhi.malin.utils.UMengEvent;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -103,8 +106,8 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
 
     private void initView() {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.xy_swipe_fans_refresh);
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.xy_rooom_fans_rv);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.img_swipe_refresh);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.img_list_rv);
         mStubError = (ViewStub) mRootView.findViewById(R.id.view_stub_error);
         mStubEmpty = (ViewStub) mRootView.findViewById(R.id.view_stub_empty);
     }
@@ -122,6 +125,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             @Override
             public void onLoadMore(final int currentPage) {
                 mEndlessListener.setLoadMoreFlag(true);
+                MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
                 getFangs(currentPage);
                 //delayLoadMoreData(currentPage);
             }
@@ -137,6 +141,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        MobclickAgent.onEvent(mActivity, UMengEvent.img_list_fresh);
                         mEndlessListener.setLoadMoreFlag(false);
                         getFangs(1);
                     }
@@ -349,6 +354,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     public void itemOnClick(String imageUrl, int position) {
         if (mActivity == null || mActivity.isFinishing()) return;
         try {
+            MobclickAgent.onEvent(mActivity, UMengEvent.ClickImageToBigImage);
             Intent intent = new Intent(mActivity, ImageDetailActivity.class);
             intent.putExtra("position", position);
             intent.putParcelableArrayListExtra("datas", mAdapter.getData());
@@ -389,16 +395,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         return num == list1.size();
     }
 
-
-//    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//    int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
-//
-//    if (firstVisibleItemPosition > mVisibleCount) {
-//        recyclerView.scrollToPosition(mVisibleCount);
-//    }
-//    recyclerView.smoothScrollToPosition(0);
-
-
     public void scrollToTop() {
         if (mRecyclerView == null) return;
         RecyclerViewPositionHelper helper = RecyclerViewPositionHelper.createHelper(mRecyclerView);
@@ -408,5 +404,17 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             mRecyclerView.scrollToPosition(mVisibleCount);
         }
         mRecyclerView.smoothScrollToPosition(0);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("ImageListFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("ImageListFragment");
     }
 }

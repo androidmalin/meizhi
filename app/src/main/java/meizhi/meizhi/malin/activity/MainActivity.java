@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
+
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
 
@@ -24,14 +26,21 @@ import meizhi.meizhi.malin.fragment.ImageListFragment;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private ImageListFragment mImageListFragment;
     private Toolbar mToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setNavigationBarColor();
         setContentView(R.layout.activity_main);
+
+        MobclickAgent.setDebugMode(true);
+        MobclickAgent.openActivityDurationTrack(false);
+        MobclickAgent.enableEncrypt(true);
+
         initView();
         initListener();
         initToolBar();
@@ -86,5 +95,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

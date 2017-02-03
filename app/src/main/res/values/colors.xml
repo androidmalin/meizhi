@@ -3,6 +3,5 @@
     <color name="colorPrimary">#fffb7299</color>
     <color name="colorPrimaryDark">#ffb85671</color>
     <color name="colorAccent">#FF4081</color>
-
-
+    <color name="card_view_bg">#F5F5F5</color>
 </resources>

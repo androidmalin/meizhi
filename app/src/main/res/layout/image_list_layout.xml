@@ -5,15 +5,15 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/xy_swipe_fans_refresh"
+        android:id="@+id/img_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/xy_rooom_fans_rv"
+            android:id="@+id/img_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F5F5F5" />
+            android:background="@color/card_view_bg" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
@@ -29,8 +29,6 @@
         android:id="@+id/view_stub_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="false"
-        android:focusable="false"
         android:layout="@layout/no_data_layout"
         android:visibility="gone" />
 </FrameLayout>
