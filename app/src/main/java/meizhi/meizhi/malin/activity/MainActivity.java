@@ -2,6 +2,7 @@ package meizhi.meizhi.malin.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -26,7 +27,6 @@ import meizhi.meizhi.malin.fragment.ImageListFragment;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     private ImageListFragment mImageListFragment;
     private Toolbar mToolbar;
 
@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.tv_content: {
                 if (mImageListFragment != null) {
-                    mImageListFragment.scrollToTop();
+                    //mImageListFragment.scrollToTop();
+                    startActivity(new Intent(this, AboutActivity.class));
                 }
                 break;
             }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        app:contentInsetLeft="@dimen/common_dimen_0dip"
+        app:contentInsetStart="@dimen/common_dimen_0dip"
+        app:elevation="@dimen/common_dimen_3dip"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/about_mm_tip"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/common_dimen_16sp" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_git_log"
+                android:layout_width="@dimen/common_dimen_100dip"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:layout_width="@dimen/common_dimen_30dip"
+                    android:layout_height="@dimen/common_dimen_30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_dimen_20dip"
+                    android:src="@drawable/githu_logo" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/common_dimen_20dip"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/common_dimen_20dip"
+        android:text="V3.0"
+        android:textColor="@color/about_text_color"
+        android:textSize="@dimen/common_dimen_16sp" />
+
+    <TextView
+        android:id="@+id/tv_thanks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/common_dimen_30dip"
+        android:text="@string/thanks_txt"
+        android:textColor="@color/about_text_color"
+        android:textSize="@dimen/common_dimen_16sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/common_dimen_30dip"
+        android:text="@string/click_tip"
+        android:textColor="@color/about_text_color"
+        android:textSize="@dimen/common_dimen_16sp" />
+
+    <TextView
+        android:id="@+id/tv_git"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:paddingBottom="@dimen/common_dimen_80dip"
+        android:paddingTop="@dimen/common_dimen_20dip"
+        android:text="@string/git_mm"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/common_dimen_16sp" />
+</LinearLayout>

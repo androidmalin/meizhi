@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#ffb85671</color>
     <color name="colorAccent">#FF4081</color>
     <color name="card_view_bg">#F5F5F5</color>
+    <color name="about_text_color">#737373</color>
 </resources>
