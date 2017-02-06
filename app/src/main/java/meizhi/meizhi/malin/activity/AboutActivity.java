@@ -48,6 +48,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         TextView mGitLinkTV = (TextView) findViewById(R.id.tv_git);
         TextView mThanksView = (TextView) findViewById(R.id.tv_thanks);
         findViewById(R.id.rl_git_log).setOnClickListener(this);
+        findViewById(R.id.rl_about_back).setOnClickListener(this);
 
         mGitLinkTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         mGitLinkTV.setOnClickListener(this);
@@ -69,6 +70,11 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tv_git: {
                 MobclickAgent.onEvent(this, UMengEvent.ClickGithubLink);
                 startBrowser(getResources().getString(R.string.git_mm));
+                break;
+            }
+
+            case R.id.rl_about_back: {
+                this.finish();
                 break;
             }
             default: {
