@@ -38,7 +38,7 @@ public class PhoneScreenUtil {
      * @param context Context
      * @return width
      */
-    public static int getDeviceWidth(Context context) {
+    private static int getDeviceWidth(Context context) {
         DisplayMetrics outMetrics = obtain(context);
         return outMetrics.widthPixels;
     }
@@ -49,7 +49,7 @@ public class PhoneScreenUtil {
      * @param context Context
      * @return height
      */
-    public static int getDeviceHeight(Context context) {
+    private static int getDeviceHeight(Context context) {
         DisplayMetrics outMetrics = obtain(context);
         return outMetrics.heightPixels;
     }
@@ -88,6 +88,26 @@ public class PhoneScreenUtil {
         return dip * getDeviceDensity(context) + 0.5f;
     }
 
+
+    /**
+     * 得到手机的高，包括状态栏和导航栏
+     *
+     * @param context Context
+     * @return int
+     */
+    public static int getPhoneHeight(Context context) {
+        return getDeviceHeight(context) + getNavigationBarHeight(context);
+    }
+
+    /**
+     * 得到手机的高
+     *
+     * @param context Context
+     * @return int
+     */
+    public static int getPhoneWidth(Context context) {
+        return getDeviceWidth(context);
+    }
 
     /**
      * 获取虚拟按键高度

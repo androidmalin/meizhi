@@ -2,6 +2,7 @@ package meizhi.meizhi.malin.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.network.bean.ImageBean;
-import meizhi.meizhi.malin.utils.ConstantUtils;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
 import uk.co.senab.photoview.PhotoView;
@@ -38,15 +38,15 @@ public class ImagePagerAdapter extends PagerAdapter {
         this.mList = mList;
         this.mContext = context;
 
-        mItemWidth = PhoneScreenUtil.getDeviceWidth(mContext);
-        mItemHeight = PhoneScreenUtil.getDeviceHeight(mContext);
+        mItemWidth = PhoneScreenUtil.getPhoneWidth(mContext);
+        mItemHeight = PhoneScreenUtil.getPhoneHeight(mContext);
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     private downLoadClickListener mDownLoadClickListener;
 
     public interface downLoadClickListener {
-        void downImageListener(String url,int position,boolean singleClickDown);
+        void downImageListener(String url, int position, boolean singleClickDown);
     }
 
     public void setDownLoadListener(downLoadClickListener listener) {
@@ -58,12 +58,21 @@ public class ImagePagerAdapter extends PagerAdapter {
         return mList != null ? mList.size() : 0;
     }
 
+    private ViewGroup.LayoutParams mLayoutParams;
+
     @Override
     public View instantiateItem(ViewGroup container, final int position) {
 
         View rootView = mLayoutInflater.inflate(R.layout.item_pager_image, container, false);
         PhotoView photoView = (PhotoView) rootView.findViewById(R.id.photo_view);
 
+        mLayoutParams = photoView.getLayoutParams();
+        mLayoutParams.width = mItemWidth;
+        mLayoutParams.height = mItemHeight;
+        Log.d(TAG, "mItemWidth:" + mItemWidth);
+        Log.d(TAG, "mItemHeight:" + mItemHeight);
+
+        photoView.setLayoutParams(mLayoutParams);
 
         RelativeLayout downLoad = (RelativeLayout) rootView.findViewById(R.id.rl_download);
         downLoad.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +80,7 @@ public class ImagePagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if (mDownLoadClickListener == null) return;
                 String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                mDownLoadClickListener.downImageListener(utrImg,position,true);
+                mDownLoadClickListener.downImageListener(utrImg, position, true);
             }
         });
 
@@ -115,7 +124,7 @@ public class ImagePagerAdapter extends PagerAdapter {
             public boolean onLongClick(View v) {
                 if (mDownLoadClickListener != null) {
                     String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                    mDownLoadClickListener.downImageListener(utrImg,position,false);
+                    mDownLoadClickListener.downImageListener(utrImg, position, false);
                 }
                 return false;
             }

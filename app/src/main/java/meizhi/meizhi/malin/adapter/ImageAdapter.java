@@ -39,8 +39,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public ImageAdapter(Activity context, ImageListFragment fragment) {
         mInflater = LayoutInflater.from(context);
-        int mScreenWidth = PhoneScreenUtil.getDeviceWidth(context);
-        mItemWidth = (int) (mScreenWidth * 1.0f / 2.0f - PhoneScreenUtil.dipToPx(context, 40.0f));
+        mItemWidth = (int) ((PhoneScreenUtil.getPhoneWidth(context) * 1.0f - PhoneScreenUtil.dipToPx(context, 100.f)) / 2.0f);
         mItemHeight = (int) (mItemWidth * 4.0f / 3.0f);
         mFragment = fragment;
     }
@@ -105,16 +104,16 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private String imageUrl;
 
+    private ViewGroup.LayoutParams mLayoutParams;
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
-            final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-
-            ViewGroup.LayoutParams lp = itemViewHolder.head.getLayoutParams();
-            lp.width = mItemWidth;
-            lp.height = mItemHeight;
-            itemViewHolder.head.setLayoutParams(lp);
-
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            mLayoutParams = itemViewHolder.head.getLayoutParams();
+            mLayoutParams.width = mItemWidth;
+            mLayoutParams.height = mItemHeight;
+            itemViewHolder.head.setLayoutParams(mLayoutParams);
             final int pos = getRealPosition(holder);
             final ImageBean bean = mData.get(pos);
 

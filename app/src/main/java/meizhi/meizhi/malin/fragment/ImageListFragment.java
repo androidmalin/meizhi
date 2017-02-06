@@ -116,10 +116,9 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private void initData() {
         mActivity = getActivity();
         mAdapter = new ImageAdapter(mActivity, ImageListFragment.this);
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         StaggeredGridLayoutManager manager = new FastScrollLinearLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        //StaggeredGridLayoutManager  manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
+
         mRecyclerView.setAdapter(mAdapter);
         mEndlessListener = new EndlessRecyclerOnScrollListener() {
             @Override
