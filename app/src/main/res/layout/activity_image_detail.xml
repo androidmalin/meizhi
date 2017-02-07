@@ -7,4 +7,19 @@
         android:id="@+id/view_pager_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/rl_download_img"
+        android:layout_width="@dimen/common_dimen_80dip"
+        android:layout_height="@dimen/common_dimen_80dip"
+        android:layout_gravity="right"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="@dimen/common_dimen_20dip"
+            android:layout_height="@dimen/common_dimen_20dip"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/ic_toolbar_menu_download" />
+    </RelativeLayout>
 </FrameLayout>

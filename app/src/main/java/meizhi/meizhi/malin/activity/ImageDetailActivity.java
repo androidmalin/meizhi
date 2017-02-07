@@ -61,7 +61,7 @@ import rx.schedulers.Schedulers;
  * 修改备注:
  * 版本:
  */
-public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener, ImagePagerAdapter.photoViewTapListener {
+public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener, ImagePagerAdapter.photoViewTapListener, View.OnClickListener {
     private static final String TAG = ImageDetailActivity.class.getSimpleName();
     private static final String FILE_IMAGE = "0MeZhi";
     private static final int TEMP = 4 * 1024;
@@ -110,6 +110,24 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(mPosition);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
+        mContentView.findViewById(R.id.rl_download_img).setOnClickListener(this);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mPosition = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 //        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
 //            @Override
@@ -410,4 +428,19 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rl_download_img: {
+                if (mList == null || mPosition >= mList.size() || mList.get(mPosition).url == null)
+                    return;
+                downloadFile(mList.get(mPosition).url, mPosition, true);
+                break;
+            }
+
+            default: {
+                break;
+            }
+        }
+    }
 }

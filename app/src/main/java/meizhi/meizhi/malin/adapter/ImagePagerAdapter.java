@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -41,6 +40,13 @@ public class ImagePagerAdapter extends PagerAdapter {
         mItemWidth = PhoneScreenUtil.getPhoneWidth(mContext);
         mItemHeight = PhoneScreenUtil.getPhoneHeight(mContext);
         mLayoutInflater = LayoutInflater.from(context);
+    }
+
+    public ArrayList<ImageBean> getData() {
+        if (mList == null) {
+            mList = new ArrayList<>();
+        }
+        return mList;
     }
 
     private downLoadClickListener mDownLoadClickListener;
@@ -92,8 +98,10 @@ public class ImagePagerAdapter extends PagerAdapter {
             @Override
             public boolean onLongClick(View view) {
                 if (mDownLoadClickListener != null) {
-                    String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                    mDownLoadClickListener.downImageListener(utrImg, position, false);
+                    if (mList != null && position < mList.size() && mList.get(position).url != null) {
+                        String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
+                        mDownLoadClickListener.downImageListener(utrImg, position, false);
+                    }
                 }
                 return false;
             }
@@ -107,16 +115,6 @@ public class ImagePagerAdapter extends PagerAdapter {
         Log.d(TAG, "mItemHeight:" + mItemHeight);
 
         photoView.setLayoutParams(mLayoutParams);
-
-        RelativeLayout downLoad = (RelativeLayout) mRootView.findViewById(R.id.rl_download);
-        downLoad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mDownLoadClickListener == null) return;
-                String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                mDownLoadClickListener.downImageListener(utrImg, position, true);
-            }
-        });
 
         final ImageView imgHolder = (ImageView) mRootView.findViewById(R.id.iv_holder);
 
