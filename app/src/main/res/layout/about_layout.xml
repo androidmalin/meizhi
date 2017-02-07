@@ -31,6 +31,7 @@
                     android:layout_width="@dimen/common_dimen_30dip"
                     android:layout_height="@dimen/common_dimen_30dip"
                     android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
                     android:layout_marginLeft="@dimen/common_dimen_10dip"
                     android:src="@drawable/back_icon" />
             </RelativeLayout>
@@ -56,6 +57,7 @@
                     android:layout_width="@dimen/common_dimen_30dip"
                     android:layout_height="@dimen/common_dimen_30dip"
                     android:layout_alignParentRight="true"
+                    android:contentDescription="@string/app_name"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/common_dimen_20dip"
                     android:src="@drawable/githu_logo" />
@@ -68,14 +70,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/common_dimen_20dip"
+        android:contentDescription="@string/app_name"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/tv_app_version_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/common_dimen_20dip"
-        android:text="V3.0"
         android:textColor="@color/about_text_color"
         android:textSize="@dimen/common_dimen_16sp" />
 

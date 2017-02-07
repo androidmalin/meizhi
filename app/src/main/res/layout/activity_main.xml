@@ -51,7 +51,6 @@
                         android:id="@+id/tv_about_content"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
                         android:gravity="center"
                         android:paddingLeft="@dimen/common_dimen_50dip"
                         android:paddingRight="@dimen/common_dimen_15dip"

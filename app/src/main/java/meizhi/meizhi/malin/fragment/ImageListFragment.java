@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
+import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.activity.ImageDetailActivity;
 import meizhi.meizhi.malin.adapter.ImageAdapter;
+import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.bean.ImageInfo;
@@ -85,6 +88,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         try {
             mRootView = inflater.inflate(R.layout.image_list_layout, container, false);
         } catch (InflateException e) {
+            CrashReport.postCatchedException(e);
             e.printStackTrace();
             if (getActivity() != null) {
                 getActivity().finish();
@@ -195,7 +199,8 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                             mEndlessListener.setLoadMoreFlag(true);
                             inflateErrorStubIfNeeded();
                         }
-                        //TODO：上报错误
+                        CrashReport.postCatchedException(e);
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -359,6 +364,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             intent.putParcelableArrayListExtra("datas", mAdapter.getData());
             mActivity.startActivity(intent);
         } catch (Throwable e) {
+            CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
     }
@@ -415,5 +421,12 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd("ImageListFragment");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        RefWatcher refWatcher = MApplication.getApplication().getRefWatcher(MApplication.getApplication());
+        refWatcher.watch(this);
     }
 }

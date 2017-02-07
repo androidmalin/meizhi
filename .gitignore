@@ -8,4 +8,5 @@
 .externalNativeBuild
 malin.jks
 gradle.properties
-infer-out
+/infer-out
+/app/bugly

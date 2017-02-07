@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
+//BugLy
+apply plugin: 'bugly'
+bugly {
+    appId = rootProject.ext.common.appId
+    appKey = rootProject.ext.common.appKey
+}
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        resConfigs "zh", "en"
+        resConfigs "zh"
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
@@ -78,6 +84,44 @@ android {
         disable 'InvalidPackage'
     }
 
+    //productFlavors领域，定义渠道名，使用manifestPlaceholders制定要替换渠道占位符的值。
+    productFlavors {
+        wandoujia {
+            manifestPlaceholders = [CHANNEL_VALUE: "wandoujia"]
+            minSdkVersion = rootProject.ext.android.minSdkVersion
+        }
+        googleplay {
+            manifestPlaceholders = [CHANNEL_VALUE: "googleplay"]
+            minSdkVersion = rootProject.ext.android.minSdkVersion
+        }
+
+        xiaomi {
+            manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
+            minSdkVersion = rootProject.ext.android.minSdkVersion
+        }
+    }
+
+    //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是 wandoujia，googleplay，xiaomi
+    productFlavors.all { Flavor ->
+        Flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+        def androidManifest = new XmlSlurper().parse("${project.rootDir}/app/src/main/AndroidManifest.xml")
+        println androidManifest['@android:versionName']
+    }
+
+    //apk包重新命名
+    applicationVariants.all { Variant ->
+        Variant.outputs.each { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && 'release'.equals(Variant.buildType.name)) {
+                def apkFile = new File(output.outputFile.getParent(), "APP_Release_${Variant.flavorName}_v${Variant.versionName}.apk")
+                output.outputFile = apkFile;
+            }
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && 'debug'.equals(Variant.buildType.name)) {
+                def apkFile = new File(output.outputFile.getParent(), "app_Debug_${Variant.flavorName}_v${Variant.versionName}.apk")
+                output.outputFile = apkFile;
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -106,4 +150,11 @@ dependencies {
     compile project(path: ':pvlibrary')
 
     compile rootProject.ext.dependencies["umeng"]
+
+    //Leakcanary
+    debugCompile rootProject.ext.dependencies["leakcanary-android"]
+    releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
+
+    //BugLy
+    compile rootProject.ext.dependencies["crashreport_upgrade"]
 }

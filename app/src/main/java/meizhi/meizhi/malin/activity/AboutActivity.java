@@ -17,9 +17,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
@@ -44,9 +46,11 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         initView();
     }
 
+
     private void initView() {
         TextView mGitLinkTV = (TextView) findViewById(R.id.tv_git);
         TextView mThanksView = (TextView) findViewById(R.id.tv_thanks);
+        TextView versionName = (TextView) findViewById(R.id.tv_app_version_name);
         findViewById(R.id.rl_git_log).setOnClickListener(this);
         findViewById(R.id.rl_about_back).setOnClickListener(this);
 
@@ -57,6 +61,12 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         spanString.setSpan(new ClickEvent(ContextCompat.getColor(this, R.color.colorPrimary), true), 6, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mThanksView.setText(spanString);
         mThanksView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        initData(versionName);
+    }
+
+    private void initData(TextView textView) {
+        textView.setText(AppInfoUtil.getAppVersionName(this, getResources().getString(R.string.app_default_version)));
     }
 
     @Override
@@ -143,6 +153,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             intent.setData(content_url);
             startActivity(intent);
         } catch (Throwable e) {
+            // 主动上报开发者Catch的异常 您可能会关注某些重要异常的Catch情况。
+            // 我们提供了上报这类异常的接口。
+            CrashReport.postCatchedException(e);
             e.printStackTrace();
             Toast.makeText(this, R.string.no_browser_tip, Toast.LENGTH_SHORT).show();
         }

@@ -1,5 +1,7 @@
 package meizhi.meizhi.malin.utils;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 /**
  * 类描述:
  * 创建人:malin.myemail@163.com
@@ -87,6 +89,7 @@ public final class UrlUtils {
                 result = url;
             }
         } catch (Exception e) {
+            CrashReport.postCatchedException(e);
             e.printStackTrace();
             result = url;
         }
@@ -136,6 +139,7 @@ public final class UrlUtils {
                 result = url;
             }
         } catch (Exception e) {
+            CrashReport.postCatchedException(e);
             e.printStackTrace();
             result = url;
         }

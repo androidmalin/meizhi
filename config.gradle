@@ -6,9 +6,14 @@ ext {
             minSdkVersion    : 15,
             targetSdkVersion : 22,
             applicationId    : "meizhi.meizhi.malin",
-            versionCode      : 3,
-            versionName      : "3.0"
+            versionCode      : 4,
+            versionName      : "4.0"
 
+    ]
+
+    common = [
+            appId : "ee6ea51102",
+            appKey: "7693cfba-fe6a-4f70-9509-9e2ed22eb4dc"
     ]
     dependencies = [
             'umeng'                       : 'com.umeng.analytics:analytics:latest.integration',
@@ -30,8 +35,8 @@ ext {
             'support-annotations'         : 'com.android.support:support-annotations:25.1.0',
             'recyclerview'                : 'com.android.support:recyclerview-v7:25.1.0',
             'logger'                      : 'com.orhanobut:logger:1.15',
-            'nativecrashreport'           : 'com.tencent.bugly:nativecrashreport:3.0',
-            'crashreport_upgrade'         : 'com.tencent.bugly:crashreport_upgrade:1.1.5.0',
+            'nativecrashreport'           : 'com.tencent.bugly:nativecrashreport:3.1.2',
+            'crashreport_upgrade'         : 'com.tencent.bugly:crashreport_upgrade:1.2.2.0',
             'butterknife-annotations'     : 'com.jakewharton:butterknife-annotations:8.4.0',
             'butterknife'                 : 'com.jakewharton:butterknife:8.4.0',
             'butterknife-compiler'        : 'com.jakewharton:butterknife-compiler:8.4.0',

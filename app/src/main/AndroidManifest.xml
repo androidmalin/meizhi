@@ -4,7 +4,6 @@
     package="meizhi.meizhi.malin">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
@@ -14,7 +13,12 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
+    <!--BugLy-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
+        android:name=".application.MApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -44,6 +48,27 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Default" />
+
+        <!--BugLy升级-->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <!--BugLy渠道的占位符-->
+        <meta-data
+            android:name="PRODUCT"
+            android:value="${CHANNEL_VALUE}" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="meizhi.meizhi.malin.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

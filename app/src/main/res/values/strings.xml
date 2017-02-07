@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">妹纸</string>
+    <string name="app_name">测试</string>
     <string name="load_error_text">加载失败，点击试试。</string>
     <string name="no_data_txt">暂无数据，点击试试。</string>
     <string name="content_txt">关于</string>
@@ -10,4 +10,6 @@
     <string name="click_tip">点击下面的链接即可访问源码</string>
     <string name="no_browser_tip">您手机上没有浏览器</string>
     <string name="about_mm_tip">关于妹纸</string>
+    <string name="app_default_version">3.0</string>
+    <string name="app_package_name">meizhi.meizhi.malin</string>
 </resources>

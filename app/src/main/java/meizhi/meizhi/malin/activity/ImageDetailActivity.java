@@ -15,9 +15,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -127,7 +129,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         if (mWindow == null) this.finish();
         mDecorView = mWindow.getDecorView();
         if (mDecorView == null) this.finish();
-        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_image_detail, null);
+        final ViewGroup nullParent = null;
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_image_detail, nullParent);
         if (mContentView == null) this.finish();
     }
 
@@ -287,6 +290,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                         try {
                             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + mPath)));
                         } catch (Throwable e) {
+                            CrashReport.postCatchedException(e);
                             e.printStackTrace();
                         }
                     }
@@ -294,6 +298,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(ImageDetailActivity.this, R.string.down_load_error, Toast.LENGTH_SHORT).show();
+                        CrashReport.postCatchedException(e);
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -354,6 +360,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                 outputStream.flush();
                 return true;
             } catch (IOException e) {
+                CrashReport.postCatchedException(e);
                 return false;
             } finally {
                 if (inputStream != null) {
@@ -361,6 +368,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                         inputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        CrashReport.postCatchedException(e);
                     }
                 }
                 if (outputStream != null) {
@@ -368,10 +376,13 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                         outputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        CrashReport.postCatchedException(e);
                     }
                 }
             }
         } catch (Throwable e) {
+            CrashReport.postCatchedException(e);
+            e.printStackTrace();
             return false;
         }
     }
