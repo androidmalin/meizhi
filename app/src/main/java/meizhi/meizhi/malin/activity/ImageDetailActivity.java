@@ -6,12 +6,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
@@ -55,50 +59,105 @@ import rx.schedulers.Schedulers;
  * 修改备注:
  * 版本:
  */
-public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener {
+public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener, ImagePagerAdapter.photoViewTapListener {
     private static final String TAG = ImageDetailActivity.class.getSimpleName();
     private static final String FILE_IMAGE = "0MeZhi";
     private static final int TEMP = 4 * 1024;
     private ArrayList<ImageBean> mList;
     private int mPosition;
     private Subscription mSubscription;
+    private static final int INITIAL_DELAY = 600;
+    private Window mWindow;
+    private View mDecorView;
+    private View mContentView;
+    private static final int MESSAGE_HIDE = 0;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg == null) return;
+            switch (msg.what) {
+                case MESSAGE_HIDE: {
+                    hideSystemUI();
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarColor();
-        setContentView(R.layout.activity_image_detail);
+        initView();
+        initStatusBarColor();
+        setContentView(mContentView);
         Intent intent = getIntent();
         if (intent != null) {
             mPosition = intent.getIntExtra("position", 0);
             mList = intent.getParcelableArrayListExtra("datas");
         }
-        ViewPager mViewPager = (HackyViewPager) findViewById(R.id.view_pager_iv);
+        ViewPager viewPager = (HackyViewPager) mContentView.findViewById(R.id.view_pager_iv);
         ImagePagerAdapter adapter = new ImagePagerAdapter();
         adapter.setDownLoadListener(this);
+        adapter.setPhotoViewTapListener(this);
         adapter.setData(mList, this);
-        mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(mPosition);
-        mViewPager.setPageTransformer(true, new DepthPageTransformer());
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(mPosition);
+        viewPager.setPageTransformer(true, new DepthPageTransformer());
+
+//        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+//            @Override
+//            public void onSystemUiVisibilityChange(int visibility) {
+//                if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+//                    //systemUI is visible
+//                } else {
+//                    //systemUI is invisible
+//                }
+//            }
+//        });
+
     }
 
-    private void StatusBarColor() {
+    private void initView() {
+        mWindow = getWindow();
+        if (mWindow == null) this.finish();
+        mDecorView = mWindow.getDecorView();
+        if (mDecorView == null) this.finish();
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_image_detail, null);
+        if (mContentView == null) this.finish();
+    }
+
+
+    private void initStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+            if (mDecorView == null) return;
+            int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            mDecorView.setSystemUiVisibility(option);
+            if (mWindow == null) return;
+            mWindow.setStatusBarColor(Color.TRANSPARENT);
+            mWindow.setNavigationBarColor(Color.TRANSPARENT);
         }
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        //判断是否有焦点
-        if (hasFocus && Build.VERSION.SDK_INT >= 19) {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
+    public void viewTapListener(View view, float x, float y) {
+        //状态栏，导航栏显示和隐藏
+        if (mDecorView == null) return;
+        if ((mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+            hideSystemUI();
+        } else {
+            showSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (mDecorView == null) return;
+            mDecorView.setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -106,6 +165,33 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
+
+        }
+    }
+
+    private void showSystemUI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (mDecorView == null) return;
+            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+    }
+
+
+    private void delayedHide(int delay) {
+        mHandler.removeMessages(MESSAGE_HIDE);
+        mHandler.sendEmptyMessageDelayed(MESSAGE_HIDE, delay);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            delayedHide(INITIAL_DELAY);
+        } else {
+            mHandler.removeMessages(MESSAGE_HIDE);
+            showSystemUI();
         }
     }
 
@@ -290,11 +376,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxUtils.unSubscribeIfNotNull(mSubscription);
-    }
 
     @Override
     public void onResume() {
@@ -307,4 +388,15 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxUtils.unSubscribeIfNotNull(mSubscription);
+        if (mHandler == null) return;
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler = null;
+    }
+
+
 }

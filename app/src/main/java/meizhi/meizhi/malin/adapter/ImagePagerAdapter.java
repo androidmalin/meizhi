@@ -21,7 +21,7 @@ import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
-import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ImagePagerAdapter extends PagerAdapter {
 
@@ -53,6 +53,17 @@ public class ImagePagerAdapter extends PagerAdapter {
         this.mDownLoadClickListener = listener;
     }
 
+
+    public interface photoViewTapListener {
+        void viewTapListener(View view, float x, float y);
+    }
+
+    private photoViewTapListener mPhotoViewTapListener;
+
+    public void setPhotoViewTapListener(photoViewTapListener listener) {
+        this.mPhotoViewTapListener = listener;
+    }
+
     @Override
     public int getCount() {
         return mList != null ? mList.size() : 0;
@@ -60,11 +71,34 @@ public class ImagePagerAdapter extends PagerAdapter {
 
     private ViewGroup.LayoutParams mLayoutParams;
 
+    private PhotoViewAttacher mAttacher;
+
+
     @Override
     public View instantiateItem(ViewGroup container, final int position) {
 
-        View rootView = mLayoutInflater.inflate(R.layout.item_pager_image, container, false);
-        PhotoView photoView = (PhotoView) rootView.findViewById(R.id.photo_view);
+        View mRootView = mLayoutInflater.inflate(R.layout.item_pager_image, container, false);
+        ImageView photoView = (ImageView) mRootView.findViewById(R.id.photo_view);
+        mAttacher = new PhotoViewAttacher(photoView);
+        mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+            @Override
+            public void onViewTap(View view, float x, float y) {
+                // 隐藏Toolbar等操作
+                if (mPhotoViewTapListener == null) return;
+                mPhotoViewTapListener.viewTapListener(view, x, y);
+            }
+        });
+        mAttacher.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (mDownLoadClickListener != null) {
+                    String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
+                    mDownLoadClickListener.downImageListener(utrImg, position, false);
+                }
+                return false;
+            }
+        });
+        mAttacher.update();
 
         mLayoutParams = photoView.getLayoutParams();
         mLayoutParams.width = mItemWidth;
@@ -74,7 +108,7 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         photoView.setLayoutParams(mLayoutParams);
 
-        RelativeLayout downLoad = (RelativeLayout) rootView.findViewById(R.id.rl_download);
+        RelativeLayout downLoad = (RelativeLayout) mRootView.findViewById(R.id.rl_download);
         downLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,11 +118,12 @@ public class ImagePagerAdapter extends PagerAdapter {
             }
         });
 
-        final ImageView imgHolder = (ImageView) rootView.findViewById(R.id.iv_holder);
+        final ImageView imgHolder = (ImageView) mRootView.findViewById(R.id.iv_holder);
 
         Glide.with(mContext)
                 .load(R.drawable.image_loading_holder)
                 .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .override((int) PhoneScreenUtil.dipToPx(mContext, 100.0f), (int) PhoneScreenUtil.dipToPx(mContext, 100.0f))
                 .into(imgHolder);
 
@@ -119,21 +154,9 @@ public class ImagePagerAdapter extends PagerAdapter {
         }
 
 
-        photoView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (mDownLoadClickListener != null) {
-                    String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
-                    mDownLoadClickListener.downImageListener(utrImg, position, false);
-                }
-                return false;
-            }
-        });
-
-
         // Now just add PhotoView to ViewPager and return it
-        container.addView(rootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        return rootView;
+        container.addView(mRootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        return mRootView;
     }
 
     @Override
