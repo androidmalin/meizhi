@@ -10,11 +10,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
+import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
@@ -27,7 +32,7 @@ import meizhi.meizhi.malin.utils.UMengEvent;
  * 修改备注:
  * 版本:
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ImageListFragment.itemClickListener {
 
     private ImageListFragment mImageListFragment;
     private Toolbar mToolbar;
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Bundle bundle = new Bundle();
             mImageListFragment = ImageListFragment.newInstance(bundle);
         }
+        mImageListFragment.setOnItemClickListener(this);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_content_layout, mImageListFragment, "ImageListFragment");
@@ -146,6 +152,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (mImageListFragment == null) return;
             MobclickAgent.onEvent(this, UMengEvent.DoubleClickTop);
             mImageListFragment.scrollToTop();
+        }
+    }
+
+    @Override
+    public void itemClickListener(int position, ArrayList<ImageBean> list) {
+        try {
+            MobclickAgent.onEvent(this, UMengEvent.ClickImageToBigImage);
+            Intent intent = new Intent(this, ImageDetailActivity.class);
+            intent.putExtra("position", position);
+            intent.putParcelableArrayListExtra("datas", list);
+            startActivity(intent);
+        } catch (Throwable e) {
+            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
     }
 }

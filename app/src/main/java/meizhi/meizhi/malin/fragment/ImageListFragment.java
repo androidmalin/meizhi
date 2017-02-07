@@ -3,7 +3,6 @@ package meizhi.meizhi.malin.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,7 +22,6 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.activity.ImageDetailActivity;
 import meizhi.meizhi.malin.adapter.ImageAdapter;
 import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
@@ -354,19 +352,20 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         RxUtils.unSubscribeIfNotNull(mSubscription2);
     }
 
+    public interface itemClickListener {
+        void itemClickListener(int position, ArrayList<ImageBean> list);
+    }
+
+    private itemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(itemClickListener itemClickListener) {
+        this.mItemClickListener = itemClickListener;
+    }
+
     @Override
     public void itemOnClick(String imageUrl, int position) {
         if (mActivity == null || mActivity.isFinishing()) return;
-        try {
-            MobclickAgent.onEvent(mActivity, UMengEvent.ClickImageToBigImage);
-            Intent intent = new Intent(mActivity, ImageDetailActivity.class);
-            intent.putExtra("position", position);
-            intent.putParcelableArrayListExtra("datas", mAdapter.getData());
-            mActivity.startActivity(intent);
-        } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
-            e.printStackTrace();
-        }
+        mItemClickListener.itemClickListener(position, mAdapter.getData());
     }
 
     public Observable<Boolean> createObservable(final ArrayList<ImageBean> list1, final ArrayList<ImageBean> list2) {

@@ -86,6 +86,11 @@ android {
 
     //productFlavors领域，定义渠道名，使用manifestPlaceholders制定要替换渠道占位符的值。
     productFlavors {
+        BuglyTest {
+            manifestPlaceholders = [CHANNEL_VALUE: "BuglyTest"]
+            minSdkVersion = rootProject.ext.android.minSdkVersion
+        }
+
         wandoujia {
             manifestPlaceholders = [CHANNEL_VALUE: "wandoujia"]
             minSdkVersion = rootProject.ext.android.minSdkVersion
