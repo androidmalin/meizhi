@@ -195,7 +195,9 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                         setZeroFlag(false);
                         if (currentPage == 1) {
                             mEndlessListener.setLoadMoreFlag(true);
-                            inflateErrorStubIfNeeded();
+                            if (mAdapter.getDataSize() == 0) {
+                                inflateErrorStubIfNeeded();
+                            }
                         }
                         CrashReport.postCatchedException(e);
                         e.printStackTrace();

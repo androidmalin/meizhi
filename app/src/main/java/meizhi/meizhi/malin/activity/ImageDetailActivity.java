@@ -334,7 +334,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         return Observable.defer(new Func0<Observable<Boolean>>() {
             @Override
             public Observable<Boolean> call() {
-                return Observable.just(writeResponseBodyToDisk(body));
+                boolean is = writeResponseBodyToDisk(body);
+                return Observable.just(is);
             }
         });
     }
@@ -346,21 +347,28 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         try {
             File appDir = new File(Environment.getExternalStorageDirectory(), FILE_IMAGE);
             if (!appDir.exists()) {
-                appDir.mkdir();
+                if (!appDir.mkdir()) {
+                    if (!appDir.mkdir()) {
+                        return false;
+                    }
+                }
             }
             String fileName = System.currentTimeMillis() + ".jpg";
 
             mPath = appDir.getAbsolutePath() + File.separator + fileName;
-            File futureStudioIconFile = new File(appDir, fileName);
+            File fileImg = new File(appDir, fileName);
             InputStream inputStream = null;
             OutputStream outputStream = null;
+
             try {
                 byte[] fileReader = new byte[TEMP];
                 long fileSize = body.contentLength();
                 long fileSizeDownloaded = 0;
                 inputStream = body.byteStream();
-                outputStream = new FileOutputStream(futureStudioIconFile);
-                Log.d(TAG, futureStudioIconFile.getAbsolutePath());
+                if (inputStream == null)
+                    return false;
+                outputStream = new FileOutputStream(fileImg);
+                Log.d(TAG, fileImg.getAbsolutePath());
                 while (true) {
                     int read = inputStream.read(fileReader);
                     if (read == -1) {
@@ -373,9 +381,21 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     //W: file download: /storage/emulated/0/Android/data/com.malin.animation/files/weixin.apk
                     //E: file download was a success? true
                     Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
-                    Log.d(TAG, "file download: " + futureStudioIconFile.getAbsolutePath());
+                    Log.d(TAG, "file download: " + fileImg.getAbsolutePath());
                 }
-                outputStream.flush();
+                try {
+                    outputStream.flush();
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    CrashReport.postCatchedException(e);
+                }
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    CrashReport.postCatchedException(e);
+                }
                 return true;
             } catch (IOException e) {
                 CrashReport.postCatchedException(e);
@@ -401,8 +421,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
 
