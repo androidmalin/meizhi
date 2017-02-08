@@ -19,6 +19,7 @@
 
     <meizhi.meizhi.malin.utils.HackyViewPager
         android:id="@+id/view_pager_iv"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -151,7 +150,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                     })
                     .centerCrop()
                     .override(mItemWidth, mItemHeight)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    //.diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(photoView);
         }
         // Now just add PhotoView to ViewPager and return it
@@ -162,7 +161,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         View view = (View) object;
-        releaseImageView(view);
+        //releaseImageView(view);
         container.removeView(view);
     }
 
