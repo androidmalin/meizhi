@@ -9,16 +9,22 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
@@ -37,6 +43,7 @@ import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.HackyViewPager;
+import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
 import meizhi.meizhi.malin.utils.UMengEvent;
 import okhttp3.HttpUrl;
@@ -61,18 +68,24 @@ import rx.schedulers.Schedulers;
  * 修改备注:
  * 版本:
  */
-public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener, ImagePagerAdapter.photoViewTapListener, View.OnClickListener {
+public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener,
+        ImagePagerAdapter.photoViewTapListener, View.OnClickListener, ImagePagerAdapter.imageDownLoadListener {
     private static final String TAG = ImageDetailActivity.class.getSimpleName();
     private static final String FILE_IMAGE = "0MeZhi";
     private static final int TEMP = 4 * 1024;
     private ArrayList<ImageBean> mList;
     private int mPosition;
     private Subscription mSubscription;
-    private static final int INITIAL_DELAY = 600;
+    private static final int INITIAL_DELAY = 1000;
     private Window mWindow;
     private View mDecorView;
     private View mContentView;
     private static final int MESSAGE_HIDE = 0;
+    private ProgressBar mProgressBar;
+    private RelativeLayout mDownLoadLayout;
+    private TextView mTvPage;
+    private ImageView mImgError;
+    private FrameLayout mRootLayout;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -103,14 +116,23 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             mList = intent.getParcelableArrayListExtra("datas");
         }
         ViewPager viewPager = (HackyViewPager) mContentView.findViewById(R.id.view_pager_iv);
+        mDownLoadLayout = (RelativeLayout) mContentView.findViewById(R.id.rl_download_img);
+        mDownLoadLayout.setOnClickListener(this);
+        mProgressBar = (ProgressBar) mContentView.findViewById(R.id.pd_img);
+        mTvPage = (TextView) mContentView.findViewById(R.id.tv_page);
+        mImgError = (ImageView) mContentView.findViewById(R.id.iv_img_error);
+        mRootLayout = (FrameLayout) mContentView.findViewById(R.id.root_layout);
+
         ImagePagerAdapter adapter = new ImagePagerAdapter();
         adapter.setDownLoadListener(this);
         adapter.setPhotoViewTapListener(this);
+        adapter.setProgressBarListener(this);
         adapter.setData(mList, this);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(mPosition);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
-        mContentView.findViewById(R.id.rl_download_img).setOnClickListener(this);
+
+        mTvPage.setText((mPosition + 1) + "/" + mList.size());
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -121,6 +143,9 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             @Override
             public void onPageSelected(int position) {
                 mPosition = position;
+                if (mList != null && mList.size() > 0) {
+                    mTvPage.setText((mPosition + 1) + "/" + mList.size());
+                }
             }
 
             @Override
@@ -128,18 +153,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
 
             }
         });
-
-//        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-//            @Override
-//            public void onSystemUiVisibilityChange(int visibility) {
-//                if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-//                    //systemUI is visible
-//                } else {
-//                    //systemUI is invisible
-//                }
-//            }
-//        });
-
     }
 
     private void initView() {
@@ -188,6 +201,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             );
 
         }
+        mDownLoadLayout.setVisibility(View.GONE);
+        mTvPage.setVisibility(View.GONE);
     }
 
     private void showSystemUI() {
@@ -197,6 +212,19 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+        }
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mDownLoadLayout.setVisibility(View.VISIBLE);
+                mTvPage.setVisibility(View.VISIBLE);
+            }
+        }, 100);
+
     }
 
 
@@ -236,7 +264,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "server contacted and has file");
+                    LogUtil.d(TAG, "server contacted and has file");
                     writeImageToDisk(response.body());
                 } else {
                     runOnUiThread(new Runnable() {
@@ -280,10 +308,10 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             String host = httpUrl.host();
 
             if (!TextUtils.isEmpty(scheme)) {
-                Log.d(TAG, "scheme:" + scheme);
+                LogUtil.d(TAG, "scheme:" + scheme);
             }
             if (!TextUtils.isEmpty(host)) {
-                Log.d(TAG, "host:" + host);
+                LogUtil.d(TAG, "host:" + host);
             }
             StringBuilder sb = new StringBuilder();
             sb.append(!TextUtils.isEmpty(scheme) ? scheme : "")
@@ -291,7 +319,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     .append(!TextUtils.isEmpty(host) ? host : "")
                     .append("/");
             baseUrl = sb.toString();
-            Log.d(TAG, "baseUrl:" + baseUrl);
+            LogUtil.d(TAG, "baseUrl:" + baseUrl);
 
         }
         return baseUrl;
@@ -322,7 +350,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
 
                     @Override
                     public void onNext(Boolean isSuccess) {
-                        Log.d(TAG, "file download was a success? " + isSuccess);
+                        LogUtil.d(TAG, "file download was a success? " + isSuccess);
                         String tip = "\n图片保存在sdcard的" + FILE_IMAGE + "文件夹中";
                         Toast.makeText(ImageDetailActivity.this, isSuccess ? getString(R.string.down_load_success) + tip : getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
                     }
@@ -368,7 +396,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                 if (inputStream == null)
                     return false;
                 outputStream = new FileOutputStream(fileImg);
-                Log.d(TAG, fileImg.getAbsolutePath());
+                LogUtil.d(TAG, fileImg.getAbsolutePath());
                 while (true) {
                     int read = inputStream.read(fileReader);
                     if (read == -1) {
@@ -380,22 +408,10 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     //W: file download: 36671219 of 36671219
                     //W: file download: /storage/emulated/0/Android/data/com.malin.animation/files/weixin.apk
                     //E: file download was a success? true
-                    Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
-                    Log.d(TAG, "file download: " + fileImg.getAbsolutePath());
+                    LogUtil.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
+                    LogUtil.d(TAG, "file download: " + fileImg.getAbsolutePath());
                 }
-                try {
-                    outputStream.flush();
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    CrashReport.postCatchedException(e);
-                }
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    CrashReport.postCatchedException(e);
-                }
+                outputStream.flush();
                 return true;
             } catch (IOException e) {
                 CrashReport.postCatchedException(e);
@@ -408,6 +424,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                         e.printStackTrace();
                         CrashReport.postCatchedException(e);
                     }
+                    inputStream = null;
+
                 }
                 if (outputStream != null) {
                     try {
@@ -416,6 +434,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                         e.printStackTrace();
                         CrashReport.postCatchedException(e);
                     }
+                    outputStream = null;
+
                 }
             }
         } catch (Throwable e) {
@@ -463,4 +483,56 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             }
         }
     }
+
+    @Override
+    public void downLoadFailure() {
+        if (mProgressBar != null && mProgressBar.isShown()) {
+            mProgressBar.setVisibility(View.GONE);
+        }
+        mImgError.setVisibility(View.VISIBLE);
+        Glide.with(this)
+                .load(R.mipmap.ic_launcher)
+                .asBitmap()
+                .centerCrop()
+                .into(mImgError);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setNavigationBarColor();
+            }
+        }, 1001);
+    }
+
+    private void setNavigationBarColor() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (mDecorView == null) return;
+            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
+    }
+
+    @Override
+    public void downLoadSuccess() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+        }
+        if (mProgressBar != null && mProgressBar.isShown()) {
+            mProgressBar.setVisibility(View.GONE);
+        }
+        mImgError.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void downLoadPrepare() {
+        if (mProgressBar != null && !mProgressBar.isShown()) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+    }
 }
+

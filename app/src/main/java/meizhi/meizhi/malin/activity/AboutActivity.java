@@ -3,6 +3,7 @@ package meizhi.meizhi.malin.activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -42,6 +43,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setNavigationBarColor();
         setContentView(R.layout.about_layout);
         initView();
     }
@@ -63,6 +65,12 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         mThanksView.setMovementMethod(LinkMovementMethod.getInstance());
 
         initData(versionName);
+    }
+
+    private void setNavigationBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
     }
 
     private void initData(TextView textView) {

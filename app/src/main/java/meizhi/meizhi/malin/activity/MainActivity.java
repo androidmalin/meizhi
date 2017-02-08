@@ -10,13 +10,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
+import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.network.bean.ImageBean;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setNavigationBarColor();
         setContentView(R.layout.activity_main);
 
-        MobclickAgent.setDebugMode(true);
+        MobclickAgent.setDebugMode(BuildConfig.DEBUG);
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.enableEncrypt(true);
 

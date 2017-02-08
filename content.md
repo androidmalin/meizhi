@@ -5,3 +5,4 @@ http://www.cnblogs.com/tangs/articles/5936749.html
 http://www.itdadao.com/articles/c15a322667p0.html
 http://www.voidcn.com/blog/wenbitianxiafeng/article/p-6158927.html
 http://limuzhi.com/2016/01/24/Android%E5%9B%BE%E7%89%87%E5%BA%93-Glide/
+http://blog.csdn.net/wudongjiang333/article/details/54138828

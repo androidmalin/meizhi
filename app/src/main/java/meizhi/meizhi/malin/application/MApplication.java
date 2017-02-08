@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
+import meizhi.meizhi.malin.utils.LogUtil;
 import okhttp3.OkHttpClient;
 
 /**
@@ -56,7 +56,7 @@ public class MApplication extends Application {
         isLoad = true;
         int pid = android.os.Process.myPid();
 
-        Log.d(TAG, getProcessName(android.os.Process.myPid()));
+        LogUtil.d(TAG, getProcessName(android.os.Process.myPid()));
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
             if (appProcess.pid == pid && appProcess.processName.compareToIgnoreCase(getPackageName()) == 0) {

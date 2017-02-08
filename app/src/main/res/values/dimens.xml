@@ -9,6 +9,7 @@
     <dimen name="common_dimen_80dip">80dip</dimen>
     <dimen name="common_dimen_100dip">100dip</dimen>
 
+    <dimen name="common_dimen_15sp">15sp</dimen>
     <dimen name="common_dimen_16sp">16sp</dimen>
     <dimen name="common_dimen_17sp">17sp</dimen>
 </resources>

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ import android.graphics.Matrix;
 import android.graphics.Matrix.ScaleToFit;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
@@ -257,7 +258,11 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
             // Remove this as a global layout listener
             ViewTreeObserver observer = imageView.getViewTreeObserver();
             if (null != observer && observer.isAlive()) {
-                observer.removeGlobalOnLayoutListener(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    observer.removeOnGlobalLayoutListener(this);
+                } else {
+                    observer.removeGlobalOnLayoutListener(this);
+                }
             }
 
             // Remove the ImageView's reference to this
@@ -337,8 +342,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
         // If we don't have an ImageView, call cleanup()
         if (null == imageView) {
             cleanup();
-            LogManager.getLogger().i(LOG_TAG,
-                    "ImageView no longer exists. You should not use this PhotoViewAttacher any more.");
+            //LogManager.getLogger().i(LOG_TAG, "ImageView no longer exists. You should not use this PhotoViewAttacher any more.");
         }
 
         return imageView;
@@ -643,6 +647,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
 
     /**
      * Set the zoom interpolator
+     *
      * @param interpolator the zoom interpolator
      */
     public void setZoomInterpolator(Interpolator interpolator) {
@@ -684,6 +689,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
 
     /**
      * Get the display matrix
+     *
      * @param matrix target matrix to copy to
      */
     @Override
@@ -734,7 +740,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
         if (null != imageView && !(imageView instanceof IPhotoView)) {
             if (!ScaleType.MATRIX.equals(imageView.getScaleType())) {
                 throw new IllegalStateException(
-                        "The ImageView's ScaleType has been changed since attaching a PhotoViewAttacher. You should call setScaleType on the PhotoViewAttacher instead of on the ImageView"  );
+                        "The ImageView's ScaleType has been changed since attaching a PhotoViewAttacher. You should call setScaleType on the PhotoViewAttacher instead of on the ImageView");
             }
         }
     }
@@ -1015,7 +1021,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
 
         /**
          * A simple callback where out of photo happened;
-         * */
+         */
         void onOutsidePhotoTap();
     }
 
