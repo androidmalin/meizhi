@@ -17,6 +17,7 @@ import java.io.IOException;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
+import meizhi.meizhi.malin.utils.GlideCatchUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import okhttp3.OkHttpClient;
 
@@ -46,7 +47,7 @@ public class MApplication extends Application {
 
     public OkHttpClient mOkHttpClient;
 
-    public static MApplication getApplication() {
+    public static MApplication getInstance() {
         return application;
     }
 
@@ -55,8 +56,6 @@ public class MApplication extends Application {
         super.onCreate();
         isLoad = true;
         int pid = android.os.Process.myPid();
-
-        LogUtil.d(TAG, getProcessName(android.os.Process.myPid()));
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
             if (appProcess.pid == pid && appProcess.processName.compareToIgnoreCase(getPackageName()) == 0) {
@@ -124,4 +123,18 @@ public class MApplication extends Application {
         return null;
     }
 
+    @Override
+    public void onLowMemory() {
+        LogUtil.e(TAG, "onLowMemory");
+        super.onLowMemory();
+    }
+
+    //指导应用程序在不同的情况下进行自身的内存释放，以避免被系统直接杀掉，提高应用程序的用户体验.
+    @Override
+    public void onTrimMemory(int level) {
+        LogUtil.e(TAG, "onTrimMemory:" + level);
+        GlideCatchUtil.getInstance().releaseMemory(true);
+        GlideCatchUtil.getInstance().clearCacheDiskSelf();
+        super.onTrimMemory(level);
+    }
 }

@@ -30,6 +30,7 @@ import meizhi.meizhi.malin.network.bean.ImageInfo;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
 import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
+import meizhi.meizhi.malin.utils.GlideCatchUtil;
 import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
 import meizhi.meizhi.malin.utils.RxUtils;
 import meizhi.meizhi.malin.utils.UMengEvent;
@@ -175,6 +176,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     boolean isContain = false;
 
     private void getFangs(final int currentPage) {
+        GlideCatchUtil.getInstance().releaseMemory(false);
         ImageApi aip = ImageService.getInstance().getLogin();
         Observable<ImageInfo> observable = aip.getkey(NUMBER, currentPage);
         mSubscription = observable.subscribeOn(Schedulers.io())
@@ -345,13 +347,14 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        GlideCatchUtil.getInstance().releaseMemory(true);
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             mHandler = null;
         }
         RxUtils.unSubscribeIfNotNull(mSubscription);
         RxUtils.unSubscribeIfNotNull(mSubscription2);
+        super.onDestroy();
     }
 
     public interface itemClickListener {
@@ -420,6 +423,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     @Override
     public void onPause() {
+        GlideCatchUtil.getInstance().releaseMemory(true);
         super.onPause();
         MobclickAgent.onPageEnd("ImageListFragment");
     }
@@ -427,7 +431,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        RefWatcher refWatcher = MApplication.getApplication().getRefWatcher(MApplication.getApplication());
+        RefWatcher refWatcher = MApplication.getInstance().getRefWatcher(MApplication.getInstance());
         refWatcher.watch(this);
     }
 }

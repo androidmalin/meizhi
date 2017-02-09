@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -16,7 +17,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.ArrayList;
 
 import meizhi.meizhi.malin.network.bean.ImageBean;
-import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -108,7 +108,7 @@ public class ImagePagerAdapter extends PagerAdapter {
             public boolean onLongClick(View view) {
                 if (mDownLoadClickListener != null) {
                     if (mList != null && position < mList.size() && mList.get(position).url != null) {
-                        String utrImg = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
+                        String utrImg = mList.get(position).url;
                         mDownLoadClickListener.downImageListener(utrImg, position, false);
                     }
                 }
@@ -120,8 +120,6 @@ public class ImagePagerAdapter extends PagerAdapter {
         mLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mLayoutParams.width = mItemWidth;
         mLayoutParams.height = mItemHeight;
-        LogUtil.d(TAG, "mItemWidth:" + mItemWidth);
-        LogUtil.d(TAG, "mItemHeight:" + mItemHeight);
 
         photoView.setLayoutParams(mLayoutParams);
         if (mList != null && mList.get(position) != null && mList.get(position).url != null) {
@@ -129,6 +127,52 @@ public class ImagePagerAdapter extends PagerAdapter {
             if (mImageDownLoadListener != null) {
                 mImageDownLoadListener.downLoadPrepare();
             }
+
+//            Glide.with(mContext).load(mImageUrl)
+//                    .dontAnimate()
+//                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                    .centerCrop()
+//                    .override(mItemWidth, mItemHeight)
+//                    .listener(new RequestListener<String, GlideDrawable>() {
+//                        @Override
+//                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+//                            if (mImageDownLoadListener != null) {
+//                                mImageDownLoadListener.downLoadFailure();
+//                            }
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                            if (mImageDownLoadListener != null) {
+//                                mImageDownLoadListener.downLoadSuccess();
+//                            }
+//                            return false;
+//                        }
+//                    })
+//                    .into(new GlideDrawableImageViewTarget(photoView) { //加载失败
+//                        @Override
+//                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+//                            super.onLoadFailed(e, errorDrawable);
+//                            //LogUtil.d(TAG, "onLoadFailed");
+//                        }
+//
+//                        @Override
+//                        public void onLoadStarted(Drawable placeholder) {
+//                            super.onLoadStarted(placeholder);
+//                            //LogUtil.d(TAG, "onLoadStarted");
+//                            if (mImageDownLoadListener != null) {
+//                                mImageDownLoadListener.downLoadPrepare();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+//                            super.onResourceReady(resource, animation);
+//                            //LogUtil.d(TAG, "onResourceReady");
+//                        }
+//                    });
+
             Glide.with(mContext)
                     .load(mImageUrl)
                     .listener(new RequestListener<String, GlideDrawable>() {
@@ -150,7 +194,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                     })
                     .centerCrop()
                     .override(mItemWidth, mItemHeight)
-                    //.diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .into(photoView);
         }
         // Now just add PhotoView to ViewPager and return it

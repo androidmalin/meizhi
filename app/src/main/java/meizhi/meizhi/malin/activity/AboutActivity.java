@@ -180,4 +180,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

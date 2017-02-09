@@ -15,13 +15,14 @@
         android:id="@+id/pd_img"
         android:layout_width="@dimen/common_dimen_30dip"
         android:layout_height="@dimen/common_dimen_30dip"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="visible" />
 
     <meizhi.meizhi.malin.utils.HackyViewPager
         android:id="@+id/view_pager_iv"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
 
     <RelativeLayout
         android:id="@+id/rl_download_img"

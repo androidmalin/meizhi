@@ -1,0 +1,2 @@
+#android模拟内存不足，应用被杀重新进入界面,app必须处于后台，前台没有效果
+adb shell am kill meizhi.meizhi.malin

@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -42,6 +41,7 @@ import meizhi.meizhi.malin.adapter.ImagePagerAdapter;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.services.ImageService;
+import meizhi.meizhi.malin.utils.GlideCatchUtil;
 import meizhi.meizhi.malin.utils.HackyViewPager;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
@@ -85,7 +85,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     private RelativeLayout mDownLoadLayout;
     private TextView mTvPage;
     private ImageView mImgError;
-    private FrameLayout mRootLayout;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -121,7 +120,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         mProgressBar = (ProgressBar) mContentView.findViewById(R.id.pd_img);
         mTvPage = (TextView) mContentView.findViewById(R.id.tv_page);
         mImgError = (ImageView) mContentView.findViewById(R.id.iv_img_error);
-        mRootLayout = (FrameLayout) mContentView.findViewById(R.id.root_layout);
 
         ImagePagerAdapter adapter = new ImagePagerAdapter();
         adapter.setDownLoadListener(this);
@@ -146,6 +144,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                 if (mList != null && mList.size() > 0) {
                     mTvPage.setText((mPosition + 1) + "/" + mList.size());
                 }
+                GlideCatchUtil.getInstance().releaseMemory(false);
             }
 
             @Override
@@ -454,17 +453,19 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
 
     @Override
     public void onPause() {
+        GlideCatchUtil.getInstance().releaseMemory(true);
         super.onPause();
         MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        GlideCatchUtil.getInstance().releaseMemory(true);
         RxUtils.unSubscribeIfNotNull(mSubscription);
         if (mHandler == null) return;
         mHandler.removeCallbacksAndMessages(null);
         mHandler = null;
+        super.onDestroy();
     }
 
 
