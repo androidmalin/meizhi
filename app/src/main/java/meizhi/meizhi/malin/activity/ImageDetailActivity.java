@@ -9,21 +9,19 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
@@ -38,12 +36,14 @@ import java.util.HashMap;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.DepthPageTransformer;
 import meizhi.meizhi.malin.adapter.ImagePagerAdapter;
+import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.GlideCatchUtil;
 import meizhi.meizhi.malin.utils.HackyViewPager;
 import meizhi.meizhi.malin.utils.LogUtil;
+import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
 import meizhi.meizhi.malin.utils.UMengEvent;
 import okhttp3.HttpUrl;
@@ -84,7 +84,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     private ProgressBar mProgressBar;
     private RelativeLayout mDownLoadLayout;
     private TextView mTvPage;
-    private ImageView mImgError;
+    private ViewStub mStubEmpty;
+    private View mLayoutEmpty;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -119,8 +120,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         mDownLoadLayout.setOnClickListener(this);
         mProgressBar = (ProgressBar) mContentView.findViewById(R.id.pd_img);
         mTvPage = (TextView) mContentView.findViewById(R.id.tv_page);
-        mImgError = (ImageView) mContentView.findViewById(R.id.iv_img_error);
-
+        mStubEmpty = (ViewStub) mContentView.findViewById(R.id.view_stub_img_error);
         ImagePagerAdapter adapter = new ImagePagerAdapter();
         adapter.setDownLoadListener(this);
         adapter.setPhotoViewTapListener(this);
@@ -211,11 +211,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
-        }
-
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -485,48 +480,23 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         }
     }
 
+
     @Override
     public void downLoadFailure() {
         if (mProgressBar != null && mProgressBar.isShown()) {
             mProgressBar.setVisibility(View.GONE);
         }
-        mImgError.setVisibility(View.VISIBLE);
-        Glide.with(this)
-                .load(R.mipmap.ic_launcher)
-                .asBitmap()
-                .centerCrop()
-                .into(mImgError);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setNavigationBarColor();
-            }
-        }, 1001);
-    }
-
-    private void setNavigationBarColor() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (mDecorView == null) return;
-            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        }
+        inflateEmptyStubIfNeeded();
     }
 
     @Override
     public void downLoadSuccess() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
-        }
         if (mProgressBar != null && mProgressBar.isShown()) {
             mProgressBar.setVisibility(View.GONE);
         }
-        mImgError.setVisibility(View.GONE);
+        if (mLayoutEmpty != null) {
+            mLayoutEmpty.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -534,6 +504,34 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         if (mProgressBar != null && !mProgressBar.isShown()) {
             mProgressBar.setVisibility(View.VISIBLE);
         }
+        if (mLayoutEmpty != null) {
+            mLayoutEmpty.setVisibility(View.GONE);
+        }
+    }
+
+    private void inflateEmptyStubIfNeeded() {
+        if (mLayoutEmpty == null && mStubEmpty != null) {
+            mLayoutEmpty = mStubEmpty.inflate();
+            mLayoutEmpty.setVisibility(View.VISIBLE);
+        } else {
+            if (mLayoutEmpty != null) {
+                mLayoutEmpty.setVisibility(View.VISIBLE);
+            }
+        }
+        if (mLayoutEmpty == null) return;
+
+
+        //android.view.ViewGroup$LayoutParams cannot be cast to android.view.ViewGroup$MarginLayoutParams
+        ViewGroup.LayoutParams mLayoutParams = mLayoutEmpty.getLayoutParams();
+        mLayoutParams.width = PhoneScreenUtil.getPhoneWidth(MApplication.getInstance());
+        mLayoutParams.height = PhoneScreenUtil.getPhoneHeight(MApplication.getInstance());
+        mLayoutEmpty.setLayoutParams(mLayoutParams);
+        mLayoutEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
 

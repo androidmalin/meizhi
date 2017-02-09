@@ -12,4 +12,5 @@
     <string name="about_mm_tip">关于妹纸</string>
     <string name="app_default_version">3.0</string>
     <string name="app_package_name">meizhi.meizhi.malin</string>
+    <string name="image_load_error_tip">图片加载失败， 点击关闭</string>
 </resources>
