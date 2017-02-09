@@ -98,22 +98,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_about_content: {
-                MobclickAgent.onEvent(this, UMengEvent.ClickAbout);
-                if (mImageListFragment != null) {
-                    startActivity(new Intent(this, AboutActivity.class));
-                }
-                break;
-            }
+        case R.id.tv_about_content: {
+            MobclickAgent.onEvent(this, UMengEvent.ClickAbout);
+            startActivity(new Intent(this, AboutActivity.class));
+            break;
+        }
 
-            case R.id.view_top: {
-                doubleClick();
-                break;
-            }
+        case R.id.view_top: {
+            doubleClick();
+            break;
+        }
 
-            default: {
-                break;
-            }
+        default: {
+            break;
+        }
         }
     }
 
@@ -164,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, ImageDetailActivity.class);
             intent.putExtra("position", position);
             intent.putParcelableArrayListExtra("datas", list);
-            startActivity(intent);
+            startActivityForResult(intent, 1000);
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
@@ -175,5 +173,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         GlideCatchUtil.getInstance().releaseMemory(true);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) return;
+        switch (resultCode) {
+        case 2000: {
+            int position = data.getIntExtra("currentPosition", -1);
+            if (position != -1) {
+                if (mImageListFragment == null) return;
+                mImageListFragment.scrollPosition(position);
+            }
+            break;
+        }
+
+        default: {
+            break;
+        }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

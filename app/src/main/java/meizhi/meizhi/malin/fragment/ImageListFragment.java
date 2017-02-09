@@ -415,6 +415,17 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         mRecyclerView.smoothScrollToPosition(0);
     }
 
+    public void scrollPosition(int pos){
+        if (mRecyclerView == null) return;
+        RecyclerViewPositionHelper helper = RecyclerViewPositionHelper.createHelper(mRecyclerView);
+        int firstVisibleItemPosition = helper.findFirstVisibleItemPosition();
+        int mVisibleCount = helper.getItemCount();
+        if (firstVisibleItemPosition > mVisibleCount) {
+            mRecyclerView.scrollToPosition(mVisibleCount);
+        }
+        mRecyclerView.smoothScrollToPosition(pos);
+    }
+
     @Override
     public void onResume() {
         super.onResume();

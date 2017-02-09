@@ -80,9 +80,9 @@ public class ImagePagerAdapter extends PagerAdapter {
     private imageDownLoadListener mImageDownLoadListener;
 
     public interface imageDownLoadListener {
-        void downLoadFailure();
+        void downLoadFailure(int position,String url);
 
-        void downLoadSuccess();
+        void downLoadSuccess(int position,String url);
 
         void downLoadPrepare();
     }
@@ -179,7 +179,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                             if (mImageDownLoadListener != null) {
-                                mImageDownLoadListener.downLoadFailure();
+                                mImageDownLoadListener.downLoadFailure(position,mImageUrl);
                             }
                             return false;
                         }
@@ -187,7 +187,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             if (mImageDownLoadListener != null) {
-                                mImageDownLoadListener.downLoadSuccess();
+                                mImageDownLoadListener.downLoadSuccess(position,mImageUrl);
                             }
                             return false;
                         }

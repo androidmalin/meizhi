@@ -76,7 +76,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     private ArrayList<ImageBean> mList;
     private int mPosition;
     private Subscription mSubscription;
-    private static final int INITIAL_DELAY = 1000;
+    private static final int INITIAL_DELAY = 0;
     private Window mWindow;
     private View mDecorView;
     private View mContentView;
@@ -92,13 +92,13 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         public void handleMessage(Message msg) {
             if (msg == null) return;
             switch (msg.what) {
-                case MESSAGE_HIDE: {
-                    hideSystemUI();
-                    break;
-                }
-                default: {
-                    break;
-                }
+            case MESSAGE_HIDE: {
+                hideSystemUI();
+                break;
+            }
+            default: {
+                break;
+            }
             }
         }
     };
@@ -145,6 +145,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     mTvPage.setText((mPosition + 1) + "/" + mList.size());
                 }
                 GlideCatchUtil.getInstance().releaseMemory(false);
+                MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.ScrollNumber);
             }
 
             @Override
@@ -181,8 +182,10 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         //状态栏，导航栏显示和隐藏
         if (mDecorView == null) return;
         if ((mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+            MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.SingleTapImageHideUi);
             hideSystemUI();
         } else {
+            MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.SingleTapImageShowUi);
             showSystemUI();
         }
     }
@@ -249,8 +252,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         HashMap<String, String> map = new HashMap<>();
         map.put("url", fileUrl);
         map.put("position", "" + position);
-        MobclickAgent.onEvent(this, singleClickDown ? UMengEvent.ClickDownLoad : UMengEvent.LongClickDownLoad, map);
-
+        MobclickAgent.onEvent(this, singleClickDown ? UMengEvent.ClickDownLoadImage : UMengEvent.LongClickDownLoadImage, map);
 
         ImageApi biLiApi = ImageService.getInstance().getDownLoadService(ImageApi.class, getBaseUrl(fileUrl));
         Call<ResponseBody> call = biLiApi.download(fileUrl);
@@ -463,40 +465,60 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        backResultData();
+        super.onBackPressed();
+    }
+
+    private void backResultData() {
+        Intent intent = new Intent();
+        intent.putExtra("currentPosition", mPosition);
+        setResult(2000, intent);
+    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rl_download_img: {
-                if (mList == null || mPosition >= mList.size() || mList.get(mPosition).url == null)
-                    return;
-                downloadFile(mList.get(mPosition).url, mPosition, true);
-                break;
-            }
+        case R.id.rl_download_img: {
+            if (mList == null || mPosition >= mList.size() || mList.get(mPosition).url == null)
+                return;
+            downloadFile(mList.get(mPosition).url, mPosition, true);
+            break;
+        }
 
-            default: {
-                break;
-            }
+        default: {
+            break;
+        }
         }
     }
 
 
     @Override
-    public void downLoadFailure() {
+    public void downLoadFailure(int position, String url) {
         if (mProgressBar != null && mProgressBar.isShown()) {
             mProgressBar.setVisibility(View.GONE);
         }
         inflateEmptyStubIfNeeded();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("position", "" + position);
+        map.put("url", url);
+        MobclickAgent.onEvent(this, UMengEvent.ImageLoadError, map);
     }
 
     @Override
-    public void downLoadSuccess() {
+    public void downLoadSuccess(int position, String url) {
         if (mProgressBar != null && mProgressBar.isShown()) {
             mProgressBar.setVisibility(View.GONE);
         }
         if (mLayoutEmpty != null) {
             mLayoutEmpty.setVisibility(View.GONE);
         }
+        HashMap<String, String> map = new HashMap<>();
+        map.put("position", "" + position);
+        map.put("url", url);
+        MobclickAgent.onEvent(this, UMengEvent.ImageLoadSuccess, map);
     }
 
     @Override
@@ -529,6 +551,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         mLayoutEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.ImageLoadErrorClickFinishPage);
+                backResultData();
                 finish();
             }
         });
