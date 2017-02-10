@@ -3,8 +3,10 @@ package meizhi.meizhi.malin.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
@@ -31,12 +34,27 @@ public class ImagePagerAdapter extends PagerAdapter {
     private int mItemHeight;
     private String mImageUrl;
 
+    private List<ImageView> mViews = new ArrayList<>();
+
+    private ImageView mImageViewItem;
+
     public void setData(ArrayList<ImageBean> mList, Context context) {
         this.mList = mList;
         this.mContext = context;
 
         mItemWidth = PhoneScreenUtil.getPhoneWidth(mContext);
         mItemHeight = PhoneScreenUtil.getPhoneHeight(mContext);
+
+        mLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mLayoutParams.width = mItemWidth;
+        mLayoutParams.height = mItemHeight;
+        mLayoutParams.gravity = Gravity.CENTER;
+
+        for (int i = 0; i < 4; i++) {
+            mImageViewItem = new ImageView(mContext);
+            mImageViewItem.setLayoutParams(mLayoutParams);
+            mViews.add(mImageViewItem);
+        }
     }
 
     public ArrayList<ImageBean> getData() {
@@ -72,17 +90,16 @@ public class ImagePagerAdapter extends PagerAdapter {
         return mList != null ? mList.size() : 0;
     }
 
-    private ViewGroup.LayoutParams mLayoutParams;
+    private FrameLayout.LayoutParams mLayoutParams;
 
     private PhotoViewAttacher mAttacher;
-    private ImageView photoView;
 
     private imageDownLoadListener mImageDownLoadListener;
 
     public interface imageDownLoadListener {
-        void downLoadFailure(int position,String url);
+        void downLoadFailure(int position, String url);
 
-        void downLoadSuccess(int position,String url);
+        void downLoadSuccess(int position, String url);
 
         void downLoadPrepare();
     }
@@ -94,8 +111,12 @@ public class ImagePagerAdapter extends PagerAdapter {
 
     @Override
     public View instantiateItem(ViewGroup container, final int position) {
-        photoView = new ImageView(mContext);
-        mAttacher = new PhotoViewAttacher(photoView);
+
+
+        int i = position % 4;
+        ImageView imageView = mViews.get(i);
+
+        mAttacher = new PhotoViewAttacher(imageView);
         mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float x, float y) {
@@ -115,71 +136,21 @@ public class ImagePagerAdapter extends PagerAdapter {
                 return false;
             }
         });
+
         mAttacher.update();
-
-        mLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mLayoutParams.width = mItemWidth;
-        mLayoutParams.height = mItemHeight;
-
-        photoView.setLayoutParams(mLayoutParams);
+        imageView.setLayoutParams(mLayoutParams);
         if (mList != null && mList.get(position) != null && mList.get(position).url != null) {
             mImageUrl = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
             if (mImageDownLoadListener != null) {
                 mImageDownLoadListener.downLoadPrepare();
             }
-
-//            Glide.with(mContext).load(mImageUrl)
-//                    .dontAnimate()
-//                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-//                    .centerCrop()
-//                    .override(mItemWidth, mItemHeight)
-//                    .listener(new RequestListener<String, GlideDrawable>() {
-//                        @Override
-//                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-//                            if (mImageDownLoadListener != null) {
-//                                mImageDownLoadListener.downLoadFailure();
-//                            }
-//                            return false;
-//                        }
-//
-//                        @Override
-//                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                            if (mImageDownLoadListener != null) {
-//                                mImageDownLoadListener.downLoadSuccess();
-//                            }
-//                            return false;
-//                        }
-//                    })
-//                    .into(new GlideDrawableImageViewTarget(photoView) { //加载失败
-//                        @Override
-//                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-//                            super.onLoadFailed(e, errorDrawable);
-//                            //LogUtil.d(TAG, "onLoadFailed");
-//                        }
-//
-//                        @Override
-//                        public void onLoadStarted(Drawable placeholder) {
-//                            super.onLoadStarted(placeholder);
-//                            //LogUtil.d(TAG, "onLoadStarted");
-//                            if (mImageDownLoadListener != null) {
-//                                mImageDownLoadListener.downLoadPrepare();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-//                            super.onResourceReady(resource, animation);
-//                            //LogUtil.d(TAG, "onResourceReady");
-//                        }
-//                    });
-
             Glide.with(mContext)
                     .load(mImageUrl)
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                             if (mImageDownLoadListener != null) {
-                                mImageDownLoadListener.downLoadFailure(position,mImageUrl);
+                                mImageDownLoadListener.downLoadFailure(position, mImageUrl);
                             }
                             return false;
                         }
@@ -187,7 +158,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                         @Override
                         public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             if (mImageDownLoadListener != null) {
-                                mImageDownLoadListener.downLoadSuccess(position,mImageUrl);
+                                mImageDownLoadListener.downLoadSuccess(position, mImageUrl);
                             }
                             return false;
                         }
@@ -195,18 +166,24 @@ public class ImagePagerAdapter extends PagerAdapter {
                     .centerCrop()
                     .override(mItemWidth, mItemHeight)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .into(photoView);
+                    .into(imageView);
         }
         // Now just add PhotoView to ViewPager and return it
-        container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        return photoView;
+
+        ViewGroup parent = (ViewGroup) imageView.getParent();
+        if (parent != null) {
+            parent.removeView(imageView);
+        }
+
+        container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        return imageView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        View view = (View) object;
-        //releaseImageView(view);
-        container.removeView(view);
+        int i = position % 4;
+        ImageView imageView = mViews.get(i);
+        container.removeView(imageView);
     }
 
     @Override
@@ -215,6 +192,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     }
 
     private void releaseImageView(View view) {
+        if (view == null) return;
         if (view instanceof ImageView) {
             try {
                 ImageView imageView = (ImageView) view;
