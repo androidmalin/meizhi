@@ -63,7 +63,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private EndlessRecyclerOnScrollListener mEndlessListener;
     private Activity mActivity;
-    private static final int NUMBER = 10;
+    private static final int NUMBER = 100;
     private Subscription mSubscription;
     private Subscription mSubscription2;
 
