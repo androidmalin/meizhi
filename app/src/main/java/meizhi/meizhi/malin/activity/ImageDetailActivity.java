@@ -1,25 +1,21 @@
 package meizhi.meizhi.malin.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
@@ -76,93 +72,30 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     private ArrayList<ImageBean> mList;
     private int mPosition;
     private Subscription mSubscription;
-    private static final int INITIAL_DELAY = 0;
     private Window mWindow;
     private View mDecorView;
-    private View mContentView;
-    private static final int MESSAGE_HIDE = 0;
     private ProgressBar mProgressBar;
-    private RelativeLayout mDownLoadLayout;
-    private TextView mTvPage;
     private ViewStub mStubEmpty;
     private View mLayoutEmpty;
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg == null) return;
-            switch (msg.what) {
-            case MESSAGE_HIDE: {
-                hideSystemUI();
-                break;
-            }
-            default: {
-                break;
-            }
-            }
-        }
-    };
-
+    private Context mContext;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        initContentView();
         initStatusBarColor();
-        setContentView(mContentView);
-        Intent intent = getIntent();
-        if (intent != null) {
-            mPosition = intent.getIntExtra("position", 0);
-            mList = intent.getParcelableArrayListExtra("datas");
-        }
-        ViewPager viewPager = (HackyViewPager) mContentView.findViewById(R.id.view_pager_iv);
-        mDownLoadLayout = (RelativeLayout) mContentView.findViewById(R.id.rl_download_img);
-        mDownLoadLayout.setOnClickListener(this);
-        mProgressBar = (ProgressBar) mContentView.findViewById(R.id.pd_img);
-        mTvPage = (TextView) mContentView.findViewById(R.id.tv_page);
-        mStubEmpty = (ViewStub) mContentView.findViewById(R.id.view_stub_img_error);
-        ImagePagerAdapter adapter = new ImagePagerAdapter();
-        adapter.setDownLoadListener(this);
-        adapter.setPhotoViewTapListener(this);
-        adapter.setProgressBarListener(this);
-        adapter.setData(mList, this);
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(mPosition);
-        viewPager.setPageTransformer(true, new DepthPageTransformer());
-
-        mTvPage.setText((mPosition + 1) + "/" + mList.size());
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mPosition = position;
-                if (mList != null && mList.size() > 0) {
-                    mTvPage.setText((mPosition + 1) + "/" + mList.size());
-                }
-                GlideCatchUtil.getInstance().releaseMemory(false);
-                MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.ScrollNumber);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        setContentView(R.layout.activity_image_detail);
+        initData();
+        initViews();
+        initListener();
     }
 
-    private void initView() {
+    private void initContentView() {
         mWindow = getWindow();
         if (mWindow == null) this.finish();
         mDecorView = mWindow.getDecorView();
         if (mDecorView == null) this.finish();
-        final ViewGroup nullParent = null;
-        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_image_detail, nullParent);
-        if (mContentView == null) this.finish();
     }
 
 
@@ -177,15 +110,66 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         }
     }
 
+
+    private void initData() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            mPosition = intent.getIntExtra("position", 0);
+            mList = intent.getParcelableArrayListExtra("datas");
+        }
+        mContext = ImageDetailActivity.this;
+    }
+
+    private void initViews() {
+        mViewPager = (HackyViewPager) findViewById(R.id.view_pager_iv);
+        mProgressBar = (ProgressBar) findViewById(R.id.pd_img);
+        mStubEmpty = (ViewStub) findViewById(R.id.view_stub_img_error);
+        ImagePagerAdapter adapter = new ImagePagerAdapter();
+        adapter.setDownLoadListener(this);
+        adapter.setPhotoViewTapListener(this);
+        adapter.setProgressBarListener(this);
+        adapter.setData(mList, this);
+        mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(mPosition);
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
+    }
+
+
+    private void initListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mPosition = position;
+                GlideCatchUtil.getInstance().releaseMemory(false);
+                MobclickAgent.onEvent(mContext, UMengEvent.ScrollNumber);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
     @Override
     public void viewTapListener(View view, float x, float y) {
-        //状态栏，导航栏显示和隐藏
+        setResultData();
+        finish();
+    }
+
+    private void showOrHideSystemUI() {
         if (mDecorView == null) return;
         if ((mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-            MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.SingleTapImageHideUi);
+            MobclickAgent.onEvent(mContext, UMengEvent.SingleTapImageHideUi);
             hideSystemUI();
         } else {
-            MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.SingleTapImageShowUi);
+            MobclickAgent.onEvent(mContext, UMengEvent.SingleTapImageShowUi);
             showSystemUI();
         }
     }
@@ -203,8 +187,6 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             );
 
         }
-        mDownLoadLayout.setVisibility(View.GONE);
-        mTvPage.setVisibility(View.GONE);
     }
 
     private void showSystemUI() {
@@ -214,30 +196,14 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDownLoadLayout.setVisibility(View.VISIBLE);
-                mTvPage.setVisibility(View.VISIBLE);
-            }
-        }, 100);
-
     }
 
-
-    private void delayedHide(int delay) {
-        mHandler.removeMessages(MESSAGE_HIDE);
-        mHandler.sendEmptyMessageDelayed(MESSAGE_HIDE, delay);
-    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            delayedHide(INITIAL_DELAY);
-        } else {
-            mHandler.removeMessages(MESSAGE_HIDE);
-            showSystemUI();
+            hideSystemUI();
         }
     }
 
@@ -266,7 +232,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ImageDetailActivity.this, getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -277,7 +243,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ImageDetailActivity.this, getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -339,7 +305,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(ImageDetailActivity.this, R.string.down_load_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, R.string.down_load_error, Toast.LENGTH_SHORT).show();
                         CrashReport.postCatchedException(e);
                         e.printStackTrace();
                     }
@@ -348,7 +314,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                     public void onNext(Boolean isSuccess) {
                         LogUtil.d(TAG, "file download was a success? " + isSuccess);
                         String tip = "\n图片保存在sdcard的" + FILE_IMAGE + "文件夹中";
-                        Toast.makeText(ImageDetailActivity.this, isSuccess ? getString(R.string.down_load_success) + tip : getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, isSuccess ? getString(R.string.down_load_success) + tip : getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -459,19 +425,16 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     protected void onDestroy() {
         GlideCatchUtil.getInstance().releaseMemory(true);
         RxUtils.unSubscribeIfNotNull(mSubscription);
-        if (mHandler == null) return;
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler = null;
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-        backResultData();
+        setResultData();
         super.onBackPressed();
     }
 
-    private void backResultData() {
+    private void setResultData() {
         Intent intent = new Intent();
         intent.putExtra("currentPosition", mPosition);
         setResult(2000, intent);
@@ -481,16 +444,9 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-        case R.id.rl_download_img: {
-            if (mList == null || mPosition >= mList.size() || mList.get(mPosition).url == null)
-                return;
-            downloadFile(mList.get(mPosition).url, mPosition, true);
-            break;
-        }
-
-        default: {
-            break;
-        }
+            default: {
+                break;
+            }
         }
     }
 
@@ -551,8 +507,8 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         mLayoutEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(ImageDetailActivity.this, UMengEvent.ImageLoadErrorClickFinishPage);
-                backResultData();
+                MobclickAgent.onEvent(mContext, UMengEvent.ImageLoadErrorClickFinishPage);
+                setResultData();
                 finish();
             }
         });
