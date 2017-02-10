@@ -18,7 +18,7 @@ import java.io.IOException;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
-import meizhi.meizhi.malin.utils.GlideCatchUtil;
+import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import okhttp3.OkHttpClient;
 
@@ -139,8 +139,8 @@ public class MApplication extends Application {
     @Override
     public void onTrimMemory(int level) {
         LogUtil.e(TAG, "onTrimMemory:" + level);
-        GlideCatchUtil.getInstance().releaseMemory(true);
-        GlideCatchUtil.getInstance().clearCacheDiskSelf();
+        CatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().clearCacheDiskSelf();
         super.onTrimMemory(level);
     }
 }

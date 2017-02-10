@@ -2,9 +2,8 @@ package meizhi.meizhi.malin.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Looper;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -15,15 +14,15 @@ import meizhi.meizhi.malin.application.MApplication;
  * Glide缓存工具类
  */
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public class GlideCatchUtil {
-    private static final String TAG = GlideCatchUtil.class.getSimpleName();
-    private static volatile GlideCatchUtil instance;
+public class CatchUtil {
+    private static final String TAG = CatchUtil.class.getSimpleName();
+    private static volatile CatchUtil instance;
 
-    public static GlideCatchUtil getInstance() {
+    public static CatchUtil getInstance() {
         if (instance == null) {
-            synchronized (GlideCatchUtil.class) {
+            synchronized (CatchUtil.class) {
                 if (instance == null) {
-                    instance = new GlideCatchUtil();
+                    instance = new CatchUtil();
                 }
             }
         }
@@ -39,46 +38,6 @@ public class GlideCatchUtil {
             return "获取失败";
         }
     }
-
-    // 清除Glide磁盘缓存，自己获取缓存文件夹并删除方法
-    public boolean cleanCatchDisk(String path) {
-        return deleteFolderFile(path, true);
-    }
-    //
-
-    // 清除图片磁盘缓存，调用Glide自带方法
-    public boolean clearCacheDiskSelf() {
-        try {
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.get(MApplication.getInstance()).clearDiskCache();
-                    }
-                }).start();
-            } else {
-                Glide.get(MApplication.getInstance()).clearDiskCache();
-            }
-            return true;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // 清除Glide内存缓存
-    private boolean clearCacheMemory() {
-        try {
-            if (Looper.myLooper() == Looper.getMainLooper()) { //只能在主线程执行
-                Glide.get(MApplication.getInstance()).clearMemory();
-                return true;
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 
     // 获取指定文件夹内所有文件大小的和
     private long getFolderSize(File file) throws Exception {
@@ -185,13 +144,17 @@ public class GlideCatchUtil {
     }
 
 
+
+    public void clearCacheDiskSelf(){
+        Fresco.getImagePipeline().clearCaches();
+    }
     /**
      * 清理内存
      */
     public void releaseMemory(boolean rightNow) {
         if (rightNow) {
             LogUtil.d(TAG, "立刻释放内存");
-            clearCacheMemory();
+            Fresco.getImagePipeline().clearMemoryCaches();
         } else {
             ActivityManager manager = (ActivityManager) MApplication.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
             int singleAppM = manager.getMemoryClass();
@@ -201,8 +164,8 @@ public class GlideCatchUtil {
             LogUtil.d(TAG, "Current=" + totalMemory + "M" + " max=" + singleAppM + "M");
             //Nexus6P 96M 192M
             if (totalMemory * 1.0f >= clearTotal) {
-                boolean isSuccess = clearCacheMemory();
-                LogUtil.d(TAG, "大于" + clearTotal + "M,开始释放内存" + ",清理成功:" + isSuccess);
+                Fresco.getImagePipeline().clearMemoryCaches();
+                LogUtil.d(TAG, "大于" + clearTotal + "M,开始释放内存");
             }
         }
     }

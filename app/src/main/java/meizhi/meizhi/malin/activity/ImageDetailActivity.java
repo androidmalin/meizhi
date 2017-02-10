@@ -36,7 +36,7 @@ import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.services.ImageService;
-import meizhi.meizhi.malin.utils.GlideCatchUtil;
+import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.HackyViewPager;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
@@ -145,7 +145,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             @Override
             public void onPageSelected(int position) {
                 mPosition = position;
-                GlideCatchUtil.getInstance().releaseMemory(false);
+                CatchUtil.getInstance().releaseMemory(false);
                 MobclickAgent.onEvent(mContext, UMengEvent.ScrollNumber);
             }
 
@@ -416,14 +416,14 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
 
     @Override
     public void onPause() {
-        GlideCatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().releaseMemory(true);
         super.onPause();
         MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onDestroy() {
-        GlideCatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().releaseMemory(true);
         RxUtils.unSubscribeIfNotNull(mSubscription);
         super.onDestroy();
     }

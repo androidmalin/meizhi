@@ -30,7 +30,7 @@ import meizhi.meizhi.malin.network.bean.ImageInfo;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
 import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
-import meizhi.meizhi.malin.utils.GlideCatchUtil;
+import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
 import meizhi.meizhi.malin.utils.RxUtils;
 import meizhi.meizhi.malin.utils.UMengEvent;
@@ -176,7 +176,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     boolean isContain = false;
 
     private void getFangs(final int currentPage) {
-        GlideCatchUtil.getInstance().releaseMemory(false);
+        CatchUtil.getInstance().releaseMemory(false);
         ImageApi aip = ImageService.getInstance().getLogin();
         Observable<ImageInfo> observable = aip.getkey(NUMBER, currentPage);
         mSubscription = observable.subscribeOn(Schedulers.io())
@@ -347,7 +347,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     @Override
     public void onDestroy() {
-        GlideCatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().releaseMemory(true);
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             mHandler = null;
@@ -428,7 +428,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     @Override
     public void onPause() {
-        GlideCatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().releaseMemory(true);
         super.onPause();
         MobclickAgent.onPageEnd("ImageListFragment");
     }

@@ -20,7 +20,7 @@ import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.network.bean.ImageBean;
-import meizhi.meizhi.malin.utils.GlideCatchUtil;
+import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPause() {
-        GlideCatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().releaseMemory(true);
         super.onPause();
         MobclickAgent.onPause(this);
     }
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        GlideCatchUtil.getInstance().releaseMemory(true);
+        CatchUtil.getInstance().releaseMemory(true);
         super.onDestroy();
     }
 

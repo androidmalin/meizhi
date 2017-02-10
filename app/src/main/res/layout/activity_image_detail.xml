@@ -12,6 +12,7 @@
 
     <meizhi.meizhi.malin.utils.HackyViewPager
         android:id="@+id/view_pager_iv"
+        android:background="@android:color/background_dark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <ViewStub
