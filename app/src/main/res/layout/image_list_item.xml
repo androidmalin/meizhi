@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -11,20 +12,20 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/common_dimen_15dip">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/xy_room_fans_avatar_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:visibility="visible" />
-        </LinearLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/xy_room_fans_avatar_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="visible"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:fadeDuration="300"
+            fresco:failureImage="@color/colorPrimary"
+            fresco:failureImageScaleType="centerInside"
+            fresco:placeholderImage="@color/colorPrimary"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:pressedStateOverlayImage="@color/pressed_color"
+            fresco:retryImage="@color/colorAccent"
+            fresco:retryImageScaleType="centerCrop" />
     </android.support.v7.widget.CardView>
 
 

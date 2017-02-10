@@ -9,3 +9,4 @@ http://blog.csdn.net/wudongjiang333/article/details/54138828
 https://liuzhichao.com/2016/use-android_largeHeap.html
 https://gold.xitu.io/entry/58476edaac502e006ce3fa7e
 http://blog.csdn.net/yanzi1225627/article/details/7945695
+http://www.jianshu.com/p/5364957dcf49

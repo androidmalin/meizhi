@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
@@ -54,6 +55,7 @@ public class MApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initFresco();
         isLoad = true;
         int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -81,6 +83,10 @@ public class MApplication extends Application {
                 }
             }
         }
+    }
+
+    private void initFresco() {
+        Fresco.initialize(this, ImageLoaderConfig.getInstance().getImagePipelineConfig(this));
     }
 
 
