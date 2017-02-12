@@ -156,6 +156,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 //这里设置渐进式jpeg开关，记得在fresco初始化时设置progressiveJpegConfig
                 .setProgressiveRenderingEnabled(true)
                 //在解码之前修改图片尺寸
+                //缩放,在解码前修改内存中的图片大小, 配合Downsampling可以处理所有图片,否则只能处理jpg,
+                // 开启Downsampling:在初始化时设置.setDownsampleEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
                 .setRotationOptions(RotationOptions.autoRotate())
                 .build();
