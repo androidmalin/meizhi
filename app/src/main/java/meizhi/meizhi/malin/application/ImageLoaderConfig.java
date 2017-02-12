@@ -2,6 +2,7 @@ package meizhi.meizhi.malin.application;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.common.memory.MemoryTrimType;
@@ -28,6 +29,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public final class ImageLoaderConfig {
 
+
+    private static final String TAG = ImageLoaderConfig.class.getSimpleName();
 
     private ImageLoaderConfig() {
     }
@@ -78,7 +81,9 @@ public final class ImageLoaderConfig {
 
         if (BuildConfig.DEBUG) {
             FLog.setMinimumLoggingLevel(FLog.VERBOSE);
+            Log.d(TAG,"BuildConfig.DEBUG = True");
         } else {
+            Log.d(TAG,"BuildConfig.DEBUG = false");
             FLog.setMinimumLoggingLevel(FLog.ERROR);
         }
 

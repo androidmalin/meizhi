@@ -1,2 +1,46 @@
 #android模拟内存不足，应用被杀重新进入界面,app必须处于后台，前台没有效果
 adb shell am kill meizhi.meizhi.malin
+
+fresco 默认没有滑动暂时加载的功能。
+
+
+
+ 1971  cd malin_github/
+ 1972  ll
+ 1973  clear
+ 1974  cd meizhi/
+ 1975  ll
+ 1976  clear
+ 1977  cat http.log | grep "END HTTP" | wc -l
+ 1978  cat http.log | grep "http://ww1.sinaimg.cn/orj360/7a8aed7bgw1ev6jh1hbsgj20hr0qoq5s.jpg"
+ 1979  cat http.log | grep "END HTTP" | wc -l
+ 1980  cat http.log | grep "ca6cf9ce14868814562386085e" | wc -l
+ 1981  cat http.log | grep "ca6cf9ce14868814562386085e"
+ 1982  cat http.log | grep "http://ww4.sinaimg.cn/orj360/610dc034gw1ev8sy6rn52j20m80vwwj2.jpg" | wc -l
+ 1983  cat http.log | grep "http://ww4.sinaimg.cn/orj360/610dc034gw1ev8sy6rn52j20m80vwwj2.jpg"
+ 1984  cat http.log | grep "END HTTP" | wc -l
+ 1985  ll
+ 1986  rm http.log
+ 1987  clear
+ 1988  cat http.log | grep "END HTTP" | wc -l
+ 1989  vim saveokhttp.sh
+ 1990  clear
+ 1991  c;ear
+ 1992  clear
+ 1993  cat http.log | grep "END HTTP" | wc -l
+ 1994  clear
+ 1995  cat http.log | grep "END HTTP" | wc -l
+ 1996  ./showokhttp.sh
+ 1997  clear
+ 1998  cat http.log | grep "END HTTP" | wc -l
+ 1999  clear
+ 2000  cat http.log | grep "END HTTP" | wc -l
+ 2001  cd malin_github/
+ 2002  cd meizhi/
+ 2003  ll
+ 2004  clear
+ 2005  ll
+ 2006  clear
+ 2007  cat http.log | grep "END HTTP" | wc -l
+ 2008  ./saveokhttp.sh
+ 2009  history
