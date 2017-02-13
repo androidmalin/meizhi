@@ -1,7 +1,9 @@
 package meizhi.meizhi.malin.network.bean;
 
+import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageButton;
 
 /**
  * 类描述:
@@ -28,6 +30,10 @@ public class ImageBean implements Parcelable {
     }
 
     public ImageBean() {
+    }
+
+    public ImageBean(String url){
+        this.url = url;
     }
 
     private ImageBean(Parcel in) {

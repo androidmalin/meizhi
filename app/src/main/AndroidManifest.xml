@@ -39,6 +39,10 @@
         <activity
             android:name=".activity.ImageDetailActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ImageLargeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" />

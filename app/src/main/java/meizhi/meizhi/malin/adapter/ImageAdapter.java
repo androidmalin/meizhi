@@ -183,7 +183,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             @Override
             public void onFailure(String id, Throwable throwable) {
                 LogUtil.e(TAG, "Error loading" + id + "\n" + throwable.getLocalizedMessage());
-                Toast.makeText(mContext, "Error loading, id = " + id, Toast.LENGTH_LONG).show();
             }
         };
 

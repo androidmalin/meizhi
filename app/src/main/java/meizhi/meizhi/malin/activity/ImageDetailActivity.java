@@ -3,14 +3,11 @@ package meizhi.meizhi.malin.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -18,14 +15,8 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -33,26 +24,14 @@ import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.DepthPageTransformer;
 import meizhi.meizhi.malin.adapter.ImagePagerAdapter;
 import meizhi.meizhi.malin.application.MApplication;
-import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.bean.ImageBean;
-import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.HackyViewPager;
-import meizhi.meizhi.malin.utils.LogUtil;
+import meizhi.meizhi.malin.utils.ImageDownLoadUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
 import meizhi.meizhi.malin.utils.UMengEvent;
-import okhttp3.HttpUrl;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func0;
-import rx.schedulers.Schedulers;
 
 /**
  * 类描述:
@@ -65,7 +44,7 @@ import rx.schedulers.Schedulers;
  * 版本:
  */
 public class ImageDetailActivity extends AppCompatActivity implements ImagePagerAdapter.downLoadClickListener,
-        ImagePagerAdapter.photoViewTapListener, View.OnClickListener, ImagePagerAdapter.imageDownLoadListener {
+        ImagePagerAdapter.photoViewTapListener, View.OnClickListener, ImagePagerAdapter.imageDownLoadListener, ImageDownLoadUtil.downLoadListener {
     private static final String TAG = ImageDetailActivity.class.getSimpleName();
     private static final String FILE_IMAGE = "0MeZhi";
     private static final int TEMP = 4 * 1024;
@@ -79,6 +58,7 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     private View mLayoutEmpty;
     private Context mContext;
     private ViewPager mViewPager;
+    private ImageDownLoadUtil mImageDownLoadUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +98,9 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
             mList = intent.getParcelableArrayListExtra("datas");
         }
         mContext = ImageDetailActivity.this;
+
+        mImageDownLoadUtil = new ImageDownLoadUtil(this);
+        mImageDownLoadUtil.setDownLoadListener(this);
     }
 
     private void initViews() {
@@ -209,204 +192,9 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
 
     @Override
     public void downImageListener(String url, int position, boolean singleClickDown) {
-        downloadFile(url, position, singleClickDown);
+        if (mImageDownLoadUtil == null) return;
+        mSubscription = mImageDownLoadUtil.downloadFile(url, position, singleClickDown);
     }
-
-
-    private void downloadFile(final String fileUrl, int position, boolean singleClickDown) {
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("url", fileUrl);
-        map.put("position", "" + position);
-        MobclickAgent.onEvent(this, singleClickDown ? UMengEvent.ClickDownLoadImage : UMengEvent.LongClickDownLoadImage, map);
-
-        ImageApi biLiApi = ImageService.getInstance().getDownLoadService(ImageApi.class, getBaseUrl(fileUrl));
-        Call<ResponseBody> call = biLiApi.download(fileUrl);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    LogUtil.d(TAG, "server contacted and has file");
-                    writeImageToDisk(response.body());
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(mContext, getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mContext, getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-    }
-
-    /**
-     * 获取BaseUrl
-     *
-     * @param urlString Url
-     * @return BaseUrl
-     */
-    private synchronized static String getBaseUrl(String urlString) {
-        HttpUrl httpUrl = HttpUrl.parse(urlString);
-        //http://qn-apk.wdjcdn.com/4/b8/77572fdd42790d77bc600c710169cb84.apk
-        //scheme http
-        //host qn-apk.wdjcdn.com
-        //baseUrl scheme :// host
-
-        String baseUrl = null;
-
-        if (httpUrl != null) {
-            String scheme = httpUrl.scheme();
-            String host = httpUrl.host();
-
-            if (!TextUtils.isEmpty(scheme)) {
-                LogUtil.d(TAG, "scheme:" + scheme);
-            }
-            if (!TextUtils.isEmpty(host)) {
-                LogUtil.d(TAG, "host:" + host);
-            }
-            StringBuilder sb = new StringBuilder();
-            sb.append(!TextUtils.isEmpty(scheme) ? scheme : "")
-                    .append("://")
-                    .append(!TextUtils.isEmpty(host) ? host : "")
-                    .append("/");
-            baseUrl = sb.toString();
-            LogUtil.d(TAG, "baseUrl:" + baseUrl);
-
-        }
-        return baseUrl;
-    }
-
-
-    private void writeImageToDisk(ResponseBody body) {
-        mSubscription = createObservable(body)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Boolean>() {
-                    @Override
-                    public void onCompleted() {
-                        try {
-                            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + mPath)));
-                        } catch (Throwable e) {
-                            CrashReport.postCatchedException(e);
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(mContext, R.string.down_load_error, Toast.LENGTH_SHORT).show();
-                        CrashReport.postCatchedException(e);
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(Boolean isSuccess) {
-                        LogUtil.d(TAG, "file download was a success? " + isSuccess);
-                        String tip = "\n图片保存在sdcard的" + FILE_IMAGE + "文件夹中";
-                        Toast.makeText(mContext, isSuccess ? getString(R.string.down_load_success) + tip : getString(R.string.down_load_error), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-
-    public Observable<Boolean> createObservable(final ResponseBody body) {
-        return Observable.defer(new Func0<Observable<Boolean>>() {
-            @Override
-            public Observable<Boolean> call() {
-                boolean is = writeResponseBodyToDisk(body);
-                return Observable.just(is);
-            }
-        });
-    }
-
-
-    private String mPath;
-
-    private boolean writeResponseBodyToDisk(ResponseBody body) {
-        try {
-            File appDir = new File(Environment.getExternalStorageDirectory(), FILE_IMAGE);
-            if (!appDir.exists()) {
-                if (!appDir.mkdir()) {
-                    if (!appDir.mkdir()) {
-                        return false;
-                    }
-                }
-            }
-            String fileName = System.currentTimeMillis() + ".jpg";
-
-            mPath = appDir.getAbsolutePath() + File.separator + fileName;
-            File fileImg = new File(appDir, fileName);
-            InputStream inputStream = null;
-            OutputStream outputStream = null;
-
-            try {
-                byte[] fileReader = new byte[TEMP];
-                long fileSize = body.contentLength();
-                long fileSizeDownloaded = 0;
-                inputStream = body.byteStream();
-                if (inputStream == null)
-                    return false;
-                outputStream = new FileOutputStream(fileImg);
-                LogUtil.d(TAG, fileImg.getAbsolutePath());
-                while (true) {
-                    int read = inputStream.read(fileReader);
-                    if (read == -1) {
-                        break;
-                    }
-                    outputStream.write(fileReader, 0, read);
-                    fileSizeDownloaded += read;
-
-                    //W: file download: 36671219 of 36671219
-                    //W: file download: /storage/emulated/0/Android/data/com.malin.animation/files/weixin.apk
-                    //E: file download was a success? true
-                    LogUtil.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
-                    LogUtil.d(TAG, "file download: " + fileImg.getAbsolutePath());
-                }
-                outputStream.flush();
-                return true;
-            } catch (IOException e) {
-                CrashReport.postCatchedException(e);
-                return false;
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        CrashReport.postCatchedException(e);
-                    }
-                    inputStream = null;
-
-                }
-                if (outputStream != null) {
-                    try {
-                        outputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        CrashReport.postCatchedException(e);
-                    }
-                    outputStream = null;
-
-                }
-            }
-        } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 
     @Override
     public void onResume() {
@@ -456,7 +244,9 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
         if (mProgressBar != null && mProgressBar.isShown()) {
             mProgressBar.setVisibility(View.GONE);
         }
-        inflateEmptyStubIfNeeded();
+        if (mPosition == position) {
+            inflateEmptyStubIfNeeded();
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put("position", "" + position);
         map.put("url", url);
@@ -478,9 +268,11 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
     }
 
     @Override
-    public void downLoadPrepare() {
-        if (mProgressBar != null && !mProgressBar.isShown()) {
-            mProgressBar.setVisibility(View.VISIBLE);
+    public void downLoadPrepare(int position, String url) {
+        if (mProgressBar != null) {
+            if (mPosition == position) {
+                mProgressBar.setVisibility(View.VISIBLE);
+            }
         }
         if (mLayoutEmpty != null) {
             mLayoutEmpty.setVisibility(View.GONE);
@@ -512,6 +304,16 @@ public class ImageDetailActivity extends AppCompatActivity implements ImagePager
                 finish();
             }
         });
+    }
+
+    @Override
+    public void downLoadFailure(String msg) {
+        Toast.makeText(mContext, "" + msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void downLoadSuccessful(String msg) {
+        Toast.makeText(mContext, "" + msg, Toast.LENGTH_SHORT).show();
     }
 }
 

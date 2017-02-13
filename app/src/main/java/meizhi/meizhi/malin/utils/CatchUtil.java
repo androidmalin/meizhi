@@ -160,7 +160,7 @@ public class CatchUtil {
             int singleAppM = manager.getMemoryClass();
             long totalMemory = ((int) Runtime.getRuntime().totalMemory()) / 1024 / 1024;
 
-            float clearTotal = singleAppM * 0.5f;
+            float clearTotal = singleAppM * 0.4f;
             LogUtil.d(TAG, "Current=" + totalMemory + "M" + " max=" + singleAppM + "M");
             //Nexus6P 96M 192M
             if (totalMemory * 1.0f >= clearTotal) {

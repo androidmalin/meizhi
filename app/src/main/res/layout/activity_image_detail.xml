@@ -3,13 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/pd_img"
-        android:layout_width="@dimen/common_dimen_30dip"
-        android:layout_height="@dimen/common_dimen_30dip"
-        android:layout_gravity="center"
-        android:visibility="visible" />
-
     <meizhi.meizhi.malin.utils.HackyViewPager
         android:id="@+id/view_pager_iv"
         android:background="@android:color/background_dark"
@@ -21,4 +14,11 @@
         android:layout_height="match_parent"
         android:layout="@layout/img_error_view"
         android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pd_img"
+        android:layout_width="@dimen/common_dimen_30dip"
+        android:layout_height="@dimen/common_dimen_30dip"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 </merge>

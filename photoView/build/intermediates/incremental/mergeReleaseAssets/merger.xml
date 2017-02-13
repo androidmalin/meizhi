@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/malin/malin_github/meizhi/photoView/src/main/assets"/><source path="/home/malin/malin_github/meizhi/photoView/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/home/malin/malin_github/meizhi/photoView/src/release/assets"/></dataSet></merger>

@@ -1,47 +1,37 @@
 package meizhi.meizhi.malin.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.common.RotationOptions;
-import com.facebook.imagepipeline.image.ImageInfo;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import me.relex.photodraweeview.Attacher;
-import me.relex.photodraweeview.OnViewTapListener;
-import me.relex.photodraweeview.PhotoDraweeView;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ImagePagerAdapter extends PagerAdapter {
 
+
+    private static final String TAG = ImagePagerAdapter.class.getSimpleName();
     private ArrayList<ImageBean> mList;
     private Context mContext;
     private int mItemWidth;
     private int mItemHeight;
     private String mImageUrl;
-
-    private List<PhotoDraweeView> mViews = new ArrayList<>();
-
-    private PhotoDraweeView mImageViewItem;
 
     public void setData(ArrayList<ImageBean> mList, Context context) {
         this.mList = mList;
@@ -49,17 +39,6 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         mItemWidth = PhoneScreenUtil.getPhoneWidth(mContext);
         mItemHeight = PhoneScreenUtil.getPhoneHeight(mContext);
-
-        mLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mLayoutParams.width = mItemWidth;
-        mLayoutParams.height = mItemHeight;
-        mLayoutParams.gravity = Gravity.CENTER;
-
-        for (int i = 0; i < 4; i++) {
-            mImageViewItem = new PhotoDraweeView(mContext);
-            mImageViewItem.setLayoutParams(mLayoutParams);
-            mViews.add(mImageViewItem);
-        }
     }
 
     public ArrayList<ImageBean> getData() {
@@ -95,18 +74,19 @@ public class ImagePagerAdapter extends PagerAdapter {
         return mList != null ? mList.size() : 0;
     }
 
-    private FrameLayout.LayoutParams mLayoutParams;
+    private ViewGroup.LayoutParams mLayoutParams;
 
-    private Attacher mAttacher;
+    private PhotoViewAttacher mAttacher;
+    private ImageView photoView;
 
     private imageDownLoadListener mImageDownLoadListener;
 
     public interface imageDownLoadListener {
-        void downLoadFailure(int position, String url);
+        void downLoadFailure(int position,String url);
 
-        void downLoadSuccess(int position, String url);
+        void downLoadSuccess(int position,String url);
 
-        void downLoadPrepare();
+        void downLoadPrepare(int position,String url);
     }
 
     public void setProgressBarListener(imageDownLoadListener listener) {
@@ -114,102 +94,121 @@ public class ImagePagerAdapter extends PagerAdapter {
     }
 
 
-    private ImageRequest mImageRequest;
-    private PipelineDraweeController mPipelineDraweeController;
-    private PhotoDraweeView mPhotoDraweeView;
-
     @Override
     public View instantiateItem(ViewGroup container, final int position) {
+        photoView = new ImageView(mContext);
+        mAttacher = new PhotoViewAttacher(photoView);
+        mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+            @Override
+            public void onViewTap(View view, float x, float y) {
+                if (mPhotoViewTapListener == null) return;
+                mPhotoViewTapListener.viewTapListener(view, x, y);
+            }
+        });
+        mAttacher.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (mDownLoadClickListener != null) {
+                    if (mList != null && position < mList.size() && mList.get(position).url != null) {
+                        String utrImg = mList.get(position).url;
+                        mDownLoadClickListener.downImageListener(utrImg, position, false);
+                    }
+                }
+                return false;
+            }
+        });
+        mAttacher.update();
 
+        mLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mLayoutParams.width = mItemWidth;
+        mLayoutParams.height = mItemHeight;
 
-        int i = position % 4;
-        mPhotoDraweeView = mViews.get(i);
-        mPhotoDraweeView.setLayoutParams(mLayoutParams);
+        photoView.setLayoutParams(mLayoutParams);
         if (mList != null && mList.get(position) != null && mList.get(position).url != null) {
             mImageUrl = UrlUtils.getUrl(mList.get(position).url, UrlUtils.large);
             if (mImageDownLoadListener != null) {
-                mImageDownLoadListener.downLoadPrepare();
+                mImageDownLoadListener.downLoadPrepare(position,mImageUrl);
             }
-            mImageRequest = ImageRequestBuilder
-                    .newBuilderWithSource(Uri.parse(mImageUrl))
-                    //这里设置渐进式jpeg开关，记得在fresco初始化时设置progressiveJpegConfig
-                    .setProgressiveRenderingEnabled(true)
-                    //在解码之前修改图片尺寸
-                    .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
-                    .setRotationOptions(RotationOptions.autoRotate())
-                    .build();
 
-
-            mPipelineDraweeController = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-                    .setImageRequest(mImageRequest)
-                    //在构建新的控制器时需要setOldController，这可以防止重新分配内存
-                    .setOldController(mPhotoDraweeView.getController())
-                    //tap-to-retry load image
-                    .setTapToRetryEnabled(true)
-                    //是否自动开启gif,webp动画,也可以在ControllerListener下手动启动动画
-                    .setAutoPlayAnimations(true)
-                    .setControllerListener(new BaseControllerListener<ImageInfo>() {
+            Glide.with(mContext).load(mImageUrl)
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .centerCrop()
+                    .override(mItemWidth, mItemHeight)
+                    .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
-                        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                            super.onFinalImageSet(id, imageInfo, animatable);
-                            if (imageInfo == null) {
-                                return;
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            if (mImageDownLoadListener != null) {
+                                mImageDownLoadListener.downLoadFailure(position,mImageUrl);
                             }
-                            mPhotoDraweeView.update(imageInfo.getWidth(), imageInfo.getHeight());
-//                            mPhotoDraweeView.update(mItemWidth, mItemHeight);
-                            mImageDownLoadListener.downLoadSuccess(position, mImageUrl);
+                            return false;
                         }
 
                         @Override
-                        public void onFailure(String id, Throwable throwable) {
-                            super.onFailure(id, throwable);
-                            mImageDownLoadListener.downLoadFailure(position, mImageUrl);
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            if (mImageDownLoadListener != null) {
+                                mImageDownLoadListener.downLoadSuccess(position,mImageUrl);
+                            }
+                            return false;
                         }
                     })
-                    .build();
-            mPhotoDraweeView.setController(mPipelineDraweeController);
+                    .into(new GlideDrawableImageViewTarget(photoView) { //加载失败
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            super.onLoadFailed(e, errorDrawable);
+                            //LogUtil.d(TAG, "onLoadFailed");
+                        }
 
-            mAttacher = mPhotoDraweeView.getAttacher();
-            if (mAttacher != null) {
-                mAttacher.setOnViewTapListener(new OnViewTapListener() {
-                    @Override
-                    public void onViewTap(View view, float x, float y) {
-                        if (mPhotoViewTapListener == null) return;
-                        mPhotoViewTapListener.viewTapListener(view, x, y);
-                    }
-                });
-                mAttacher.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        if (mDownLoadClickListener != null) {
-                            if (mList != null && position < mList.size() && mList.get(position).url != null) {
-                                String utrImg = mList.get(position).url;
-                                mDownLoadClickListener.downImageListener(utrImg, position, false);
+                        @Override
+                        public void onLoadStarted(Drawable placeholder) {
+                            super.onLoadStarted(placeholder);
+                            //LogUtil.d(TAG, "onLoadStarted");
+                            if (mImageDownLoadListener != null) {
+                                mImageDownLoadListener.downLoadPrepare(position,mImageUrl);
                             }
                         }
-                        return false;
-                    }
-                });
 
-            }
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+                            super.onResourceReady(resource, animation);
+                            //LogUtil.d(TAG, "onResourceReady");
+                        }
+                    });
 
+//            Glide.with(mContext)
+//                    .load(mImageUrl)
+//                    .listener(new RequestListener<String, GlideDrawable>() {
+//                        @Override
+//                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+//                            if (mImageDownLoadListener != null) {
+//                                mImageDownLoadListener.downLoadFailure(position,mImageUrl);
+//                            }
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                            if (mImageDownLoadListener != null) {
+//                                mImageDownLoadListener.downLoadSuccess(position,mImageUrl);
+//                            }
+//                            return false;
+//                        }
+//                    })
+//                    .centerCrop()
+//                    .override(mItemWidth, mItemHeight)
+//                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                    .into(photoView);
         }
         // Now just add PhotoView to ViewPager and return it
-
-        ViewGroup parent = (ViewGroup) mPhotoDraweeView.getParent();
-        if (parent != null) {
-            parent.removeView(mPhotoDraweeView);
-        }
-
-        container.addView(mPhotoDraweeView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        return mPhotoDraweeView;
+        container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        return photoView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        int i = position % 4;
-        ImageView imageView = mViews.get(i);
-        container.removeView(imageView);
+        View view = (View) object;
+        //releaseImageView(view);
+        container.removeView(view);
     }
 
     @Override
@@ -218,7 +217,6 @@ public class ImagePagerAdapter extends PagerAdapter {
     }
 
     private void releaseImageView(View view) {
-        if (view == null) return;
         if (view instanceof ImageView) {
             try {
                 ImageView imageView = (ImageView) view;
