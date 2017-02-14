@@ -15,6 +15,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.common.RotationOptions;
@@ -29,6 +31,8 @@ import java.util.List;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.bean.ImageBean;
+import meizhi.meizhi.malin.utils.CircleProgressBarDrawable;
+import meizhi.meizhi.malin.utils.ImageLoadingDrawable;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
@@ -173,6 +177,15 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void loadImgCode(SimpleDraweeView simpleDraweeView, String url) {
+
+
+        GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(mContext.getResources());
+        GenericDraweeHierarchy hierarchy = builder
+                .setFadeDuration(300)
+                .setPlaceholderImage(new CircleProgressBarDrawable())
+                .build();
+        simpleDraweeView.setHierarchy(hierarchy);
+
 
         ImageRequest imageRequest = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(url))

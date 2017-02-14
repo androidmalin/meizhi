@@ -13,3 +13,4 @@ http://www.jianshu.com/p/5364957dcf49
 http://blog.csdn.net/hss01248/article/details/52163969
 http://blog.csdn.net/hss01248/article/details/51757989
 http://blog.kyangc.me/2017/01/15/list-opt/
+http://stackoverflow.com/questions/34910616/circular-progressbar-using-fresco
