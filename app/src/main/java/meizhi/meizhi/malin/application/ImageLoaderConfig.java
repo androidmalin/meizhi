@@ -68,24 +68,25 @@ public final class ImageLoaderConfig {
         });
 
 
+        if (BuildConfig.DEBUG) {
+            FLog.setMinimumLoggingLevel(FLog.VERBOSE);
+            Log.d(TAG, "BuildConfig.DEBUG = True");
+        } else {
+            Log.d(TAG, "BuildConfig.DEBUG = false");
+            FLog.setMinimumLoggingLevel(FLog.ERROR);
+        }
+
+        //支持调试时，显示图片加载的Log
         Set<RequestListener> requestListeners = new HashSet<>();
         requestListeners.add(new RequestLoggingListener());
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        //OkHttpClient
+        //替换网络实现为OkHttp3
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
-
-        if (BuildConfig.DEBUG) {
-            FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-            Log.d(TAG,"BuildConfig.DEBUG = True");
-        } else {
-            Log.d(TAG,"BuildConfig.DEBUG = false");
-            FLog.setMinimumLoggingLevel(FLog.ERROR);
-        }
 
         //网络实现层用okHttp3
         ImagePipelineConfig mImagePipelineConfig = OkHttpImagePipelineConfigFactory.newBuilder(context, okHttpClient)

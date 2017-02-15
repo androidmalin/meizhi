@@ -14,3 +14,13 @@ http://blog.csdn.net/hss01248/article/details/52163969
 http://blog.csdn.net/hss01248/article/details/51757989
 http://blog.kyangc.me/2017/01/15/list-opt/
 http://stackoverflow.com/questions/34910616/circular-progressbar-using-fresco
+
+http://blog.csdn.net/y1scp/article/details/49245535
+http://blog.csdn.net/hss01248/article/details/51757989
+http://blog.csdn.net/android_ls/article/details/53137867
+http://blog.csdn.net/hss01248/article/details/52163969
+http://www.jianshu.com/p/4888a487c92b
+http://blog.csdn.net/eroswang/article/details/8302191
+https://github.com/python-pillow/Pillow/issues/664
+http://stackoverflow.com/questions/4904940/python-converting-gif-frames-to-png
+http://blog.csdn.net/aminfo/article/details/7847761

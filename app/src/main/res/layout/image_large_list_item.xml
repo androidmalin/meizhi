@@ -12,11 +12,22 @@
         android:layout_height="match_parent"
         fresco:actualImageScaleType="focusCrop"
         fresco:fadeDuration="300"
+
         fresco:failureImage="@color/colorPrimary"
         fresco:failureImageScaleType="centerInside"
+
         fresco:placeholderImage="@color/colorPrimary"
         fresco:placeholderImageScaleType="centerCrop"
-        fresco:retryImage="@color/colorAccent"
-        fresco:retryImageScaleType="centerCrop" />
 
+
+
+        fresco:retryImage="@color/colorAccent"
+        fresco:retryImageScaleType="centerCrop"
+
+        />
+
+
+    <!--fresco:progressBarImage="@drawable/loading_bar"-->
+    <!--fresco:progressBarImageScaleType="center"-->
+    <!--fresco:progressBarAutoRotateInterval="1000"-->
 </LinearLayout>
