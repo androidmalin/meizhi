@@ -1,1 +1,1 @@
-include ':app', ':photoView'
+include ':app', ':photoView', ':library'

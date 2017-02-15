@@ -219,7 +219,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //            animationDrawable.setOneShot(false);
 //        }
 
-        simpleDraweeView.setHierarchy(hierarchyBuilder.build());
+//        simpleDraweeView.setHierarchy(hierarchyBuilder.build());
 
 
         ImageRequest imageRequest = ImageRequestBuilder
