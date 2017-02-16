@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.adapter.ImageLargeAdapter;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.CatchUtil;
@@ -160,12 +159,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void itemClickListener(int position, ArrayList<ImageBean> list) {
         try {
             MobclickAgent.onEvent(this, UMengEvent.ClickImageToBigImage);
-//            Intent intent = new Intent(this, ImageDetailActivity.class);
-//            intent.putExtra("position", position);
-//            intent.putParcelableArrayListExtra("datas", list);
-//            startActivityForResult(intent, 1000);
-
-
 
             Intent intent = new Intent(this, ImageLargeActivity.class);
             intent.putExtra("position", position);

@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
@@ -42,8 +40,6 @@ import rx.Subscription;
 public class ImageLargeActivity extends AppCompatActivity implements ImageLargeAdapter.itemClickListener,
         ImageLargeAdapter.downLoadClickListener, ImageDownLoadUtil.downLoadListener {
 
-
-    private static final String TAG = ImageLargeActivity.class.getSimpleName();
     private int mPosition;
     private Window mWindow;
     private View mDecorView;
@@ -110,50 +106,19 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
 
     }
 
-    private int preScrollState;
-
     private class ScrollListener extends RecyclerView.OnScrollListener {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-
-            //需要在列表滚动时暂停加载图片,当停止滚动时再恢复加载.
-            switch (newState) {
-                //当前的recycleView不滑动(滑动已经停止时)
-                case RecyclerView.SCROLL_STATE_IDLE: {
-                    if (Fresco.getImagePipeline().isPaused()) {
-                        Fresco.getImagePipeline().resume();
-                        Log.d(TAG, "滑动已经停止");
-                    }
-                    break;
-                }
-                //当前的recycleView被拖动滑动,正在被外部拖拽,一般为用户正在用手指滚动
-                case RecyclerView.SCROLL_STATE_DRAGGING: {
-                    Log.d(TAG, "正在被外部拖拽");
-                    if (preScrollState == RecyclerView.SCROLL_STATE_SETTLING) { //惯性滑动
-                        //触摸滑动不需要加载
-                        Fresco.getImagePipeline().pause();
-                        Log.d(TAG, "触摸滑动不需要加载");
-                    } else {
-                        //触摸滑动需要加载
-                        if (Fresco.getImagePipeline().isPaused()) {
-                            Fresco.getImagePipeline().resume();
-                            Log.d(TAG, "触摸滑动需要加载");
-                        } else {
-                            Log.d(TAG, "触摸滑动需要加载++++++");
-                        }
-                    }
-                    break;
-                }
-
-                //惯性滑动
-                case RecyclerView.SCROLL_STATE_SETTLING: {
+            if (newState == RecyclerView.SCROLL_STATE_SETTLING || newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if (!Fresco.getImagePipeline().isPaused()) {
                     Fresco.getImagePipeline().pause();
-                    Log.d(TAG, "惯性滑动停止加载");
-                    break;
+                }
+            } else {
+                if (Fresco.getImagePipeline().isPaused()) {
+                    Fresco.getImagePipeline().resume();
                 }
             }
-            preScrollState = newState;
         }
 
         @Override

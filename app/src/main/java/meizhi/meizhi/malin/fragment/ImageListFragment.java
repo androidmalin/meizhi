@@ -63,7 +63,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private EndlessRecyclerOnScrollListener mEndlessListener;
     private Activity mActivity;
-    private static final int NUMBER = 100;
+    private static final int NUMBER = 500;
     private Subscription mSubscription;
     private Subscription mSubscription2;
 
@@ -368,7 +368,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     }
 
     @Override
-    public void itemOnClick(String imageUrl, int position) {
+    public void itemOnClick(int position) {
         if (mActivity == null || mActivity.isFinishing()) return;
         mItemClickListener.itemClickListener(position, mAdapter.getData());
     }

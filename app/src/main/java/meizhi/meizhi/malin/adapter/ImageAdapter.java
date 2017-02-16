@@ -1,7 +1,6 @@
 package meizhi.meizhi.malin.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -49,10 +47,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private LayoutInflater mInflater;
     private int mItemWidth;
     private int mItemHeight;
-    private Context mContext;
 
     public ImageAdapter(Activity context) {
-        mContext = context;
         mInflater = LayoutInflater.from(context);
         mItemWidth = (int) ((PhoneScreenUtil.getPhoneWidth(context) * 1.0f - PhoneScreenUtil.dipToPx(context, 100.f)) / 2.0f);
         mItemHeight = (int) (mItemWidth * 4.0f / 3.0f);
@@ -78,23 +74,12 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     public interface itemClickListener {
-        void itemOnClick(String imageUrl, int position);
+        void itemOnClick(int position);
     }
 
     public void setOnItemClickListener(itemClickListener listener) {
         this.mItemClickListener = listener;
     }
-
-    public void removeData(int position) {
-        if (position >= 0 && position < mData.size()) {
-            mData.remove(position);
-            notifyItemRemoved(position);
-            if (position != mData.size()) {
-                notifyItemRangeChanged(position, mData.size() - position);
-            }
-        }
-    }
-
 
     public int getDataSize() {
         return mData == null ? 0 : mData.size();
@@ -112,11 +97,11 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ItemViewHolder itemViewHolder;
         View view = mInflater.inflate(R.layout.image_list_item, parent, false);
         itemViewHolder = new ItemViewHolder(view);
-        itemViewHolder.head = (SimpleDraweeView) view.findViewById(R.id.xy_room_fans_avatar_iv);
+        itemViewHolder.head = (SimpleDraweeView) view.findViewById(R.id.iv_item_list_img);
         return itemViewHolder;
     }
 
-    private String imageUrl;
+    private String imageUrlLarge;
 
     private ViewGroup.LayoutParams mLayoutParams;
 
@@ -132,14 +117,14 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ImageBean bean = mData.get(pos);
 
             if (bean == null || TextUtils.isEmpty(bean.url)) return;
-            imageUrl = UrlUtils.getUrl(bean.url, UrlUtils.orj360);
+            imageUrlLarge = bean.url;
 
-            loadImgCode(itemViewHolder.head, imageUrl);
+            loadImgCode(itemViewHolder.head, imageUrlLarge);
             itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mItemClickListener == null || imageUrl == null) return;
-                    mItemClickListener.itemOnClick(imageUrl, pos);
+                    if (mItemClickListener == null || imageUrlLarge == null) return;
+                    mItemClickListener.itemOnClick(pos);
                 }
             });
         }
@@ -151,8 +136,20 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void loadImgCode(SimpleDraweeView simpleDraweeView, String url) {
 
+
+        String lowUrl = UrlUtils.getUrl(url, UrlUtils.thumbnail);
+
+        ImageRequest imageRequestLow = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(lowUrl))
+                .setProgressiveRenderingEnabled(true)
+                .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
+                .setRotationOptions(RotationOptions.autoRotate())
+                .build();
+
+
+        String imageHigh = UrlUtils.getUrl(url, UrlUtils.orj360);
         ImageRequest imageRequest = ImageRequestBuilder
-                .newBuilderWithSource(Uri.parse(url))
+                .newBuilderWithSource(Uri.parse(imageHigh))
                 //这里设置渐进式jpeg开关，记得在fresco初始化时设置progressiveJpegConfig
                 .setProgressiveRenderingEnabled(true)
                 //在解码之前修改图片尺寸
@@ -187,6 +184,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         };
 
         PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                .setLowResImageRequest(imageRequestLow)
                 .setImageRequest(imageRequest)
                 //在构建新的控制器时需要setOldController，这可以防止重新分配内存
                 .setOldController(simpleDraweeView.getController())
@@ -211,4 +209,16 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
         }
     }
+
+
+    public void removeData(int position) {
+        if (position >= 0 && position < mData.size()) {
+            mData.remove(position);
+            notifyItemRemoved(position);
+            if (position != mData.size()) {
+                notifyItemRangeChanged(position, mData.size() - position);
+            }
+        }
+    }
+
 }

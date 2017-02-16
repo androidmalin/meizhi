@@ -134,7 +134,6 @@ dependencies {
     compile rootProject.ext.dependencies["cardview"]
     compile rootProject.ext.dependencies["recyclerview"]
     compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["glide"]
     //RxJava
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["rxjava"]
@@ -145,11 +144,14 @@ dependencies {
     //OkHttp
     compile rootProject.ext.dependencies["okhttp"]
     compile rootProject.ext.dependencies["umeng"]
+
+    //Fresco
     compile(rootProject.ext.dependencies["fresco"]) {
         exclude module: 'support-core-utils'
         exclude module: 'support-compat'
         exclude module: 'support-annotations'
     }
+    //Fresco-OkHttp3
     compile(rootProject.ext.dependencies["imagepipeline-okhttp3"]) {
         exclude module: 'support-core-utils'
         exclude module: 'support-compat'
@@ -157,11 +159,9 @@ dependencies {
     }
     //An OkHttp interceptor which logs HTTP request and response data.
     compile rootProject.ext.dependencies["logging-interceptor"]
-    compile 'me.relex:photodraweeview:1.1.2'
     //LeakCanary
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
     //BugLy
     compile rootProject.ext.dependencies["crashreport_upgrade"]
-    compile project(':photoView')
 }

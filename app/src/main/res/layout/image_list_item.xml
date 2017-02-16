@@ -13,7 +13,7 @@
         android:layout_margin="@dimen/common_dimen_15dip">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/xy_room_fans_avatar_iv"
+            android:id="@+id/iv_item_list_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:visibility="visible"
