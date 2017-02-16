@@ -54,7 +54,7 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initContentView();
-        hideSystemUI();
+        setStatusBarColor();
         setContentView(R.layout.image_large_activity);
         initData();
         initView();
@@ -72,6 +72,26 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
         if (mDecorView == null) this.finish();
     }
 
+    private void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (mWindow == null) return;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            mDecorView.setSystemUiVisibility(option);
+            mWindow.setStatusBarColor(Color.TRANSPARENT);
+            mWindow.setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
+            hideSystemUI();
+        }
+        super.onWindowFocusChanged(hasFocus);
+    }
+
     private void hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (mDecorView == null) return;
@@ -83,12 +103,6 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (mWindow == null) return;
-                mWindow.setStatusBarColor(Color.TRANSPARENT);
-                mWindow.setNavigationBarColor(Color.TRANSPARENT);
-            }
         }
     }
 

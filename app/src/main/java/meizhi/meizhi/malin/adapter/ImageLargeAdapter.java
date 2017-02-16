@@ -150,7 +150,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void loadImgCode(SimpleDraweeView simpleDraweeView, String url) {
 
 
-        String lowUrl = UrlUtils.getUrl(url, UrlUtils.orj360);
+        String lowUrl = UrlUtils.getUrl(url, UrlUtils.bmiddle);
 
         ImageRequest imageRequestLow = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(lowUrl))

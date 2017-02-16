@@ -5,19 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:background="@drawable/place_holder_bg"
+
     fresco:actualImageScaleType="focusCrop"
 
     fresco:fadeDuration="300"
 
-    fresco:failureImage="@color/colorPrimary"
+    fresco:failureImage="@color/colorAccent"
     fresco:failureImageScaleType="centerInside"
 
-    fresco:placeholderImage="@color/colorPrimary"
+    fresco:placeholderImage="@drawable/place_holder_bg"
     fresco:placeholderImageScaleType="centerCrop"
 
     fresco:progressBarAutoRotateInterval="1000"
     fresco:progressBarImage="@drawable/loading_bar"
     fresco:progressBarImageScaleType="center"
 
-    fresco:retryImage="@color/colorAccent"
-    fresco:retryImageScaleType="centerCrop" />
+    fresco:retryImage="@drawable/retry_bg"
+    fresco:retryImageScaleType="center" />
+
+    <!--android:background="@drawable/place_holder_bg"-->
+    <!--fresco:placeholderImage="@drawable/place_holder_bg"-->
+
+    <!--android:background="@color/colorPrimary"-->
+    <!--fresco:placeholderImage="@color/colorPrimary"-->
