@@ -3,6 +3,8 @@ adb shell am kill meizhi.meizhi.malin
 
 fresco 默认没有滑动暂时加载的功能。
 
+#查看图片大小
+ls -hs 
 
 https-->ssh
 git remote set-url origin git@github.com:androidmalin/meizhi.git
@@ -46,3 +48,22 @@ git remote set-url origin git@github.com:androidmalin/meizhi.git
  2007  cat http.log | grep "END HTTP" | wc -l
  2008  ./saveokhttp.sh
  2009  history
+
+adb logcat -c && pidcat.py meizhi.meizhi.malin -t MobclickAgent
+
+adb logcat -c && pidcat.py meizhi.meizhi.malin -t "CrashReport" -t "CrashReportInfo"
+
+adb logcat -c && pidcat.py meizhi.meizhi.malin -i "unknown:RequestLoggingListener" -i "unknown:AbstractDraweeController" -i "unknown:PipelineDraweeController" -i "unknown:NativeMemoryChunkPool" -i "unknown:GenericByteArrayPool" -i "unknown:StagingArea" -i "unknown:BufferedDiskCache" -i "unknown:BitmapPool" -i "unknown:DownsampleUtil" -i "unknown:DynamicDefaultDiskStorage"
+
+D/unknown:DynamicDefaultDiskStorage: Created cache directory /data/user/0/meizhi.meizhi.malin/cache/image_cache
+
+pidcat.py meizhi.meizhi.malin -t unknown:RequestLoggingListener
+pidcat.py meizhi.meizhi.malin -t unknown:AbstractDraweeController
+pidcat.py meizhi.meizhi.malin -t unknown:PipelineDraweeController
+pidcat.py meizhi.meizhi.malin -t unknown:NativeMemoryChunkPool
+pidcat.py meizhi.meizhi.malin -t unknown:GenericByteArrayPool
+pidcat.py meizhi.meizhi.malin -t unknown:StagingArea
+pidcat.py meizhi.meizhi.malin -t unknown:BufferedDiskCache
+pidcat.py meizhi.meizhi.malin -t unknown:BitmapPool
+pidcat.py meizhi.meizhi.malin -t unknown:DownsampleUtil
+pidcat.py meizhi.meizhi.malin -t unknown:DynamicDefaultDiskStorage

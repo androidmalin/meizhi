@@ -160,7 +160,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .build();
 
 
-        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
+        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(
                     String id,

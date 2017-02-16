@@ -168,7 +168,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .build();
 
 
-        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
+        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
                 if (imageInfo == null) return;

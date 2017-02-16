@@ -1,0 +1,2 @@
+#!/bin/bash
+adb logcat -c && pidcat.py meizhi.meizhi.malin -i "unknown:RequestLoggingListener" -i "unknown:AbstractDraweeController" -i "unknown:PipelineDraweeController" -i "unknown:NativeMemoryChunkPool" -i "unknown:GenericByteArrayPool" -i "unknown:StagingArea" -i "unknown:BufferedDiskCache" -i "unknown:BitmapPool" -i "unknown:DownsampleUtil" -i "unknown:DynamicDefaultDiskStorage" -i "MobclickAgent" -i "CrashReport" -i "CrashReportInfo"

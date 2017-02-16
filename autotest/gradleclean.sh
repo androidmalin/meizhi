@@ -1,1 +1,2 @@
-sudo chown -R malin:malin . && gradle clean
+#!/bin/bash
+cd .. && sudo chown -R malin:malin . && gradle clean

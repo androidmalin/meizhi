@@ -76,7 +76,7 @@ public class TestActivity extends AppCompatActivity {
                 .build();
 
 
-        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
+        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(
                     String id,

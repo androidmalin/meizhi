@@ -19,6 +19,7 @@ import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
+import meizhi.meizhi.malin.utils.ImageLoaderConfig;
 import meizhi.meizhi.malin.utils.LogUtil;
 import okhttp3.OkHttpClient;
 

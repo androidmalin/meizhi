@@ -1,4 +1,4 @@
-package meizhi.meizhi.malin.application;
+package meizhi.meizhi.malin.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

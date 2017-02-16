@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import meizhi.meizhi.malin.application.MApplication;
 
 /**
- * Glide缓存工具类
+ * 图片缓存工具类
  */
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class CatchUtil {
@@ -144,10 +144,10 @@ public class CatchUtil {
     }
 
 
-
-    public void clearCacheDiskSelf(){
+    public void clearCacheDiskSelf() {
         Fresco.getImagePipeline().clearCaches();
     }
+
     /**
      * 清理内存
      */
