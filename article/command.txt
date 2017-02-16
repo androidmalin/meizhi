@@ -6,6 +6,9 @@ fresco 默认没有滑动暂时加载的功能。
 #查看图片大小
 ls -hs 
 
+#查看文件绝对路径
+realpath filename
+
 https-->ssh
 git remote set-url origin git@github.com:androidmalin/meizhi.git
 

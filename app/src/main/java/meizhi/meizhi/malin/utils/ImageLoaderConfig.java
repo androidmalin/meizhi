@@ -68,11 +68,11 @@ public final class ImageLoaderConfig {
         });
 
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.LOG_DEBUG) {
             FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-            Log.d(TAG, "BuildConfig.DEBUG = True");
+            Log.d(TAG, "BuildConfig.LOG_DEBUG = True");
         } else {
-            Log.d(TAG, "BuildConfig.DEBUG = false");
+            Log.d(TAG, "BuildConfig.LOG_DEBUG = false");
             FLog.setMinimumLoggingLevel(FLog.ERROR);
         }
 
@@ -80,7 +80,7 @@ public final class ImageLoaderConfig {
         Set<RequestListener> requestListeners = new HashSet<>();
         requestListeners.add(new RequestLoggingListener());
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(PLog.instance());
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         //替换网络实现为OkHttp3

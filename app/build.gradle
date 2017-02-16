@@ -31,6 +31,7 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false// 是否混淆
             shrinkResources false // 是否去除无效的资源文件
 
@@ -45,6 +46,7 @@ android {
             project.gradle.startParameter.excludedTaskNames.add('lint')
         }
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
             //noinspection GroovyAssignabilityCheck
             signingConfig signingConfigs.myConfig
             minifyEnabled true
