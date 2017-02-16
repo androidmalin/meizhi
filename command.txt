@@ -4,6 +4,8 @@ adb shell am kill meizhi.meizhi.malin
 fresco 默认没有滑动暂时加载的功能。
 
 
+https-->ssh
+git remote set-url origin git@github.com:androidmalin/meizhi.git
 
  1971  cd malin_github/
  1972  ll
