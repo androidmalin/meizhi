@@ -1,8 +1,10 @@
 package meizhi.meizhi.malin.application;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -17,6 +19,8 @@ import java.io.IOException;
 
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.activity.ImageLargeActivity;
+import meizhi.meizhi.malin.activity.MainActivity;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageLoaderConfig;
@@ -58,6 +62,7 @@ public class MApplication extends Application {
         super.onCreate();
         initFresco();
         isLoad = true;
+        registerActivityLifecycle();
         int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
@@ -84,6 +89,77 @@ public class MApplication extends Application {
                 }
             }
         }
+    }
+
+
+
+
+    public void registerActivityLifecycle(){
+
+        this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivityCreated MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivityCreated ImageLargeActivity");
+                }
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivityStarted MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivityStarted ImageLargeActivity");
+                }
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivityResumed MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivityResumed ImageLargeActivity");
+                }
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivityPaused MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivityPaused ImageLargeActivity");
+                }
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivityStopped MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivityStopped ImageLargeActivity");
+                }
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivitySaveInstanceState MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivitySaveInstanceState ImageLargeActivity");
+                }
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                if (activity instanceof MainActivity){
+                    LogUtil.d(TAG,"onActivityDestroyed MainActivity");
+                }else if (activity instanceof ImageLargeActivity){
+                    LogUtil.d(TAG,"onActivityDestroyed ImageLargeActivity");
+                }
+            }
+        });
     }
 
     private void initFresco() {
