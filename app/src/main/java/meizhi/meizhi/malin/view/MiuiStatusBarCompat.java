@@ -20,6 +20,8 @@ package meizhi.meizhi.malin.view;
 
 import android.view.Window;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import java.lang.reflect.Method;
 
 public class MiuiStatusBarCompat {
@@ -34,7 +36,8 @@ public class MiuiStatusBarCompat {
             final Method setExtraFlags = window.getClass().getMethod("setExtraFlags", int.class, int.class);
 
             setExtraFlags.invoke(window, transparent | darkMode, transparent | darkMode);
-        } catch (Exception ignored) {
+        } catch (Throwable e) {
+            CrashReport.postCatchedException(e);
         }
     }
 

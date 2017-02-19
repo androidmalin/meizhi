@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 /**
  * author: baiiu
  * date: on 16/7/6 15:02
@@ -128,6 +130,7 @@ public class FastScrollLinearLayoutManager extends StaggeredGridLayoutManager {
         try {
             super.collectAdjacentPrefetchPositions(dx, dy, state, layoutPrefetchRegistry);
         } catch (IllegalArgumentException e) {
+            CrashReport.postCatchedException(e);
             LogUtil.e("FastScrollLinearLayoutManager","catch IllegalArgumentException");
         }
     }
