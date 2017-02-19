@@ -22,6 +22,7 @@ import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
+import meizhi.meizhi.malin.view.MiuiStatusBarCompat;
 
 /**
  * 类描述:
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setNavigationBarColor();
+//        setNavigationBarColor();
+        MiuiStatusBarCompat.enableLightStatusBar(getWindow());
         setContentView(R.layout.activity_main);
 
         MobclickAgent.setDebugMode(BuildConfig.DEBUG);

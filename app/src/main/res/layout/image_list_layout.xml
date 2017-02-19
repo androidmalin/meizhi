@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+    >
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <meizhi.meizhi.malin.widget.OhSwipeRefreshLayout
         android:id="@+id/img_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="meizhi.meizhi.malin.widget.InsetsScrollingViewBehavior">
 
-        <android.support.v7.widget.RecyclerView
+        <meizhi.meizhi.malin.widget.InsetsRecyclerView
             android:id="@+id/img_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/card_view_bg" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            app:layoutManager="StaggeredGridLayoutManager"
+            app:padding="2dp"
+            app:spanCount="@integer/span_count"
+            tools:padding="8dp"/>
 
+    </meizhi.meizhi.malin.widget.OhSwipeRefreshLayout>
 
     <ViewStub
         android:id="@+id/view_stub_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout="@layout/data_load_error_layout"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 
     <ViewStub
@@ -30,5 +39,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout="@layout/no_data_layout"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 </FrameLayout>
