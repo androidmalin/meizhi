@@ -1,116 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <meizhi.meizhi.malin.widget.InsetsCoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:gravity="center_vertical"
-        app:contentInsetLeft="@dimen/common_dimen_0dip"
-        app:contentInsetStart="@dimen/common_dimen_0dip"
-        app:elevation="@dimen/common_dimen_3dip"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <RelativeLayout
+        <meizhi.meizhi.malin.widget.InsetsAppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            tools:paddingTop="25dp">
 
-            <RelativeLayout
-                android:id="@+id/rl_about_back"
-                android:layout_width="@dimen/common_dimen_80dip"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true">
-
-                <ImageView
-                    android:layout_width="@dimen/common_dimen_30dip"
-                    android:layout_height="@dimen/common_dimen_30dip"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/app_name"
-                    android:layout_marginLeft="@dimen/common_dimen_10dip"
-                    android:src="@drawable/back_icon" />
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
+            <meizhi.meizhi.malin.widget.InsetsToolbar
+                android:id="@+id/toolbar_about"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/about_mm_tip"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/common_dimen_16sp" />
+                android:background="?attr/colorPrimary"
+                android:fitsSystemWindows="true"
+                android:gravity="center_vertical"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_about_back"
+                        android:layout_width="@dimen/common_dimen_80dip"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true">
+
+                        <ImageView
+                            android:layout_width="@dimen/common_dimen_30dip"
+                            android:layout_height="@dimen/common_dimen_30dip"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/back_icon" />
+                    </RelativeLayout>
 
 
-            <RelativeLayout
-                android:id="@+id/rl_git_log"
-                android:layout_width="@dimen/common_dimen_100dip"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="@string/about_mm_tip"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/common_dimen_16sp" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_git_log"
+                        android:layout_width="@dimen/common_dimen_100dip"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true">
+
+                        <ImageView
+                            android:layout_width="@dimen/common_dimen_30dip"
+                            android:layout_height="@dimen/common_dimen_30dip"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/common_dimen_20dip"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/githu_logo" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </meizhi.meizhi.malin.widget.InsetsToolbar>
+
+        </meizhi.meizhi.malin.widget.InsetsAppBarLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="meizhi.meizhi.malin.widget.InsetsScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true">
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="@dimen/common_dimen_30dip"
-                    android:layout_height="@dimen/common_dimen_30dip"
-                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_dimen_20dip"
                     android:contentDescription="@string/app_name"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/common_dimen_20dip"
-                    android:src="@drawable/githu_logo" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+                    android:src="@mipmap/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/common_dimen_20dip"
-        android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_launcher" />
+                <TextView
+                    android:id="@+id/tv_app_version_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_dimen_20dip"
+                    android:textColor="@color/about_text_color"
+                    android:textSize="@dimen/common_dimen_16sp" />
 
-    <TextView
-        android:id="@+id/tv_app_version_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/common_dimen_20dip"
-        android:textColor="@color/about_text_color"
-        android:textSize="@dimen/common_dimen_16sp" />
-
-    <TextView
-        android:id="@+id/tv_thanks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/common_dimen_30dip"
-        android:text="@string/thanks_txt"
-        android:textColor="@color/about_text_color"
-        android:textSize="@dimen/common_dimen_16sp" />
+                <TextView
+                    android:id="@+id/tv_thanks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_dimen_30dip"
+                    android:text="@string/thanks_txt"
+                    android:textColor="@color/about_text_color"
+                    android:textSize="@dimen/common_dimen_16sp" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/common_dimen_30dip"
-        android:text="@string/click_tip"
-        android:textColor="@color/about_text_color"
-        android:textSize="@dimen/common_dimen_16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_dimen_30dip"
+                    android:text="@string/click_tip"
+                    android:textColor="@color/about_text_color"
+                    android:textSize="@dimen/common_dimen_16sp" />
 
-    <TextView
-        android:id="@+id/tv_git"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:paddingBottom="@dimen/common_dimen_80dip"
-        android:paddingTop="@dimen/common_dimen_20dip"
-        android:text="@string/git_mm"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/common_dimen_16sp" />
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tv_git"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/common_dimen_80dip"
+                    android:paddingTop="@dimen/common_dimen_20dip"
+                    android:text="@string/git_mm"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/common_dimen_16sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </meizhi.meizhi.malin.widget.InsetsCoordinatorLayout>
+</FrameLayout>
+
+
+

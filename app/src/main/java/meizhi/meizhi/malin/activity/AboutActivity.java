@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -15,6 +16,8 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import com.umeng.analytics.MobclickAgent;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
+import meizhi.meizhi.malin.view.MiuiStatusBarCompat;
 
 /**
  * 类描述: 关于页面
@@ -39,13 +43,15 @@ import meizhi.meizhi.malin.utils.UMengEvent;
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String URL_THANKS = "http://gank.io/api";
-
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MiuiStatusBarCompat.enableLightStatusBar(getWindow());
         setNavigationBarColor();
         setContentView(R.layout.about_layout);
         initView();
+        initToolBar();
     }
 
 
@@ -55,6 +61,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         TextView versionName = (TextView) findViewById(R.id.tv_app_version_name);
         findViewById(R.id.rl_git_log).setOnClickListener(this);
         findViewById(R.id.rl_about_back).setOnClickListener(this);
+
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_about);
 
         mGitLinkTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         mGitLinkTV.setOnClickListener(this);
@@ -68,8 +77,22 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setNavigationBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    private void initToolBar() {
+        if (mToolbar != null) {
+            mToolbar.setTitle("");
+            mToolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//标题颜色
+            mToolbar.setSubtitle("");
+            mToolbar.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//副标题颜色
+            mToolbar.setLogo(null);
+            mToolbar.setNavigationIcon(null);//导航图标,最左边的图标
+            setSupportActionBar(mToolbar);
         }
     }
 
