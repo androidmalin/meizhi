@@ -24,3 +24,9 @@ http://blog.csdn.net/eroswang/article/details/8302191
 https://github.com/python-pillow/Pillow/issues/664
 http://stackoverflow.com/questions/4904940/python-converting-gif-frames-to-png
 http://blog.csdn.net/aminfo/article/details/7847761
+
+http://blog.csdn.net/rosechan/article/details/51587058
+http://blog.chengyunfeng.com/?p=905
+http://blog.csdn.net/ys408973279/article/details/49994407
+https://github.com/hehonghui/android-tech-frontier/blob/master/issue-35/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E7%94%A8fitsSystemWindows.md
+http://www.jianshu.com/p/f418bf95db2d

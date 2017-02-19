@@ -26,7 +26,7 @@ public final class PLog implements HttpLoggingInterceptor.Logger {
     }
 
     private void httpLog(String tag, String msg) {
-        if (!BuildConfig.LOG_DEBUG) return;
+        if (BuildConfig.LOG_DEBUG) return;
         LogUtil.i(tag, msg);
     }
 }

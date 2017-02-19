@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="windowNoTitle">true</item>
@@ -23,9 +23,6 @@
     </style>
 
 
-    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-    </style>
-
     <style name="LightToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:theme">@style/LightToolbarThemeOverlay</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
@@ -38,5 +35,7 @@
     <style name="LightToolbarThemeOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">@android:color/white</item>
     </style>
+
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title"></style>
 
 </resources>

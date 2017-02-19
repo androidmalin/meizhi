@@ -122,4 +122,34 @@ public class FastScrollLinearLayoutManager extends StaggeredGridLayoutManager {
     public PointF computeScrollVectorForPosition(int targetPosition) {
         return super.computeScrollVectorForPosition(targetPosition);
     }
+
+    @Override
+    public void collectAdjacentPrefetchPositions(int dx, int dy, RecyclerView.State state, LayoutPrefetchRegistry layoutPrefetchRegistry) {
+        try {
+            super.collectAdjacentPrefetchPositions(dx, dy, state, layoutPrefetchRegistry);
+        } catch (IllegalArgumentException e) {
+            LogUtil.e("FastScrollLinearLayoutManager","catch IllegalArgumentException");
+        }
+    }
+/**
+ * https://code.google.com/p/android/issues/detail?id=230295
+    AndroidRuntime  E  FATAL EXCEPTION: main
+    E  Process: meizhi.meizhi.malin, PID: 31432
+    E  java.lang.IllegalArgumentException: Pixel distance must be non-negative
+    E      at android.support.v7.widget.GapWorker$LayoutPrefetchRegistryImpl.addPosition(GapWorker.java:110)
+    E      at android.support.v7.widget.StaggeredGridLayoutManager.collectAdjacentPrefetchPositions(StaggeredGridLayoutManager.java:2109)
+    E      at android.support.v7.widget.GapWorker$LayoutPrefetchRegistryImpl.collectPrefetchPositionsFromView(GapWorker.java:94)
+    E      at android.support.v7.widget.GapWorker.buildTaskList(GapWorker.java:213)
+    E      at android.support.v7.widget.GapWorker.prefetch(GapWorker.java:343)
+    E      at android.support.v7.widget.GapWorker.run(GapWorker.java:370)
+    E      at android.os.Handler.handleCallback(Handler.java:751)
+    E      at android.os.Handler.dispatchMessage(Handler.java:95)
+    E      at android.os.Looper.loop(Looper.java:154)
+    E      at android.app.ActivityThread.main(ActivityThread.java:6119)
+    E      at java.lang.reflect.Method.invoke(Native Method)
+    E      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)
+    E      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)
+
+ ***/
+
 }
