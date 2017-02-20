@@ -47,7 +47,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MiuiStatusBarCompat.enableLightStatusBar(getWindow());
+        MiuiStatusBarCompat.enableLightStatusBar(this,getWindow());
         setNavigationBarColor();
         setContentView(R.layout.about_layout);
         initView();

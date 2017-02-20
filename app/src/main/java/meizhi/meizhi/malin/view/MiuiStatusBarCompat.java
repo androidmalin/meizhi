@@ -18,15 +18,19 @@
 
 package meizhi.meizhi.malin.view;
 
+import android.content.Context;
 import android.view.Window;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.lang.reflect.Method;
 
+import meizhi.meizhi.malin.utils.MIUIUtils;
+
 public class MiuiStatusBarCompat {
 
-    public static void enableLightStatusBar(Window window) {
+    public static void enableLightStatusBar(Context context, Window window) {
+        if (!MIUIUtils.isMIUI(context)) return;
         try {
             final Class layout = Class.forName("android.view.MiuiWindowManager$LayoutParams");
 

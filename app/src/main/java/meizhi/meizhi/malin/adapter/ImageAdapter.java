@@ -179,7 +179,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             @Override
             public void onFailure(String id, Throwable throwable) {
-                LogUtil.e(TAG, "Error loading" + id + "\n" + throwable.getLocalizedMessage());
+                LogUtil.e(TAG, "Error loading:" + id + " " + throwable.getLocalizedMessage());
             }
         };
 
