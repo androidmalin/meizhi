@@ -18,31 +18,51 @@
 
 package meizhi.meizhi.malin.view;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.Window;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import meizhi.meizhi.malin.utils.MIUIUtils;
 
 public class MiuiStatusBarCompat {
 
-    public static void enableLightStatusBar(Context context, Window window) {
-        if (!MIUIUtils.isMIUI(context)) return;
+    public static void enableLightStatusBar(Activity activity) {
+        if (activity == null || activity.isFinishing()) return;
+        if (!MIUIUtils.isMIUI(activity.getApplicationContext())) return;
         try {
-            final Class layout = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Class<?> layout = Class.forName("android.view.MiuiWindowManager$LayoutParams");
 
-            final int transparent = layout.getField("EXTRA_FLAG_STATUS_BAR_TRANSPARENT").getInt(layout);
-            final int darkMode = layout.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE").getInt(layout);
+            int transparent = layout.getField("EXTRA_FLAG_STATUS_BAR_TRANSPARENT").getInt(layout);
+            int darkMode = layout.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE").getInt(layout);
 
-            final Method setExtraFlags = window.getClass().getMethod("setExtraFlags", int.class, int.class);
+            Method setExtraFlags = activity.getWindow().getClass().getMethod("setExtraFlags", int.class, int.class);
 
-            setExtraFlags.invoke(window, transparent | darkMode, transparent | darkMode);
+            setExtraFlags.invoke(activity.getWindow(), transparent | darkMode, transparent | darkMode);
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
         }
     }
+
+    //修改小米 MIUI
+    public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkMode) {
+        Class<? extends Window> clazz = activity.getWindow().getClass();
+        try {
+            int darkModeFlag;
+            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+            extraFlagField.invoke(activity.getWindow(), darkMode ? darkModeFlag : 0, darkModeFlag);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 }

@@ -30,3 +30,10 @@ http://blog.chengyunfeng.com/?p=905
 http://blog.csdn.net/ys408973279/article/details/49994407
 https://github.com/hehonghui/android-tech-frontier/blob/master/issue-35/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E7%94%A8fitsSystemWindows.md
 http://www.jianshu.com/p/f418bf95db2d
+http://blog.csdn.net/lxk_1993/article/details/51330675
+http://www.jianshu.com/p/7f5a9969be53
+https://liuzhichao.com/2016/jadx-decompiler.html
+https://my.oschina.net/nixi0608/blog/724343
+http://docs.bmob.cn/pay/Android/b_developdoc/doc/index.html
+http://docs.bmob.cn/pay/Android/j_updatalog/doc/index.html
+https://dev.mi.com/doc/p=4769/index.html

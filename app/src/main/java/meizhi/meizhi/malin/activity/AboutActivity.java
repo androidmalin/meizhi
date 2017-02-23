@@ -27,7 +27,6 @@ import com.umeng.analytics.MobclickAgent;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
-import meizhi.meizhi.malin.view.MiuiStatusBarCompat;
 
 /**
  * 类描述: 关于页面
@@ -47,7 +46,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MiuiStatusBarCompat.enableLightStatusBar(this,getWindow());
         setNavigationBarColor();
         setContentView(R.layout.about_layout);
         initView();

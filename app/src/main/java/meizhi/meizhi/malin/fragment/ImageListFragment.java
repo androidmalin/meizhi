@@ -29,6 +29,7 @@ import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.network.bean.ImageInfo;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.CatchUtil;
+import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
 import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
 import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
@@ -347,6 +348,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     @Override
     public void onDestroy() {
+        DestroyCleanUtil.fixInputMethod(mActivity);
         CatchUtil.getInstance().releaseMemory(true);
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);

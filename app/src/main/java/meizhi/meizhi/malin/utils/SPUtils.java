@@ -1,28 +1,30 @@
 package meizhi.meizhi.malin.utils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.tencent.bugly.crashreport.CrashReport;
+
+import java.lang.reflect.Method;
+import java.util.Map;
 
 public final class SPUtils {
 
 
-    private SPUtils(){}
+    private SPUtils() {
+    }
 
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_data";
+    private static final String FILE_NAME = "share_data";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
-     * @param context
-     * @param key
-     * @param object
+     * @param context Context
+     * @param key     key
+     * @param object  Object
      */
     public static void put(Context context, String key, Object object) {
 
@@ -50,9 +52,9 @@ public final class SPUtils {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      *
-     * @param context
-     * @param key
-     * @param defaultObject
+     * @param context       Context
+     * @param key           key
+     * @param defaultObject defaultObject
      * @return
      */
     public static Object get(Context context, String key, Object defaultObject) {
@@ -77,8 +79,8 @@ public final class SPUtils {
     /**
      * 移除某个key值已经对应的值
      *
-     * @param context
-     * @param key
+     * @param context context
+     * @param key     key
      */
     public static void remove(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
@@ -91,7 +93,7 @@ public final class SPUtils {
     /**
      * 清除所有数据
      *
-     * @param context
+     * @param context Context
      */
     public static void clear(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
@@ -104,8 +106,8 @@ public final class SPUtils {
     /**
      * 查询某个key是否已经存在
      *
-     * @param context
-     * @param key
+     * @param context Context
+     * @param key     key
      * @return
      */
     public static boolean contains(Context context, String key) {
@@ -116,8 +118,8 @@ public final class SPUtils {
     /**
      * 返回所有的键值对
      *
-     * @param context
-     * @return
+     * @param context Context
+     * @return Map
      */
     public static Map<String, ?> getAll(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
@@ -143,6 +145,7 @@ public final class SPUtils {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
+                CrashReport.postCatchedException(e);
             }
 
             return null;
@@ -151,7 +154,7 @@ public final class SPUtils {
         /**
          * 如果找到则使用apply执行，否则使用commit
          *
-         * @param editor
+         * @param editor SharedPreferences.Editor
          */
         public static void apply(SharedPreferences.Editor editor) {
             try {
@@ -159,9 +162,9 @@ public final class SPUtils {
                     sApplyMethod.invoke(editor);
                     return;
                 }
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (Exception e) {
+                CrashReport.postCatchedException(e);
+
             }
             editor.commit();
         }
