@@ -24,7 +24,6 @@ import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
-import meizhi.meizhi.malin.view.MiuiStatusBarCompat;
 
 /**
  * 类描述:
@@ -48,14 +47,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setNavigationBarColor();
         setContentView(R.layout.activity_main);
 
-        MobclickAgent.setDebugMode(BuildConfig.DEBUG);
+        MobclickAgent.setDebugMode(BuildConfig.LOG_DEBUG);
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.enableEncrypt(true);
 
         initView();
-        initListener();
         initToolBar();
+        initListener();
         setDefaultFragment();
+    }
+
+    private void setNavigationBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            if (window == null) return;
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    private void initView() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
     private void initListener() {
@@ -63,16 +75,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.view_top).setOnClickListener(this);
     }
 
-    private void initView() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    }
-
-
-    private void setNavigationBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            // Translucent status bar
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    private void initToolBar() {
+        if (mToolbar != null) {
+            mToolbar.setTitle("");
+            mToolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//标题颜色
+            mToolbar.setSubtitle("");
+            mToolbar.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//副标题颜色
+            mToolbar.setLogo(null);
+            mToolbar.setNavigationIcon(null);
+            setSupportActionBar(mToolbar);
         }
     }
 
@@ -88,35 +99,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.commit();
     }
 
-    private void initToolBar() {
-        if (mToolbar != null) {
-            mToolbar.setTitle("");
-            mToolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//标题颜色
-            mToolbar.setSubtitle("");
-            mToolbar.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));//副标题颜色
-            mToolbar.setLogo(null);
-            mToolbar.setNavigationIcon(null);//导航图标,最左边的图标
-            setSupportActionBar(mToolbar);
-        }
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.tv_about_content: {
-            MobclickAgent.onEvent(this, UMengEvent.ClickAbout);
-            startActivity(new Intent(this, AboutActivity.class));
-            break;
-        }
+            case R.id.tv_about_content: {
+                MobclickAgent.onEvent(this, UMengEvent.ClickAbout);
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
+            }
 
-        case R.id.view_top: {
-            doubleClick();
-            break;
-        }
+            case R.id.view_top: {
+                doubleClick();
+                break;
+            }
 
-        default: {
-            break;
-        }
+            default: {
+                break;
+            }
         }
     }
 
@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPause() {
-        CatchUtil.getInstance().releaseMemory(true);
         super.onPause();
+        CatchUtil.getInstance().releaseMemory(true);
         MobclickAgent.onPause(this);
     }
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, ImageLargeActivity.class);
             intent.putExtra("position", position);
             intent.putParcelableArrayListExtra("datas", list);
-            startActivityForResult(intent,1000);
+            startActivityForResult(intent, 1000);
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
@@ -185,18 +185,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) return;
         switch (resultCode) {
-        case 2000: {
-            int position = data.getIntExtra("currentPosition", -1);
-            if (position != -1) {
-                if (mImageListFragment == null) return;
-                mImageListFragment.scrollPosition(position);
+            case 2000: {
+                int position = data.getIntExtra("currentPosition", -1);
+                if (position != -1) {
+                    if (mImageListFragment == null) return;
+                    mImageListFragment.scrollPosition(position);
+                }
+                break;
             }
-            break;
-        }
 
-        default: {
-            break;
-        }
+            default: {
+                break;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -45,8 +50,18 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final String TAG = ImageAdapter.class.getSimpleName();
     private ArrayList<ImageBean> mData;
     private LayoutInflater mInflater;
-    private int mItemWidth;
-    private int mItemHeight;
+    private static int mItemWidth;
+    private static int mItemHeight;
+
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOTER = 1;
+
+
+    public static final int PULL_LOAD_MORE = 0;//上拉加载更多
+    public static final int LOADING_MORE = 1;  //正在加载中
+    public static final int NO_LOAD_MORE = 2;  //没有加载更多 隐藏
+    private int mLoadMoreStatus = 0;  //上拉加载更多状态-默认为0
+
 
     public ImageAdapter(Activity context) {
         mInflater = LayoutInflater.from(context);
@@ -94,25 +109,22 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemViewHolder itemViewHolder;
-        View view = mInflater.inflate(R.layout.image_list_item, parent, false);
-        itemViewHolder = new ItemViewHolder(view);
-        itemViewHolder.head = (SimpleDraweeView) view.findViewById(R.id.iv_item_list_img);
-        return itemViewHolder;
+        if (viewType == TYPE_ITEM) {
+            View view = mInflater.inflate(R.layout.image_list_item, parent, false);
+            return new ItemViewHolder(view);
+        } else if (viewType == TYPE_FOOTER) {
+            View footView = mInflater.inflate(R.layout.load_foot_view_layout, parent, false);
+            return new FooterViewHolder(footView);
+        }
+        return null;
     }
 
     private String imageUrlLarge;
-
-    private ViewGroup.LayoutParams mLayoutParams;
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            mLayoutParams = itemViewHolder.head.getLayoutParams();
-            mLayoutParams.width = mItemWidth;
-            mLayoutParams.height = mItemHeight;
-            itemViewHolder.head.setLayoutParams(mLayoutParams);
             final int pos = getRealPosition(holder);
             ImageBean bean = mData.get(pos);
 
@@ -127,6 +139,23 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     mItemClickListener.itemOnClick(pos);
                 }
             });
+        } else if (holder instanceof FooterViewHolder) {
+            FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
+            switch (mLoadMoreStatus) {
+                case PULL_LOAD_MORE:
+                    footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
+                    footerViewHolder.mTvLoadText.setText("上拉加载更多...");
+                    break;
+                case LOADING_MORE:
+                    footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
+                    footerViewHolder.mTvLoadText.setText("加载中...");
+                    break;
+                case NO_LOAD_MORE:
+                    footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
+                    footerViewHolder.mTvLoadText.setText("数据全部加载完毕");
+                    break;
+
+            }
         }
     }
 
@@ -199,7 +228,18 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mData == null ? 0 : mData.size();
+        return mData == null ? 0 : mData.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if (position + 1 == getItemCount()) {
+            //最后一个item设置为footerView
+            return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
+        }
     }
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -207,9 +247,66 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         private ItemViewHolder(View itemView) {
             super(itemView);
+            head = (SimpleDraweeView) itemView.findViewById(R.id.iv_item_list_img);
+            ViewGroup.LayoutParams mLayoutParams = head.getLayoutParams();
+            mLayoutParams.width = mItemWidth;
+            mLayoutParams.height = mItemHeight;
+            head.setLayoutParams(mLayoutParams);
         }
     }
 
+
+    private class FooterViewHolder extends RecyclerView.ViewHolder {
+        private ProgressBar mLoadProgressBar;
+        private TextView mTvLoadText;
+        private RelativeLayout mLoadLayout;
+
+        private FooterViewHolder(View itemView) {
+            super(itemView);
+            mTvLoadText = (TextView) itemView.findViewById(R.id.tv_foot_view);
+            mLoadProgressBar = (ProgressBar) itemView.findViewById(R.id.pd_foot_view);
+            mLoadLayout = (RelativeLayout) itemView.findViewById(R.id.ll_foot_view_layout);
+        }
+    }
+
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
+            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    //当前位置是FooterView的位置，那么该item占据2个单元格，正常情况下占据1个单元格
+                    return getItemViewType(position) == TYPE_FOOTER ? gridManager.getSpanCount() : 1;
+                }
+            });
+        }
+    }
+
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+            p.setFullSpan(holder.getLayoutPosition() == getDataSize());
+        }
+    }
+
+
+    /**
+     * 更新加载更多状态
+     *
+     * @param status status
+     */
+    public void changeMoreStatus(int status) {
+        mLoadMoreStatus = status;
+        notifyDataSetChanged();
+    }
 
     public void removeData(int position) {
         if (position >= 0 && position < mData.size()) {

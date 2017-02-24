@@ -64,7 +64,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private EndlessRecyclerOnScrollListener mEndlessListener;
     private Activity mActivity;
-    private static final int NUMBER = 500;
+    private static final int NUMBER = 10;
     private Subscription mSubscription;
     private Subscription mSubscription2;
 
@@ -128,6 +128,8 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             @Override
             public void onLoadMore(final int currentPage) {
                 mEndlessListener.setLoadMoreFlag(true);
+                //设置正在加载更多
+                mAdapter.changeMoreStatus(mAdapter.LOADING_MORE);
                 MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
                 getFangs(currentPage);
                 //delayLoadMoreData(currentPage);
@@ -258,6 +260,12 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                             showEmptyView(false);
                         }
                         mAdapter.addData(imageInfo.results);
+                        //设置回到上拉加载更多
+                        if (imageInfo.results.size() == 0) {
+                            mAdapter.changeMoreStatus(mAdapter.NO_LOAD_MORE);
+                        } else {
+                            mAdapter.changeMoreStatus(mAdapter.PULL_LOAD_MORE);
+                        }
                     }
                 });
     }
@@ -425,7 +433,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("ImageListFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+        MobclickAgent.onPageStart("ImageListFragment");
     }
 
     @Override

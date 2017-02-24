@@ -37,3 +37,7 @@ https://my.oschina.net/nixi0608/blog/724343
 http://docs.bmob.cn/pay/Android/b_developdoc/doc/index.html
 http://docs.bmob.cn/pay/Android/j_updatalog/doc/index.html
 https://dev.mi.com/doc/p=4769/index.html
+
+https://github.com/Frank-Zhu/AndroidRecyclerViewDemo/issues/4
+http://blog.csdn.net/qibin0506/article/details/49716795
+http://blog.csdn.net/li396858359/article/details/40270921
