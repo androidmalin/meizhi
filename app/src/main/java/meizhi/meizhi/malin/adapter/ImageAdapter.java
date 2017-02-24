@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -142,18 +141,18 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             switch (mLoadMoreStatus) {
-                case PULL_LOAD_MORE:
-                    footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
-                    footerViewHolder.mTvLoadText.setText("上拉加载更多...");
-                    break;
-                case LOADING_MORE:
-                    footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
-                    footerViewHolder.mTvLoadText.setText("加载中...");
-                    break;
-                case NO_LOAD_MORE:
-                    footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
-                    footerViewHolder.mTvLoadText.setText("数据全部加载完毕");
-                    break;
+            case PULL_LOAD_MORE:
+                footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
+                footerViewHolder.mTvLoadText.setText(R.string.load_more_tip_txt);
+                break;
+            case LOADING_MORE:
+                footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
+                footerViewHolder.mTvLoadText.setText(R.string.load_more_loading);
+                break;
+            case NO_LOAD_MORE:
+                footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
+                footerViewHolder.mTvLoadText.setText(R.string.load_more_no_data);
+                break;
 
             }
         }
@@ -259,13 +258,11 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private class FooterViewHolder extends RecyclerView.ViewHolder {
         private ProgressBar mLoadProgressBar;
         private TextView mTvLoadText;
-        private RelativeLayout mLoadLayout;
 
         private FooterViewHolder(View itemView) {
             super(itemView);
             mTvLoadText = (TextView) itemView.findViewById(R.id.tv_foot_view);
             mLoadProgressBar = (ProgressBar) itemView.findViewById(R.id.pd_foot_view);
-            mLoadLayout = (RelativeLayout) itemView.findViewById(R.id.ll_foot_view_layout);
         }
     }
 
@@ -305,7 +302,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      */
     public void changeMoreStatus(int status) {
         mLoadMoreStatus = status;
-        notifyDataSetChanged();
     }
 
     public void removeData(int position) {
