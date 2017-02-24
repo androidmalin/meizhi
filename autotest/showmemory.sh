@@ -1,2 +1,2 @@
 #!/bin/bash
-adb logcat -c && pidcat.py meizhi.meizhi.malin -t GlideCatchUtil
+adb shell dumpsys meminfo meizhi.meizhi.malin
