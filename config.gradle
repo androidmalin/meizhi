@@ -48,7 +48,7 @@ ext {
             'adapter-rxjava'              : 'com.squareup.retrofit2:adapter-rxjava:2.2.0',
             'okhttp'                      : 'com.squareup.okhttp3:okhttp:3.6.0',
             'logging-interceptor'         : 'com.squareup.okhttp3:logging-interceptor:3.6.0',
-            'PersistentCookieJar'         : 'com.github.franmontiel:PersistentCookieJar:v1.0.0',
+            'persistentcookiejar'         : 'com.github.franmontiel:PersistentCookieJar:v1.0.1',
             'picasso'                     : 'com.squareup.picasso:picasso:2.5.2',
             'stetho'                      : 'com.facebook.stetho:stetho:1.4.2',
             'stetho-okhttp3'              : 'com.facebook.stetho:stetho-okhttp3:1.4.2',
