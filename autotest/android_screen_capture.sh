@@ -13,6 +13,9 @@ androidScreenCapture() {
     adb shell rm ${devicePath}
 }
 curTime="";
+devicePath="";
+fileName="";
+
 export ADB_cleaSHELL_SCREEN_RECORD_ARGS='--verbose --bit-rate 2000000'
 # record screen of android device
 androidScreenRecord() {
@@ -21,21 +24,14 @@ androidScreenRecord() {
     tmpName="${curTime}.mp4"
     [[ -n $1 ]] && fileName=$1 || fileName=${tmpName}
     devicePath="/sdcard/${tmpName}"
-    echo "24" ${devicePath}
     adb shell screenrecord ${ADB_SHELL_SCREEN_RECORD_ARGS} ${devicePath}
 }
 
 function record() {
-    tmpName="${curTime}.mp4"
-    devicePath="/sdcard/${tmpName}"
-    echo "32" ${devicePath}
-    echo "33" ${fileName}
-    echo "34 wait for video encoding finish"
+    echo "wait for video encoding finish"
     sleep 1 # wait for video encoding finish
     adb pull ${devicePath} ${fileName}
-    echo "36 pull video from sdcard"
-    # Don't delete copy in device.
-    # adb shell rm $devicePath
+    adb shell rm ${devicePath}
 }
 
 
