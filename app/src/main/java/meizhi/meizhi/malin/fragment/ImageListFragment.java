@@ -129,7 +129,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             public void onLoadMore(final int currentPage) {
                 mEndlessListener.setLoadMoreFlag(true);
                 //设置正在加载更多
-                mAdapter.changeMoreStatus(mAdapter.LOADING_MORE);
+                mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
                 MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
                 getFangs(currentPage);
                 //delayLoadMoreData(currentPage);
@@ -204,6 +204,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                                 inflateErrorStubIfNeeded();
                             }
                         }
+                        mAdapter.changeMoreStatus(ImageAdapter.NO_LOAD_ERROR);
                         CrashReport.postCatchedException(e);
                         e.printStackTrace();
                     }
@@ -241,13 +242,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                                             isContain = aBoolean;
                                         }
                                     });
-//                            if (!isContain(imageInfo.results, mAdapter.getData())) {
-//                                mAdapter.clearData();
-//                            } else {
-//                                Toast.makeText(mActivity, "暂无新数据！", Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-
                             if (!isContain) {
                                 mEndlessListener.resetCurrentPage();
                                 mAdapter.clearData();
@@ -262,9 +256,9 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                         mAdapter.addData(imageInfo.results);
                         //设置回到上拉加载更多
                         if (imageInfo.results.size() == 0) {
-                            mAdapter.changeMoreStatus(mAdapter.NO_LOAD_MORE);
+                            mAdapter.changeMoreStatus(ImageAdapter.NO_LOAD_MORE);
                         } else {
-                            mAdapter.changeMoreStatus(mAdapter.PULL_LOAD_MORE);
+                            mAdapter.changeMoreStatus(ImageAdapter.PULL_LOAD_MORE);
                         }
                     }
                 });

@@ -16,4 +16,5 @@
     <string name="load_more_no_data">╮(╯3╰)╭再怎么找也没有啦</string>
     <string name="load_more_loading">加载中&#8230;</string>
     <string name="load_more_tip_txt">上拉加载更多&#8230;</string>
+    <string name="load_more_error_txt">加载失败,上拉重试</string>
 </resources>

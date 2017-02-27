@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/common_dimen_50dip"
-              android:gravity="center"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_dimen_50dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
     <ProgressBar
         android:id="@+id/pd_foot_view"
         android:layout_width="@dimen/common_dimen_20dip"
         android:layout_height="@dimen/common_dimen_20dip"
+        android:layout_toLeftOf="@+id/tv_foot_view"
         android:indeterminate="false"/>
 
     <TextView
         android:id="@+id/tv_foot_view"
-        android:layout_marginLeft="@dimen/common_dimen_10dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/common_dimen_10dip"
         android:clickable="true"
         android:text="@string/load_more_loading"
         android:textSize="16sp"/>
-</LinearLayout>
+</RelativeLayout>
