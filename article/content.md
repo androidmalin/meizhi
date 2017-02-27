@@ -44,3 +44,9 @@ http://blog.csdn.net/li396858359/article/details/40270921
 
 http://stackoverflow.com/questions/7469082/getting-exception-illegalstateexception-can-not-perform-this-action-after-onsa
 http://blog.iderzheng.com/android-screen-capture-from-terminal/
+
+https://developer.android.com/topic/libraries/support-library/revisions.html
+
+依赖更新
+https://mvnrepository.com/
+https://developer.android.com/topic/libraries/support-library/revisions.html#25-1-1

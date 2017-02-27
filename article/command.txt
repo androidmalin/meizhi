@@ -96,3 +96,7 @@ RecyclerView  W  Cannot call this method in a scroll callback. Scroll callbacks 
       at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)
       at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)
 
+
+v4版本
+https://developer.android.com/topic/libraries/support-library/revisions.html
+https://developer.android.com/topic/libraries/support-library/rev-archive.html
