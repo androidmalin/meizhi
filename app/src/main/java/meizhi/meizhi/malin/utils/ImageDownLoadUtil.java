@@ -33,9 +33,15 @@ import rx.functions.Func0;
 import rx.schedulers.Schedulers;
 
 /**
- * @author root on 17-2-13.
+ * 类描述:
+ * 创建人:malin.myemail@163.com
+ * 创建时间:2017.2.13
+ * 备注:{@link }
+ * 修改人:
+ * 修改时间:
+ * 修改备注:
+ * 版本:
  */
-
 public final class ImageDownLoadUtil {
 
     private static final String TAG = "";

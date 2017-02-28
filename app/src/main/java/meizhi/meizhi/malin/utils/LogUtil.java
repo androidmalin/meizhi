@@ -3,9 +3,18 @@ package meizhi.meizhi.malin.utils;
 import android.util.Log;
 
 import meizhi.meizhi.malin.BuildConfig;
-
+/**
+ * 类描述:
+ * 创建人:malin.myemail@163.com
+ * 创建时间:2017.2.28 20:22
+ * 备注:{@link }
+ * 修改人:
+ * 修改时间:
+ * 修改备注:
+ * 版本:
+ */
 public class LogUtil {
-    public static int logLevel = Log.VERBOSE;
+    private static int logLevel = Log.VERBOSE;
 
     public static void i(String tag, String msg) {
         if (!BuildConfig.LOG_DEBUG) return;

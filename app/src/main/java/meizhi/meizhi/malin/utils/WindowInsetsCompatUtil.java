@@ -30,7 +30,7 @@ public class WindowInsetsCompatUtil {
     }
 
     @SuppressLint("RtlHardcoded")
-    public static WindowInsetsCompat copyExcluded(WindowInsetsCompat source, int gravity) {
+    private static WindowInsetsCompat copyExcluded(WindowInsetsCompat source, int gravity) {
         int l = (gravity & Gravity.LEFT) == Gravity.LEFT ? 0 : source.getSystemWindowInsetLeft();
         int t = (gravity & Gravity.TOP) == Gravity.TOP ? 0 : source.getSystemWindowInsetTop();
         int r = (gravity & Gravity.RIGHT) == Gravity.RIGHT ? 0 : source.getSystemWindowInsetRight();
