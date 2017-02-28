@@ -34,8 +34,10 @@ import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.utils.AssetsUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
+import meizhi.meizhi.malin.utils.RxUtils;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -53,6 +55,7 @@ public class TestActivity extends AppCompatActivity {
     private int mItemWidth;
     private int mItemHeight;
     private static final String IMAGE_URL = "http://ww3.sinaimg.cn/large/610dc034gw1fbsfgssfrwj20u011h48y.jpg";
+    private Subscription mSubscription;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,35 +72,35 @@ public class TestActivity extends AppCompatActivity {
 
 
         //http://blog.csdn.net/gobitan/article/details/3716227
-        createObservable()
+        mSubscription = createObservable()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<ArrayList<String>, Observable<String>>() {
                     @Override
                     public Observable<String> call(ArrayList<String> strings) {
 
-                      JSONArray jsonarray = new JSONArray(strings);
+                        JSONArray jsonarray = new JSONArray(strings);
 
                         return Observable.just(jsonarray.toString());
                     }
                 })
                 .subscribe(new Subscriber<String>() {
-                        @Override
-                        public void onCompleted() {
+                    @Override
+                    public void onCompleted() {
 
-                        }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(String s) {
+                    @Override
+                    public void onNext(String s) {
 
-                            System.out.print(s);
-                        }
-                    });
+                        System.out.print(s);
+                    }
+                });
     }
 
 
@@ -191,5 +194,11 @@ public class TestActivity extends AppCompatActivity {
                 .setControllerListener(controllerListener)
                 .build();
         simpleDraweeView.setController(controller);
+    }
+
+    @Override
+    protected void onDestroy() {
+        RxUtils.unSubscribeIfNotNull(mSubscription);
+        super.onDestroy();
     }
 }
