@@ -50,3 +50,8 @@ https://developer.android.com/topic/libraries/support-library/revisions.html
 依赖更新
 https://mvnrepository.com/
 https://developer.android.com/topic/libraries/support-library/revisions.html#25-1-1
+
+https://yq.aliyun.com/articles/57284?utm_source=qq
+
+加载更多
+https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews-and-RecyclerView

@@ -32,7 +32,6 @@ import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
 import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
-import meizhi.meizhi.malin.utils.RecyclerViewPositionHelper;
 import meizhi.meizhi.malin.utils.RxUtils;
 import meizhi.meizhi.malin.utils.UMengEvent;
 import rx.Observable;
@@ -117,14 +116,16 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     }
 
 
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+
     private void initData() {
         mActivity = getActivity();
         mAdapter = new ImageAdapter(mActivity);
-        StaggeredGridLayoutManager manager = new FastScrollLinearLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(manager);
+        mStaggeredGridLayoutManager = new FastScrollLinearLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
-        mEndlessListener = new EndlessRecyclerOnScrollListener() {
+        mEndlessListener = new EndlessRecyclerOnScrollListener(mStaggeredGridLayoutManager) {
             @Override
             public void onLoadMore(final int currentPage) {
                 mEndlessListener.setLoadMoreFlag(true);
@@ -258,7 +259,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                         if (imageInfo.results.size() == 0) {
                             mAdapter.changeMoreStatus(ImageAdapter.NO_LOAD_MORE);
                         } else {
-                            mAdapter.changeMoreStatus(ImageAdapter.PULL_LOAD_MORE);
+                            mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
                         }
                     }
                 });
@@ -410,13 +411,15 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     public void scrollToTop() {
         if (mRecyclerView == null) return;
-        RecyclerViewPositionHelper helper = RecyclerViewPositionHelper.createHelper(mRecyclerView);
-        int firstVisibleItemPosition = helper.findFirstVisibleItemPosition();
-        int mVisibleCount = helper.getItemCount();
-        if (firstVisibleItemPosition > mVisibleCount) {
-            mRecyclerView.scrollToPosition(mVisibleCount);
+        int[] lastVisibleItemPositions = mStaggeredGridLayoutManager.findFirstVisibleItemPositions(null);
+        if (lastVisibleItemPositions != null && lastVisibleItemPositions.length > 0) {
+            int firstVisibleItemPosition = lastVisibleItemPositions[0];
+            int mVisibleCount = mStaggeredGridLayoutManager.getItemCount();
+            if (firstVisibleItemPosition > mVisibleCount) {
+                mRecyclerView.scrollToPosition(mVisibleCount);
+            }
+            mRecyclerView.smoothScrollToPosition(0);
         }
-        mRecyclerView.smoothScrollToPosition(0);
     }
 
     public void scrollPosition(int pos) {

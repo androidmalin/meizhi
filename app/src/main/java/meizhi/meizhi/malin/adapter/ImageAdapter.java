@@ -57,11 +57,10 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int TYPE_FOOTER = 1;
 
 
-    public static final int PULL_LOAD_MORE = 0;//上拉加载更多
-    public static final int LOADING_MORE = 1;  //正在加载中
-    public static final int NO_LOAD_MORE = 2;  //没有加载更多 隐藏
+    public static final int LOADING_MORE = 1;  //加载中
+    public static final int NO_LOAD_MORE = 2;  //数据全部加载完毕
     public static final int NO_LOAD_ERROR = 3;  //加载失败
-    private int mLoadMoreStatus = 0;  //上拉加载更多状态-默认为0
+    private int mLoadMoreStatus = 1;  //上拉加载更多状态-默认为0
 
 
     public ImageAdapter(Activity context) {
@@ -75,7 +74,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             mData = new ArrayList<>();
         }
         mData.addAll(list);
-       // notifyDataSetChanged();
+        // notifyDataSetChanged();
     }
 
 
@@ -143,26 +142,21 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             switch (mLoadMoreStatus) {
-            case PULL_LOAD_MORE:{
-                footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
-                footerViewHolder.mTvLoadText.setText(R.string.load_more_tip_txt);
-                break;
-            }
-            case LOADING_MORE:{
-                footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
-                footerViewHolder.mTvLoadText.setText(R.string.load_more_loading);
-                break;
-            }
-            case NO_LOAD_MORE:{
-                footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
-                footerViewHolder.mTvLoadText.setText(R.string.load_more_no_data);
-                break;
-            }
+                case LOADING_MORE: {
+                    footerViewHolder.mLoadProgressBar.setVisibility(View.VISIBLE);
+                    footerViewHolder.mTvLoadText.setText(R.string.load_more_loading);
+                    break;
+                }
+                case NO_LOAD_MORE: {
+                    footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
+                    footerViewHolder.mTvLoadText.setText(R.string.load_more_no_data);
+                    break;
+                }
 
-            case NO_LOAD_ERROR:{
-                footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
-                footerViewHolder.mTvLoadText.setText(R.string.load_more_error_txt);
-            }
+                case NO_LOAD_ERROR: {
+                    footerViewHolder.mLoadProgressBar.setVisibility(View.INVISIBLE);
+                    footerViewHolder.mTvLoadText.setText(R.string.load_more_error_txt);
+                }
 
             }
         }

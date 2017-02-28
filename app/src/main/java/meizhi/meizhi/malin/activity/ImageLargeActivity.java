@@ -24,6 +24,7 @@ import meizhi.meizhi.malin.adapter.ImageLargeAdapter;
 import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageDownLoadUtil;
+import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
 import rx.Subscription;
 
@@ -59,9 +60,24 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
         initData();
         initView();
         initSetData();
+    }
 
-        PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(mRecyclerView);
+
+    /**
+     * RecyclerView滑动监听，可以获取当前显示View的Position。
+     */
+    private void initListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int first = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                    int currentIndex = first;
+                    LogUtil.d("initListener","currentIndex:"+currentIndex);
+                }
+            }
+        });
     }
 
 
@@ -143,6 +159,8 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
 
     private void initView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_large_layout);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mRecyclerView);
     }
 
 
