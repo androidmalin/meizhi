@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -21,10 +22,24 @@ import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.application.MApplication;
+import meizhi.meizhi.malin.utils.AssetsUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func0;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * @author root on 17-2-13.
@@ -51,6 +66,72 @@ public class TestActivity extends AppCompatActivity {
         mItemWidth = 300;
         mItemHeight = 300;
         loadImgCode(mSimpleDraweeView, IMAGE_URL);
+
+
+        //http://blog.csdn.net/gobitan/article/details/3716227
+        createObservable()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(new Func1<ArrayList<String>, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(ArrayList<String> strings) {
+
+                      JSONArray jsonarray = new JSONArray(strings);
+
+                        return Observable.just(jsonarray.toString());
+                    }
+                })
+                .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+
+                            System.out.print(s);
+                        }
+                    });
+    }
+
+
+    public Observable<ArrayList<String>> createObservable() {
+        return Observable.defer(new Func0<Observable<ArrayList<String>>>() {
+            @Override
+            public Observable<ArrayList<String>> call() {
+                return Observable.just(getDataString());
+            }
+        });
+    }
+
+    private ArrayList<String> getDataString() {
+
+        String data = AssetsUtil.readFileFromAssets(this, "url.json");
+        ArrayList<String> list = new ArrayList<>();
+
+        if (TextUtils.isEmpty(data)) return list;
+        try {
+            StringReader reader = new StringReader(data);
+            BufferedReader br = new BufferedReader(reader);
+            String str;
+            while ((str = br.readLine()) != null) {
+                if (!TextUtils.isEmpty(str)) {
+                    System.out.println(str);
+                    list.add(str);
+                }
+            }
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     private void loadImgCode(SimpleDraweeView simpleDraweeView, String url) {
