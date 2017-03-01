@@ -74,8 +74,8 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.test_layout);
         mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.simple_fresco_img);
 
-        mItemWidth = PhoneScreenUtil.getPhoneWidth(MApplication.getInstance());
-        mItemHeight = PhoneScreenUtil.getPhoneHeight(MApplication.getInstance());
+        mItemWidth = PhoneScreenUtil.getPhoneWidth();
+        mItemHeight = PhoneScreenUtil.getPhoneHeight();
 
         mItemWidth = 300;
         mItemHeight = 300;

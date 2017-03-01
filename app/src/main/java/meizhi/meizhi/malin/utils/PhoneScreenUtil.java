@@ -9,6 +9,8 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import java.lang.reflect.Method;
 
+import meizhi.meizhi.malin.application.MApplication;
+
 /**
  * 类描述: 手机设备信息获取工具类
  * 创建人:malin.myemail@163.com
@@ -23,12 +25,10 @@ public class PhoneScreenUtil {
 
     /**
      * 获取DisplayMetrics
-     *
-     * @param context:context
      * @return DisplayMetrics
      */
-    private static DisplayMetrics obtain(Context context) {
-        WindowManager wm = (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+    private static DisplayMetrics obtain() {
+        WindowManager wm = (WindowManager) MApplication.getInstance().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
         return dm;
@@ -36,94 +36,80 @@ public class PhoneScreenUtil {
 
     /**
      * 获取屏幕宽度
-     *
-     * @param context Context
      * @return width
      */
-    private static int getDeviceWidth(Context context) {
-        DisplayMetrics outMetrics = obtain(context);
+    private static int getDeviceWidth() {
+        DisplayMetrics outMetrics = obtain();
         return outMetrics.widthPixels;
     }
 
     /**
      * 获取屏幕高度
-     *
-     * @param context Context
      * @return height
      */
-    private static int getDeviceHeight(Context context) {
-        DisplayMetrics outMetrics = obtain(context);
+    private static int getDeviceHeight() {
+        DisplayMetrics outMetrics = obtain();
         return outMetrics.heightPixels;
     }
 
 
     /**
      * 获取设备屏幕密度,像素的比例
-     *
-     * @param context Context
      * @return density
      */
-    private static float getDeviceDensity(Context context) {
-        return context.getResources().getDisplayMetrics().density;
+    private static float getDeviceDensity() {
+        return MApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics().density;
     }
 
 
     /**
      * 讲px值转变成dip
      *
-     * @param context context
      * @param px      px
      * @return dp
      */
-    public static float pxToDip(Context context, float px) {
-        return px / getDeviceDensity(context) + 0.5f;
+    public static float pxToDip(float px) {
+        return px / getDeviceDensity() + 0.5f;
     }
 
     /**
      * 将dip值转成px
      *
-     * @param context Context
      * @param dip     dip
      * @return px
      */
-    public static float dipToPx(Context context, float dip) {
-        return dip * getDeviceDensity(context) + 0.5f;
+    public static float dipToPx(float dip) {
+        return dip * getDeviceDensity() + 0.5f;
     }
 
 
     /**
      * 得到手机的高，包括状态栏和导航栏
-     *
-     * @param context Context
      * @return int
      */
-    public static int getPhoneHeight(Context context) {
-        return getDeviceHeight(context) + getNavigationBarHeight(context);
+    public static int getPhoneHeight() {
+        return getDeviceHeight() + getNavigationBarHeight();
     }
 
     /**
      * 得到手机的高
-     *
-     * @param context Context
      * @return int
      */
-    public static int getPhoneWidth(Context context) {
-        return getDeviceWidth(context);
+    public static int getPhoneWidth() {
+        return getDeviceWidth();
     }
 
     /**
      * 获取虚拟按键高度
-     *
-     * @param context Context
      * @return int
      */
-    public static int getNavigationBarHeight(Context context) {
+    public static int getNavigationBarHeight() {
         int navigationBarHeight = 0;
         try {
-            Resources rs = context.getResources();
+            Resources rs = MApplication.getInstance().getApplicationContext().getResources();
             if (rs != null) {
                 int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
-                if (id > 0 && checkDeviceHasNavigationBar(context)) {
+                if (id > 0 && checkDeviceHasNavigationBar()) {
                     navigationBarHeight = rs.getDimensionPixelSize(id);
                 }
             }
@@ -136,14 +122,12 @@ public class PhoneScreenUtil {
 
     /**
      * 判断有没有虚拟按键
-     *
-     * @param context Context
      * @return boolean
      */
-    private static boolean checkDeviceHasNavigationBar(Context context) {
+    private static boolean checkDeviceHasNavigationBar() {
         boolean hasNavigationBar = false;
         try {
-            Resources rs = context.getResources();
+            Resources rs = MApplication.getInstance().getApplicationContext().getResources();
             int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
             if (id > 0) {
                 hasNavigationBar = rs.getBoolean(id);

@@ -64,7 +64,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public ImageAdapter(Activity context) {
         mInflater = LayoutInflater.from(context);
-        mItemWidth = (int) ((PhoneScreenUtil.getPhoneWidth(context) * 1.0f - PhoneScreenUtil.dipToPx(context, 100.f)) / 2.0f);
+        mItemWidth = (int) ((PhoneScreenUtil.getPhoneWidth() * 1.0f - PhoneScreenUtil.dipToPx(100.f)) / 2.0f);
         mItemHeight = (int) (mItemWidth * 4.0f / 3.0f);
     }
 

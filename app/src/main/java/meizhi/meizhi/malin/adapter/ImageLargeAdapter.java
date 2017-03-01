@@ -50,8 +50,8 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public ImageLargeAdapter(Activity context) {
         mInflater = LayoutInflater.from(context);
-        mItemWidth = PhoneScreenUtil.getPhoneWidth(MApplication.getInstance());
-        mItemHeight = PhoneScreenUtil.getPhoneHeight(MApplication.getInstance());
+        mItemWidth = PhoneScreenUtil.getPhoneWidth();
+        mItemHeight = PhoneScreenUtil.getPhoneHeight();
     }
 
     public void addData(List<String> list) {
