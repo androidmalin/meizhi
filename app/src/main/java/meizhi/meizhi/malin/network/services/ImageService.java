@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ImageService {
 
     private static final String TAG = ImageService.class.getSimpleName();
+    private static final String BASE_URL="http://mengmengdajson.oss-cn-shanghai.aliyuncs.com";
 
     private ImageService() {
     }
@@ -45,7 +46,7 @@ public final class ImageService {
             synchronized (ImageService.class) {
                 if (mImageApi == null) {
                     mImageApi = new Retrofit.Builder()
-                            .baseUrl("http://gank.io")
+                            .baseUrl(BASE_URL)
                             .client(getOkHttpClientSign())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

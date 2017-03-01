@@ -1,6 +1,7 @@
 package meizhi.meizhi.malin.network.api;
 
-import meizhi.meizhi.malin.network.bean.ImageInfo;
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,20 +21,14 @@ import rx.Observable;
  * 版本:
  */
 
-//分类数据: http://gank.io/api/data/数据类型/请求个数/第几页
-//
-//        数据类型： 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
-//        请求个数： 数字，大于0
-//        第几页：数字，大于0
-
 @SuppressWarnings("ALL")
 public interface ImageApi {
-    @GET("api/data/%E7%A6%8F%E5%88%A9/{num}/{page}")
-    Observable<ImageInfo> getkey(
-            @Path("num") int num,
-            @Path("page") int page
-    );
 
+    //http://mengmengdajson.oss-cn-shanghai.aliyuncs.com/image_1.json
+    @GET("{page}")
+    Observable<List<String>> getImageList(
+            @Path("page") String page
+    );
 
     @Streaming
     @GET

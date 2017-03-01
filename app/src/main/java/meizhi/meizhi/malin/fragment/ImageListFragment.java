@@ -20,13 +20,12 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.ImageAdapter;
 import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
-import meizhi.meizhi.malin.network.bean.ImageBean;
-import meizhi.meizhi.malin.network.bean.ImageInfo;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
@@ -53,6 +52,7 @@ import rx.schedulers.Schedulers;
  */
 public class ImageListFragment extends Fragment implements ImageAdapter.itemClickListener {
 
+    private static final String TAG = ImageListFragment.class.getSimpleName();
     private View mLayoutError;
     private View mLayoutEmpty;
     private ViewStub mStubError;
@@ -182,10 +182,11 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private void getFangs(final int currentPage) {
         CatchUtil.getInstance().releaseMemory(false);
         ImageApi aip = ImageService.getInstance().getLogin();
-        Observable<ImageInfo> observable = aip.getkey(NUMBER, currentPage);
+        String path = "image_"+currentPage+".json";
+        Observable<List<String>> observable = aip.getImageList(path);
         mSubscription = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ImageInfo>() {
+                .subscribe(new Subscriber<List<String>>() {
                     @Override
                     public void onCompleted() {
                         if (currentPage == 1) {
@@ -211,20 +212,20 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                     }
 
                     @Override
-                    public void onNext(ImageInfo imageInfo) {
+                    public void onNext(List<String> list) {
                         showLoadingView(false);
                         showErrorView(false);
                         setSuccessFlag(true);
-                        if (imageInfo == null || imageInfo.results == null) return;
+                        if (list == null ) return;
 
                         if (currentPage == 1) {
-                            if (imageInfo.results.size() == 0) {
+                            if (list.size() == 0) {
                                 inflateEmptyStubIfNeeded();
                             } else {
                                 showEmptyView(false);
                             }
 
-                            mSubscription2 = createObservable(imageInfo.results, mAdapter.getData())
+                            mSubscription2 = createObservable((ArrayList<String>) list, mAdapter.getData())
                                     .subscribeOn(Schedulers.computation())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(new Subscriber<Boolean>() {
@@ -251,12 +252,12 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                             }
 
                         } else {
-                            setZeroFlag(imageInfo.results.size() == 0);
+                            setZeroFlag(list.size() == 0);
                             showEmptyView(false);
                         }
-                        mAdapter.addData(imageInfo.results);
+                        mAdapter.addData(list);
                         //设置回到上拉加载更多
-                        if (imageInfo.results.size() == 0) {
+                        if (list.size() == 0) {
                             mAdapter.changeMoreStatus(ImageAdapter.NO_LOAD_MORE);
                         } else {
                             mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
@@ -363,7 +364,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     }
 
     public interface itemClickListener {
-        void itemClickListener(int position, ArrayList<ImageBean> list);
+        void itemClickListener(int position, ArrayList<String> list);
     }
 
     private itemClickListener mItemClickListener;
@@ -378,7 +379,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         mItemClickListener.itemClickListener(position, mAdapter.getData());
     }
 
-    public Observable<Boolean> createObservable(final ArrayList<ImageBean> list1, final ArrayList<ImageBean> list2) {
+    public Observable<Boolean> createObservable(final ArrayList<String> list1, final ArrayList<String> list2) {
         return Observable.defer(new Func0<Observable<Boolean>>() {
             @Override
             public Observable<Boolean> call() {
@@ -394,13 +395,13 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
      * @param list2 ArrayList2
      * @return boolean
      */
-    private boolean isContain(ArrayList<ImageBean> list1, ArrayList<ImageBean> list2) {
+    private boolean isContain(ArrayList<String> list1, ArrayList<String> list2) {
         String url;
         int num = 0;
         for (int i = 0; i < list1.size(); i++) {
-            url = list1.get(i).url;
+            url = list1.get(i);
             for (int j = 0; j < list2.size(); j++) {
-                String url2 = list2.get(j).url;
+                String url2 = list2.get(j);
                 if (url != null && url2 != null && url.equals(url2)) {
                     num++;
                 }

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.ImageLargeAdapter;
-import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageDownLoadUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
@@ -49,7 +48,7 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
     private ImageDownLoadUtil mImageDownLoadUtil;
     private Subscription mSubscription;
     private RecyclerView mRecyclerView;
-    private ArrayList<ImageBean> mList;
+    private ArrayList<String> mList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -168,7 +167,7 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
         Intent intent = getIntent();
         if (intent != null) {
             mPosition = intent.getIntExtra("position", 0);
-            mList = intent.getParcelableArrayListExtra("datas");
+            mList = intent.getStringArrayListExtra("datas");
         }
         mImageDownLoadUtil = new ImageDownLoadUtil(this);
         mImageDownLoadUtil.setDownLoadListener(this);

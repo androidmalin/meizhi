@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
@@ -48,7 +47,7 @@ import meizhi.meizhi.malin.utils.UrlUtils;
  */
 public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = ImageAdapter.class.getSimpleName();
-    private ArrayList<ImageBean> mData;
+    private ArrayList<String> mData;
     private LayoutInflater mInflater;
     private static int mItemWidth;
     private static int mItemHeight;
@@ -69,7 +68,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mItemHeight = (int) (mItemWidth * 4.0f / 3.0f);
     }
 
-    public void addData(List<ImageBean> list) {
+    public void addData(List<String> list) {
         if (mData == null) {
             mData = new ArrayList<>();
         }
@@ -100,7 +99,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mData == null ? 0 : mData.size();
     }
 
-    public ArrayList<ImageBean> getData() {
+    public ArrayList<String> getData() {
         if (mData == null) {
             mData = new ArrayList<>();
         }
@@ -126,10 +125,10 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             final int pos = getRealPosition(holder);
-            ImageBean bean = mData.get(pos);
+            String bean = mData.get(pos);
 
-            if (bean == null || TextUtils.isEmpty(bean.url)) return;
-            imageUrlLarge = bean.url;
+            if (TextUtils.isEmpty(bean)) return;
+            imageUrlLarge = bean;
 
             loadImgCode(itemViewHolder.head, imageUrlLarge);
             itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

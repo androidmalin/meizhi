@@ -55,3 +55,6 @@ https://yq.aliyun.com/articles/57284?utm_source=qq
 
 加载更多
 https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews-and-RecyclerView
+
+
+http://blog.csdn.net/gobitan/article/details/3716227

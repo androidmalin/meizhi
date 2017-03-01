@@ -28,9 +28,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.application.MApplication;
+import meizhi.meizhi.malin.network.api.ImageApi;
+import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.AssetsUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
@@ -44,9 +47,15 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * @author root on 17-2-13.
+ * 类描述:
+ * 创建人:malin.myemail@163.com
+ * 创建时间:2017/02/13
+ * 备注:{@link }
+ * 修改人:
+ * 修改时间:
+ * 修改备注:
+ * 版本:
  */
-
 public class TestActivity extends AppCompatActivity {
 
     private static final String TAG = TestActivity.class.getSimpleName();
@@ -71,33 +80,27 @@ public class TestActivity extends AppCompatActivity {
         loadImgCode(mSimpleDraweeView, IMAGE_URL);
 
 
-        //http://blog.csdn.net/gobitan/article/details/3716227
         mSubscription = createObservable()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<ArrayList<String>, Observable<String>>() {
                     @Override
                     public Observable<String> call(ArrayList<String> strings) {
-
                         JSONArray jsonarray = new JSONArray(strings);
-
                         return Observable.just(jsonarray.toString());
                     }
                 })
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
                     public void onNext(String s) {
-
                         System.out.print(s);
                     }
                 });
@@ -135,6 +138,29 @@ public class TestActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return list;
+    }
+
+
+    private void getDatas(final int currentPage) {
+        ImageApi aip = ImageService.getInstance().getLogin();
+        String path = "image_" + currentPage + ".json";
+        Observable<List<String>> observable = aip.getImageList(path);
+        mSubscription = observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<String>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(List<String> list) {
+                        LogUtil.d(TAG, list.toString());
+                    }
+                });
     }
 
     private void loadImgCode(SimpleDraweeView simpleDraweeView, String url) {

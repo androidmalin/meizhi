@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
  * 修改备注:
  * 版本:
  */
-public class AssetsUtil {
+public final class AssetsUtil {
     private AssetsUtil() {
     }
 
@@ -56,7 +56,9 @@ public class AssetsUtil {
             }
         }
         try {
-            content = new String(output.toByteArray(), "UTF-8");
+            if (output != null) {
+                content = new String(output.toByteArray(), "UTF-8");
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

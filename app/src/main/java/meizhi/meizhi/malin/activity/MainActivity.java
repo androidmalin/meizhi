@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
-import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
 
@@ -164,13 +163,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void itemClickListener(int position, ArrayList<ImageBean> list) {
+    public void itemClickListener(int position, ArrayList<String> list) {
         try {
             MobclickAgent.onEvent(this, UMengEvent.ClickImageToBigImage);
 
             Intent intent = new Intent(this, ImageLargeActivity.class);
             intent.putExtra("position", position);
-            intent.putParcelableArrayListExtra("datas", list);
+            intent.putStringArrayListExtra("datas", list);
             startActivityForResult(intent, 1000);
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
@@ -188,18 +187,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) return;
         switch (resultCode) {
-        case 2000: {
-            int position = data.getIntExtra("currentPosition", -1);
-            if (position != -1) {
-                if (mActivity == null || mActivity.isFinishing() || mImageListFragment == null) return;
-                mImageListFragment.scrollPosition(position);
+            case 2000: {
+                int position = data.getIntExtra("currentPosition", -1);
+                if (position != -1) {
+                    if (mActivity == null || mActivity.isFinishing() || mImageListFragment == null)
+                        return;
+                    mImageListFragment.scrollPosition(position);
+                }
+                break;
             }
-            break;
-        }
 
-        default: {
-            break;
-        }
+            default: {
+                break;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

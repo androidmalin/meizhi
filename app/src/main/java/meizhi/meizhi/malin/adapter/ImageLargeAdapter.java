@@ -27,7 +27,6 @@ import java.util.List;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.application.MApplication;
-import meizhi.meizhi.malin.network.bean.ImageBean;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
@@ -44,7 +43,7 @@ import meizhi.meizhi.malin.utils.UrlUtils;
  */
 public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = ImageLargeAdapter.class.getSimpleName();
-    private ArrayList<ImageBean> mList;
+    private ArrayList<String> mList;
     private LayoutInflater mInflater;
     private int mItemWidth;
     private int mItemHeight;
@@ -55,7 +54,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mItemHeight = PhoneScreenUtil.getPhoneHeight(MApplication.getInstance());
     }
 
-    public void addData(List<ImageBean> list) {
+    public void addData(List<String> list) {
         if (mList == null) {
             mList = new ArrayList<>();
         }
@@ -85,7 +84,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public ArrayList<ImageBean> getData() {
+    public ArrayList<String> getData() {
         if (mList == null) {
             mList = new ArrayList<>();
         }
@@ -114,10 +113,10 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mLayoutParams.height = mItemHeight;
             itemViewHolder.largeImage.setLayoutParams(mLayoutParams);
             final int pos = getRealPosition(holder);
-            ImageBean bean = mList.get(pos);
+            String bean = mList.get(pos);
 
-            if (bean == null || TextUtils.isEmpty(bean.url)) return;
-            imageUrl = bean.url;
+            if (TextUtils.isEmpty(bean)) return;
+            imageUrl = bean;
 
             loadImgCode(itemViewHolder.largeImage, imageUrl);
             itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -132,8 +131,8 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public boolean onLongClick(View view) {
                     if (mDownLoadClickListener != null) {
-                        if (mList != null && pos < mList.size() && mList.get(pos).url != null) {
-                            String utrImg = mList.get(pos).url;
+                        if (mList != null && pos < mList.size() && mList.get(pos)!= null) {
+                            String utrImg = mList.get(pos);
                             mDownLoadClickListener.downImageListener(utrImg, pos, false);
                         }
                     }
