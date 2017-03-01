@@ -130,9 +130,11 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             public void onLoadMore(final int currentPage) {
                 mEndlessListener.setLoadMoreFlag(true);
                 //设置正在加载更多
-                mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
-                MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
-                getFangs(currentPage);
+                if (mIsHasData){
+                    mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
+                    MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
+                    getFangs(currentPage);
+                }
                 //delayLoadMoreData(currentPage);
             }
         };
@@ -178,6 +180,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     }
 
     boolean isContain = false;
+    private boolean mIsHasData = true;
 
     private void getFangs(final int currentPage) {
         CatchUtil.getInstance().releaseMemory(false);
@@ -258,8 +261,10 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                         mAdapter.addData(list);
                         //设置回到上拉加载更多
                         if (list.size() == 0) {
+                            mIsHasData = false;
                             mAdapter.changeMoreStatus(ImageAdapter.NO_LOAD_MORE);
                         } else {
+                            mIsHasData = true;
                             mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
                         }
                     }
