@@ -54,7 +54,7 @@ public final class DestroyCleanUtil {
 
     public static void fixInputMethod(Context context) {
         if (context == null) return;
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager == null) return;
         String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView"};
         for (int i = 0; i < 3; i++) {

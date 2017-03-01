@@ -22,7 +22,7 @@ import android.annotation.SuppressLint;
 import android.support.v4.view.WindowInsetsCompat;
 import android.view.Gravity;
 
-public class WindowInsetsCompatUtil {
+public final class WindowInsetsCompatUtil {
 
 
     public static WindowInsetsCompat copy(WindowInsetsCompat source) {

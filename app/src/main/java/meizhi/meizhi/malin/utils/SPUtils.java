@@ -144,7 +144,7 @@ public final class SPUtils {
             try {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
-            } catch (NoSuchMethodException e) {
+            } catch (Throwable e) {
                 CrashReport.postCatchedException(e);
             }
 
@@ -162,7 +162,7 @@ public final class SPUtils {
                     sApplyMethod.invoke(editor);
                     return;
                 }
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 CrashReport.postCatchedException(e);
 
             }

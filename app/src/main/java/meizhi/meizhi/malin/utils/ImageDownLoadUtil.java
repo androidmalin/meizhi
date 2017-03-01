@@ -117,7 +117,7 @@ public final class ImageDownLoadUtil {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(mContext, R.string.down_load_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext.getApplicationContext(), R.string.down_load_error, Toast.LENGTH_SHORT).show();
                         CrashReport.postCatchedException(e);
                         e.printStackTrace();
                     }

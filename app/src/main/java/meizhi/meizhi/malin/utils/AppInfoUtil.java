@@ -30,7 +30,7 @@ public final class AppInfoUtil {
     public static String getChannelName(Context context) {
         String channelName;
         try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = context.getApplicationContext().getPackageManager().getApplicationInfo(context.getApplicationContext().getPackageName(), PackageManager.GET_META_DATA);
             channelName = appInfo.metaData.getString("PRODUCT");
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
@@ -48,7 +48,7 @@ public final class AppInfoUtil {
     public static String getAppVersionName(Context context, String defaultAppVersionName) {
         String versionName;
         try {
-            PackageInfo applicationInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo applicationInfo = context.getApplicationContext().getPackageManager().getPackageInfo(context.getApplicationContext().getPackageName(), 0);
             versionName = applicationInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
@@ -66,7 +66,7 @@ public final class AppInfoUtil {
     public static String getPackageName(Context context, String defaultPackageName) {
         String packageName;
         try {
-            packageName = context.getPackageName();
+            packageName = context.getApplicationContext().getPackageName();
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();

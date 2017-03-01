@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
+import com.facebook.cache.common.CacheKeyUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -35,6 +36,7 @@ import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.AssetsUtil;
+import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
@@ -104,6 +106,8 @@ public class TestActivity extends AppCompatActivity {
                         System.out.print(s);
                     }
                 });
+
+        CatchUtil.getInstance().displayBriefMemory();
     }
 
 

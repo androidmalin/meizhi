@@ -61,3 +61,6 @@ http://blog.csdn.net/gobitan/article/details/3716227
 
 HTTP Referer
 https://imququ.com/post/referrer-or-referer.html
+
+Memory
+http://blog.csdn.net/u013394527/article/details/53511446

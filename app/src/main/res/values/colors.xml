@@ -3,7 +3,6 @@
     <color name="colorPrimary">#fffb7299</color>
     <color name="colorPrimaryDark">#ffb85671</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="card_view_bg">#F5F5F5</color>
     <color name="about_text_color">#999999</color>
     <color name="pressed_color">#ccfb7299</color>
     <color name="tv_default_color">#999999</color>

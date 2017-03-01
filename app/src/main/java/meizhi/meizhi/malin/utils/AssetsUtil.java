@@ -32,7 +32,7 @@ public final class AssetsUtil {
             if (context == null || TextUtils.isEmpty(fileName)) {
                 return null;
             }
-            AssetManager am = context.getAssets();
+            AssetManager am = context.getApplicationContext().getAssets();
             input = am.open(fileName);
             output = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
