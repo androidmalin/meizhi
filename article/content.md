@@ -58,3 +58,6 @@ https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterVi
 
 
 http://blog.csdn.net/gobitan/article/details/3716227
+
+HTTP Referer
+https://imququ.com/post/referrer-or-referer.html

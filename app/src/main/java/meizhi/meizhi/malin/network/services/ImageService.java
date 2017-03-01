@@ -1,7 +1,12 @@
 package meizhi.meizhi.malin.network.services;
 
+import java.io.IOException;
+
 import meizhi.meizhi.malin.network.api.ImageApi;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ImageService {
 
     private static final String TAG = ImageService.class.getSimpleName();
-    private static final String BASE_URL="http://mengmengdajson.oss-cn-shanghai.aliyuncs.com";
+    private static final String BASE_URL = "http://mengmengdajson.oss-cn-shanghai.aliyuncs.com";
 
     private ImageService() {
     }
@@ -66,8 +71,24 @@ public final class ImageService {
     private static OkHttpClient getOkHttpClientSign() {
         OkHttpClient okHttpClient = null;
         okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new HttpHeaderInterceptor())
                 .build();
         return okHttpClient;
+    }
+
+
+    /**
+     * 设置Http Header
+     */
+    public static class HttpHeaderInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request originalRequest = chain.request();
+            Request newRequest = originalRequest.newBuilder()
+                    .addHeader("Referer", "http://www.malin.xyz")
+                    .build();
+            return chain.proceed(newRequest);
+        }
     }
 
     /**
