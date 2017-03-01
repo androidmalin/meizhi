@@ -7,6 +7,10 @@ import android.content.pm.PackageManager;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
 /**
  * 类描述:App信息获取的工具类
  * 创建人:malin.myemail@163.com
@@ -75,4 +79,9 @@ public final class AppInfoUtil {
         return packageName;
     }
 
+    private static String exception2String(Throwable th) {
+        Writer stringWriter = new StringWriter();
+        th.printStackTrace(new PrintWriter(stringWriter));
+        return stringWriter.toString();
+    }
 }

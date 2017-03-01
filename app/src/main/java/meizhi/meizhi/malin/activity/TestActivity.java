@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.Toast;
 
-import com.facebook.cache.common.CacheKeyUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -32,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.AssetsUtil;
@@ -58,7 +58,7 @@ import rx.schedulers.Schedulers;
  * 修改备注:
  * 版本:
  */
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = TestActivity.class.getSimpleName();
     SimpleDraweeView mSimpleDraweeView;
@@ -74,6 +74,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.test_layout);
         mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.simple_fresco_img);
 
+        mSimpleDraweeView.setOnClickListener(this);
         mItemWidth = PhoneScreenUtil.getPhoneWidth();
         mItemHeight = PhoneScreenUtil.getPhoneHeight();
 
@@ -230,5 +231,10 @@ public class TestActivity extends AppCompatActivity {
     protected void onDestroy() {
         RxUtils.unSubscribeIfNotNull(mSubscription);
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
     }
 }

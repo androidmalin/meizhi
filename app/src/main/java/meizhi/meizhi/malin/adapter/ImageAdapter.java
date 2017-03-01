@@ -21,7 +21,6 @@ import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -174,7 +173,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .newBuilderWithSource(Uri.parse(lowUrl))
                 .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
-                .setRotationOptions(RotationOptions.autoRotate())
                 .build();
 
 
@@ -187,16 +185,12 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 //缩放,在解码前修改内存中的图片大小, 配合Downsampling可以处理所有图片,否则只能处理jpg,
                 // 开启Downsampling:在初始化时设置.setDownsampleEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
-                .setRotationOptions(RotationOptions.autoRotate())
                 .build();
 
 
         ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
-            public void onFinalImageSet(
-                    String id,
-                    @Nullable ImageInfo imageInfo,
-                    @Nullable Animatable anim) {
+            public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
                 if (imageInfo == null) {
                     return;
                 }
@@ -274,7 +268,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (manager instanceof GridLayoutManager) {
+        if (manager != null && manager instanceof GridLayoutManager) {
             final GridLayoutManager gridManager = ((GridLayoutManager) manager);
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
@@ -299,6 +293,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private Handler mHandler = new Handler();
     private Runnable mRunnable;
+
     /**
      * 更新加载更多状态
      *
