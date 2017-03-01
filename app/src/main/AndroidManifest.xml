@@ -25,9 +25,10 @@
         android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:supportsRtl,android:label,android:theme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activity.TestActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
