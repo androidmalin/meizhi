@@ -23,6 +23,7 @@ import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.utils.CatchUtil;
+import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
@@ -180,6 +181,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         CatchUtil.getInstance().releaseMemory(true);
+        DestroyCleanUtil.fixInputMethod(this);
+        DestroyCleanUtil.unBindView(getWindow().getDecorView());
         super.onDestroy();
     }
 

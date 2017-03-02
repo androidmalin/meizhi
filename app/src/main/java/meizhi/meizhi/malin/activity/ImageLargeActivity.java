@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.ImageLargeAdapter;
 import meizhi.meizhi.malin.utils.CatchUtil;
+import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.ImageDownLoadUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
@@ -237,6 +238,8 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
     @Override
     protected void onDestroy() {
         RxUtils.unSubscribeIfNotNull(mSubscription);
+        DestroyCleanUtil.fixInputMethod(this);
+        DestroyCleanUtil.unBindView(getWindow().getDecorView());
         super.onDestroy();
     }
 

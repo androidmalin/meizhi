@@ -26,6 +26,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
+import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
@@ -204,6 +205,8 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onDestroy() {
+        DestroyCleanUtil.fixInputMethod(this);
+        DestroyCleanUtil.unBindView(getWindow().getDecorView());
         super.onDestroy();
     }
 }

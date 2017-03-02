@@ -365,6 +365,9 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         }
         RxUtils.unSubscribeIfNotNull(mSubscription);
         RxUtils.unSubscribeIfNotNull(mSubscription2);
+
+        View rootView = mRootView.findViewById(R.id.fl_root_image_list_layout);
+        DestroyCleanUtil.unBindView(rootView);
         super.onDestroy();
     }
 
