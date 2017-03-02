@@ -48,7 +48,7 @@ public final class ImageDownLoadUtil {
 
     private static final String FILE_IMAGE = "0MeZhi";
     private static final int TEMP = 4 * 1024;
-    public downLoadListener mDownLoadListener;
+    private downLoadListener mDownLoadListener;
     private Subscription mSubscription;
 
     public void setDownLoadListener(downLoadListener listener) {

@@ -9,7 +9,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.Writer;
 
 /**
  * 类描述:App信息获取的工具类
@@ -79,9 +78,14 @@ public final class AppInfoUtil {
         return packageName;
     }
 
-    private static String exception2String(Throwable th) {
-        Writer stringWriter = new StringWriter();
-        th.printStackTrace(new PrintWriter(stringWriter));
-        return stringWriter.toString();
+
+    private static String getStackTraceString(Throwable tr) {
+        if (tr == null) {
+            return "";
+        }
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        tr.printStackTrace(pw);
+        return sw.toString();
     }
 }

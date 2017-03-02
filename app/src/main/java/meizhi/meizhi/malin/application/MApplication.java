@@ -1,10 +1,9 @@
 package meizhi.meizhi.malin.application;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -15,17 +14,13 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
+import java.util.List;
 
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.activity.ImageLargeActivity;
-import meizhi.meizhi.malin.activity.MainActivity;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageLoaderConfig;
-import meizhi.meizhi.malin.utils.LogUtil;
-import okhttp3.OkHttpClient;
 
 /**
  * 类描述:
@@ -40,8 +35,6 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("ALL")
 public class MApplication extends Application {
 
-    public static boolean isLoad = false;
-    private static final String TAG = MApplication.class.getSimpleName();
     public RefWatcher mRefWatcher;
 
     private static MApplication application;
@@ -51,115 +44,53 @@ public class MApplication extends Application {
         application = this;
     }
 
-    public OkHttpClient mOkHttpClient;
 
     public static MApplication getInstance() {
         return application;
     }
 
+    private Handler mHander = new Handler();
+
     @Override
     public void onCreate() {
         super.onCreate();
-        initFresco();
-        isLoad = true;
-        registerActivityLifecycle();
-        int pid = android.os.Process.myPid();
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
-            if (appProcess.pid == pid && appProcess.processName.compareToIgnoreCase(getPackageName()) == 0) {
-                if (BuildConfig.DEBUG) {
-                } else {
-                }
-                if (LeakCanary.isInAnalyzerProcess(this)) {
-                    // This process is dedicated to LeakCanary for heap analysis.
-                    // You should not init your app in this process.
-                    return;
-                }
-                mRefWatcher = LeakCanary.install(this);
-                try {
-                    CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
-                    strategy.setAppChannel(AppInfoUtil.getChannelName(this));  //设置渠道
-                    strategy.setAppVersion(AppInfoUtil.getAppVersionName(this, getResources().getString(R.string.app_default_version)));      //App的版本
-                    strategy.setAppPackageName(AppInfoUtil.getPackageName(this, getResources().getString(R.string.app_package_name)));  //App的包名
-                    strategy.setAppReportDelay(10000);   //Bugly会在启动10s后联网同步数据
-                    Bugly.init(getApplicationContext(), "ee6ea51102", BuildConfig.DEBUG, strategy);
-                } catch (Throwable e) {
-                    CrashReport.postCatchedException(e);
-                    e.printStackTrace();
+        mHander.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String processName = getAppMainProcessName();
+                if (!TextUtils.isEmpty(processName) && processName.compareToIgnoreCase(getAppPackageName()) == 0) {
+                    initFresco();
+                    initLeack();
+                    initBugly();
                 }
             }
+        }, 300);
+    }
+
+    /**
+     * Bugly初始化
+     */
+    private void initBugly() {
+        try {
+            CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
+            strategy.setAppChannel(AppInfoUtil.getChannelName(this));  //设置渠道
+            strategy.setAppVersion(AppInfoUtil.getAppVersionName(this, getResources().getString(R.string.app_default_version))); //App的版本
+            strategy.setAppPackageName(AppInfoUtil.getPackageName(this, getResources().getString(R.string.app_package_name)));  //App的包名
+            strategy.setAppReportDelay(10000);   //Bugly会在启动10s后联网同步数据
+            Bugly.init(getApplicationContext(), "ee6ea51102", BuildConfig.LOG_DEBUG, strategy);
+        } catch (Throwable e) {
+            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
     }
 
-
-
-
-    public void registerActivityLifecycle(){
-
-        this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivityCreated MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivityCreated ImageLargeActivity");
-                }
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivityStarted MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivityStarted ImageLargeActivity");
-                }
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivityResumed MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivityResumed ImageLargeActivity");
-                }
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivityPaused MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivityPaused ImageLargeActivity");
-                }
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivityStopped MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivityStopped ImageLargeActivity");
-                }
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivitySaveInstanceState MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivitySaveInstanceState ImageLargeActivity");
-                }
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-                if (activity instanceof MainActivity){
-                    LogUtil.d(TAG,"onActivityDestroyed MainActivity");
-                }else if (activity instanceof ImageLargeActivity){
-                    LogUtil.d(TAG,"onActivityDestroyed ImageLargeActivity");
-                }
-            }
-        });
+    private void initLeack() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        mRefWatcher = LeakCanary.install(this);
     }
 
     private void initFresco() {
@@ -175,16 +106,62 @@ public class MApplication extends Application {
         }
     }
 
+
+    /**
+     * 获取APP的包名
+     *
+     * @return
+     */
+    private String getAppPackageName() {
+        String name;
+        name = getPackageName();
+        if (!TextUtils.isEmpty(name)) return name;
+        name = getResources().getString(R.string.app_name);
+        if (!TextUtils.isEmpty(name)) return name;
+        return "meizhi.meizhi.malin";
+    }
+
+    /**
+     * 获取APP主进程的Name
+     *
+     * @return
+     */
+    private String getAppMainProcessName() {
+        String name;
+        name = getProcessNameViaCmdLine();
+        if (!TextUtils.isEmpty(name)) return name;
+        name = getProcessNameViaManager();
+        return name;
+    }
+
+    /**
+     * 获取进程名
+     *
+     * @return
+     */
+    private String getProcessNameViaManager() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
+        if (runningApps == null || runningApps.isEmpty()) return null;
+        for (ActivityManager.RunningAppProcessInfo procInfo : runningApps) {
+            if (procInfo.pid == android.os.Process.myPid()) {
+                return procInfo.processName;
+            }
+        }
+        return null;
+    }
+
+
     /**
      * 获取进程号对应的进程名
      *
      * @param pid 进程号
      * @return 进程名
      */
-    private static String getProcessName(int pid) {
+    private static String getProcessNameViaCmdLine() {
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+            reader = new BufferedReader(new FileReader("/proc/" + android.os.Process.myPid() + "/cmdline"));
             String processName = reader.readLine();
             if (!TextUtils.isEmpty(processName)) {
                 processName = processName.trim();
@@ -198,9 +175,9 @@ public class MApplication extends Application {
                 if (reader != null) {
                     reader.close();
                 }
-            } catch (IOException exception) {
-                CrashReport.postCatchedException(exception);
-                exception.printStackTrace();
+            } catch (Throwable e) {
+                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
         return null;
@@ -208,14 +185,12 @@ public class MApplication extends Application {
 
     @Override
     public void onLowMemory() {
-        LogUtil.e(TAG, "onLowMemory");
         super.onLowMemory();
     }
 
     //指导应用程序在不同的情况下进行自身的内存释放，以避免被系统直接杀掉，提高应用程序的用户体验.
     @Override
     public void onTrimMemory(int level) {
-        LogUtil.e(TAG, "onTrimMemory:" + level);
         CatchUtil.getInstance().releaseMemory(true);
         CatchUtil.getInstance().clearCacheDiskSelf();
         super.onTrimMemory(level);

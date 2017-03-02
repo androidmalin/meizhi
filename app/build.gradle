@@ -161,8 +161,6 @@ dependencies {
         exclude module: 'support-compat'
         exclude module: 'support-annotations'
     }
-    //An OkHttp interceptor which logs HTTP request and response data.
-    compile rootProject.ext.dependencies["logging-interceptor"]
     //LeakCanary
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]

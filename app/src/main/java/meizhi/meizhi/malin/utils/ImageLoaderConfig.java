@@ -2,7 +2,6 @@ package meizhi.meizhi.malin.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.common.memory.MemoryTrimType;
@@ -24,7 +23,6 @@ import java.util.Set;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.network.services.ImageService;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * 类描述:
@@ -37,9 +35,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * 版本:
  */
 public final class ImageLoaderConfig {
-
-
-    private static final String TAG = ImageLoaderConfig.class.getSimpleName();
 
     private ImageLoaderConfig() {
     }
@@ -79,9 +74,7 @@ public final class ImageLoaderConfig {
 
         if (BuildConfig.LOG_DEBUG) {
             FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-            Log.d(TAG, "BuildConfig.LOG_DEBUG = True");
         } else {
-            Log.d(TAG, "BuildConfig.LOG_DEBUG = false");
             FLog.setMinimumLoggingLevel(FLog.ERROR);
         }
 
@@ -89,13 +82,8 @@ public final class ImageLoaderConfig {
         Set<RequestListener> requestListeners = new HashSet<>();
         requestListeners.add(new RequestLoggingListener());
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(PLog.instance());
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         //替换网络实现为OkHttp3
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
         //网络实现层用okHttp3
         ImagePipelineConfig mImagePipelineConfig = OkHttpImagePipelineConfigFactory.newBuilder(context, okHttpClient)

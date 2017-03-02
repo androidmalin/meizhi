@@ -1,10 +1,8 @@
 package meizhi.meizhi.malin.adapter;
 
 import android.app.Activity;
-import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -17,12 +15,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.image.ImageInfo;
-import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
@@ -30,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
 
@@ -187,27 +180,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
                 .build();
 
-
-        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
-            @Override
-            public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
-                if (imageInfo == null) {
-                    return;
-                }
-                QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtil.d(TAG, "" + imageInfo.getWidth() + "x" + imageInfo.getHeight() + " Quality:" + qualityInfo.getQuality() + " isOfGoodEnoughQuality:" + qualityInfo.isOfGoodEnoughQuality() + " isOfFullQuality:" + qualityInfo.isOfFullQuality());
-            }
-
-            @Override
-            public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
-            }
-
-            @Override
-            public void onFailure(String id, Throwable throwable) {
-                LogUtil.e(TAG, "Error loading:" + id + " " + throwable.getLocalizedMessage());
-            }
-        };
-
         PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
                 .setLowResImageRequest(imageRequestLow)
                 .setImageRequest(imageRequest)
@@ -217,7 +189,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .setTapToRetryEnabled(true)
                 //是否自动开启gif,webp动画,也可以在ControllerListener下手动启动动画
                 .setAutoPlayAnimations(true)
-                .setControllerListener(controllerListener)
                 .build();
         simpleDraweeView.setController(controller);
     }

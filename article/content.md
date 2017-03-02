@@ -1,3 +1,8 @@
+
+dr-xr-xr-x
+
+
+
 http://blog.csdn.net/zhjali123/article/details/42780133
 http://blog.csdn.net/ameyume/article/details/8056492
 http://blog.csdn.net/xiabing082/article/details/52561428
@@ -64,3 +69,6 @@ https://imququ.com/post/referrer-or-referer.html
 
 Memory
 http://blog.csdn.net/u013394527/article/details/53511446
+
+pid
+https://zhuanlan.zhihu.com/p/24212234
