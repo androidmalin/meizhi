@@ -1,9 +1,7 @@
 package meizhi.meizhi.malin.adapter;
 
 import android.app.Activity;
-import android.graphics.drawable.Animatable;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,13 +10,8 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.common.RotationOptions;
-import com.facebook.imagepipeline.image.ImageInfo;
-import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
@@ -26,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.application.MApplication;
-import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.UrlUtils;
 
@@ -93,11 +84,8 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemViewHolder itemViewHolder;
         View view = mInflater.inflate(R.layout.image_large_list_item, parent, false);
-        itemViewHolder = new ItemViewHolder(view);
-        itemViewHolder.largeImage = (SimpleDraweeView) view.findViewById(R.id.image_large_item_img);
-        return itemViewHolder;
+        return new ItemViewHolder(view);
     }
 
     private String imageUrl;
@@ -131,7 +119,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public boolean onLongClick(View view) {
                     if (mDownLoadClickListener != null) {
-                        if (mList != null && pos < mList.size() && mList.get(pos)!= null) {
+                        if (mList != null && pos < mList.size() && mList.get(pos) != null) {
                             String utrImg = mList.get(pos);
                             mDownLoadClickListener.downImageListener(utrImg, pos, false);
                         }
@@ -155,7 +143,6 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .newBuilderWithSource(Uri.parse(lowUrl))
                 .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
-                .setRotationOptions(RotationOptions.autoRotate())
                 .build();
 
         String imageUrlHigh = UrlUtils.getUrl(url, UrlUtils.large);
@@ -163,27 +150,8 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .newBuilderWithSource(Uri.parse(imageUrlHigh))
                 .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
-                .setRotationOptions(RotationOptions.autoRotate())
                 .build();
 
-
-        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
-            @Override
-            public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
-                if (imageInfo == null) return;
-                QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtil.d(TAG, "" + imageInfo.getWidth() + "x" + imageInfo.getHeight() + " Quality:" + qualityInfo.getQuality() + " isOfGoodEnoughQuality:" + qualityInfo.isOfGoodEnoughQuality() + " isOfFullQuality:" + qualityInfo.isOfFullQuality());
-            }
-
-            @Override
-            public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
-            }
-
-            @Override
-            public void onFailure(String id, Throwable throwable) {
-                LogUtil.e(TAG, "Error loading" + id + "\n" + throwable.getLocalizedMessage());
-            }
-        };
 
         PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
                 .setLowResImageRequest(imageRequestLow)
@@ -192,7 +160,6 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .setOldController(simpleDraweeView.getController())
                 .setTapToRetryEnabled(true)
                 .setAutoPlayAnimations(true)
-                .setControllerListener(controllerListener)
                 .build();
         simpleDraweeView.setController(controller);
     }
@@ -207,9 +174,9 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private ItemViewHolder(View itemView) {
             super(itemView);
+            largeImage = (SimpleDraweeView) itemView.findViewById(R.id.image_large_item_img);
         }
     }
-
 
     public void clearData() {
         if (mList != null) {
