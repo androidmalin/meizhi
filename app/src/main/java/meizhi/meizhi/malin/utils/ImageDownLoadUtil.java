@@ -133,7 +133,7 @@ public final class ImageDownLoadUtil {
     }
 
 
-    public Observable<Boolean> createObservable(final ResponseBody body) {
+    private Observable<Boolean> createObservable(final ResponseBody body) {
         return Observable.defer(new Func0<Observable<Boolean>>() {
             @Override
             public Observable<Boolean> call() {
