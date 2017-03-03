@@ -36,7 +36,6 @@ import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.AssetsUtil;
-import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.LogUtil;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 import meizhi.meizhi.malin.utils.RxUtils;
@@ -108,7 +107,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
 
-        CatchUtil.getInstance().displayBriefMemory();
     }
 
 
