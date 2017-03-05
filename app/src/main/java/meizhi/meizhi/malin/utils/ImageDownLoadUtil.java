@@ -76,7 +76,7 @@ public final class ImageDownLoadUtil {
         map.put("position", "" + position);
         MobclickAgent.onEvent(mContext, singleClickDown ? UMengEvent.ClickDownLoadImage : UMengEvent.LongClickDownLoadImage, map);
 
-        ImageApi biLiApi = ImageService.getInstance().getDownLoadService(ImageApi.class, getBaseUrl(fileUrl));
+        ImageApi biLiApi = ImageService.getInstance().getDownLoad(getBaseUrl(fileUrl));
         Call<ResponseBody> call = biLiApi.download(fileUrl);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

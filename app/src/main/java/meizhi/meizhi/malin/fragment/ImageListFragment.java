@@ -184,7 +184,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     private void getFangs(final int currentPage) {
         CatchUtil.getInstance().releaseMemory(false);
-        ImageApi aip = ImageService.getInstance().getLogin();
+        ImageApi aip = ImageService.getInstance().getImageList();
         String path = "image_"+currentPage+".json";
         Observable<List<String>> observable = aip.getImageList(path);
         mSubscription = observable.subscribeOn(Schedulers.io())

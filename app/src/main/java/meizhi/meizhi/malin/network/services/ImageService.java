@@ -22,10 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 版本:
  */
 
-@SuppressWarnings("ALL")
 public final class ImageService {
 
-    private static final String TAG = ImageService.class.getSimpleName();
     private static final String BASE_URL = "http://mengmengdajson.oss-cn-shanghai.aliyuncs.com";
 
     private ImageService() {
@@ -46,7 +44,7 @@ public final class ImageService {
 
     private volatile static ImageApi mImageApi = null;
 
-    public ImageApi getLogin() {
+    public ImageApi getImageList() {
         if (mImageApi == null) {
             synchronized (ImageService.class) {
                 if (mImageApi == null) {
@@ -61,6 +59,28 @@ public final class ImageService {
             }
         }
         return mImageApi;
+    }
+
+    /**
+     * 下载
+     *
+     * @param hostURL
+     * @return
+     */
+    private volatile static ImageApi mImageApiDownLoad = null;
+
+    public ImageApi getDownLoad(String hostURL) {
+        if (mImageApiDownLoad == null) {
+            synchronized (ImageService.class) {
+                if (mImageApiDownLoad == null) {
+                    mImageApiDownLoad = new Retrofit.Builder()
+                            .baseUrl(hostURL)
+                            .build()
+                            .create(ImageApi.class);
+                }
+            }
+        }
+        return mImageApiDownLoad;
     }
 
     /**
@@ -90,22 +110,4 @@ public final class ImageService {
             return chain.proceed(newRequest);
         }
     }
-
-    /**
-     * 下载
-     *
-     * @param tClass
-     * @param hostURL
-     * @param <T>
-     * @return
-     */
-    public <T> T getDownLoadService(Class<T> tClass, String hostURL) {
-        return new Retrofit.Builder()
-                .baseUrl(hostURL)
-                .client(getOkHttpClientSign())
-                .build()
-                .create(tClass);
-
-    }
-
 }

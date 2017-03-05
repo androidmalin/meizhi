@@ -28,7 +28,10 @@ public final class UrlUtils {
 //    mw690.jpg       640x960
 //    mw720.jpg       640x960
 //    large.jpg 	  640x960
-
+//加载失败
+//http://ww1.sinaimg.cn/large/images/default_large.gif 240*180
+//http://ww1.sinaimg.cn/large/e7a91d45ly1fd6kgq271pj20j60srjy7 Location: ./images/default_large.gif http 302
+//http://img.hb.aicdn.com/b7af7e3622ed3f83d0d82ce30cc36a7e1d5f675a27fd8-5OhNMK_
 
     public static final int square = 0;
     public static final int thumbnail = 1;
@@ -71,7 +74,9 @@ public final class UrlUtils {
     private UrlUtils() {
 
     }
-
+//youPaiYun
+//http://img.hb.aicdn.com/a5ad0cad00bb135be7e22aa59f4d76b3a24c345a48d13-kDRRas_
+//http://img.hb.aicdn.com/a5ad0cad00bb135be7e22aa59f4d76b3a24c345a48d13-kDRRas_/fw/300/gifto/true/progressive/true/format/webp
     public static String getUrl(String url, int type) {
         String result;
         try {
@@ -85,7 +90,9 @@ public final class UrlUtils {
                 }
             } else if (url.contains("glb.clouddn.com") || url.contains("clouddn.com")) {
                 result = url + clouddn;
-            } else {
+            } else if (url.contains("img.hb.aicdn")){
+                result = url;
+            }else {
                 result = url;
             }
         } catch (Exception e) {
