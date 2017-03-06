@@ -41,6 +41,7 @@ public class InsetsCoordinatorLayout extends CoordinatorLayout {
         this(context, attrs, 0);
     }
 
+    @SuppressWarnings("unchecked")
     public InsetsCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         ViewCompat.setOnApplyWindowInsetsListener(this, new android.support.v4.view.OnApplyWindowInsetsListener() {
@@ -55,7 +56,6 @@ public class InsetsCoordinatorLayout extends CoordinatorLayout {
                     if (b == null) {
                         continue;
                     }
-                    //noinspection unchecked
                     b.onApplyWindowInsets(InsetsCoordinatorLayout.this, child, WindowInsetsCompatUtil.copy(insets));
                 }
                 return insets;
@@ -71,7 +71,7 @@ public class InsetsCoordinatorLayout extends CoordinatorLayout {
     @Override
     @SuppressWarnings("deprecation")
     protected boolean fitSystemWindows(Rect insets) {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return super.fitSystemWindows(insets);
         }
 

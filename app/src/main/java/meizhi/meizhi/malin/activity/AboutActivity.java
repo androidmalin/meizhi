@@ -44,6 +44,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
     private static final String URL_THANKS = "http://gank.io/api";
     private Toolbar mToolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
         TextView mGitLinkTV = (TextView) findViewById(R.id.tv_git);
-        TextView mThanksView = (TextView) findViewById(R.id.tv_thanks);
         TextView versionName = (TextView) findViewById(R.id.tv_app_version_name);
         findViewById(R.id.rl_git_log).setOnClickListener(this);
         findViewById(R.id.rl_about_back).setOnClickListener(this);
@@ -67,16 +67,11 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         mGitLinkTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         mGitLinkTV.setOnClickListener(this);
 
-        SpannableStringBuilder spanString = new SpannableStringBuilder(getResources().getString(R.string.thanks_txt));
-        spanString.setSpan(new ClickEvent(ContextCompat.getColor(this, R.color.colorPrimary), true), 6, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mThanksView.setText(spanString);
-        mThanksView.setMovementMethod(LinkMovementMethod.getInstance());
-
         initData(versionName);
     }
 
     private void setNavigationBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//19
             Window window = getWindow();
             // Translucent status bar
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

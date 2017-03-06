@@ -103,17 +103,6 @@
                     android:textSize="@dimen/common_dimen_16sp" />
 
                 <TextView
-                    android:id="@+id/tv_thanks"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/common_dimen_30dip"
-                    android:text="@string/thanks_txt"
-                    android:textColor="@color/about_text_color"
-                    android:textSize="@dimen/common_dimen_16sp" />
-
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

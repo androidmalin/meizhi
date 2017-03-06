@@ -63,6 +63,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 @SuppressWarnings("deprecation")
 public final class DestroyCleanUtil {
     private static final String CIRCLE_CLASS = "android.support.v4.widget.CircleImageView";
+
     private DestroyCleanUtil() {
     }
 
@@ -92,6 +93,7 @@ public final class DestroyCleanUtil {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void unBindView(View view) {
         if (view != null) {
