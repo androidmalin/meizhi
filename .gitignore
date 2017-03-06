@@ -11,3 +11,4 @@ gradle.properties
 /infer-out
 /app/bugly
 /autotest/.gradle
+ui

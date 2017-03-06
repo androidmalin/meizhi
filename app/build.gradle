@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 //BugLy
 apply plugin: 'bugly'
+apply plugin: 'project-report'
+
 bugly {
     appId = rootProject.ext.common.appId
     appKey = rootProject.ext.common.appKey

@@ -76,3 +76,6 @@ http://www.17ce.com/
 
 backup
 https://forum.xda-developers.com/showthread.php?t=2011811
+
+navigation
+http://weibo.com/ttarticle/p/show?id=2309404028410052639870
