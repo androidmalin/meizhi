@@ -79,3 +79,9 @@ https://forum.xda-developers.com/showthread.php?t=2011811
 
 navigation
 http://weibo.com/ttarticle/p/show?id=2309404028410052639870
+
+gradle build-cache
+http://tools.android.com/tech-docs/build-cache
+
+Recent Support Library Revisions
+https://developer.android.com/topic/libraries/support-library/revisions.html

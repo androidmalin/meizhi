@@ -1,13 +1,14 @@
 ext {
     android = [
 
-            compileSdkVersion: 25,
-            buildToolsVersion: "25.0.2",
-            minSdkVersion    : 15,
-            targetSdkVersion : 22,
-            applicationId    : "meizhi.meizhi.malin",
-            versionCode      : 18,
-            versionName      : "4.1.4"
+            compileSdkVersion : 25,
+            buildToolsVersion : "25.0.2",
+            minSdkVersion     : 15,
+            minSdkVersionDebug: 23,
+            targetSdkVersion  : 22,
+            applicationId     : "meizhi.meizhi.malin",
+            versionCode       : 18,
+            versionName       : "4.1.4"
 
     ]
 

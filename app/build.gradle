@@ -106,9 +106,10 @@ android {
             minSdkVersion = rootProject.ext.android.minSdkVersion
         }
 
+        //测试渠道，正式发布，请不要使用这个字符串 xiaomi
         xiaomi {
             manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
-            minSdkVersion = rootProject.ext.android.minSdkVersion
+            minSdkVersion = rootProject.ext.android.minSdkVersionDebug
         }
     }
 
