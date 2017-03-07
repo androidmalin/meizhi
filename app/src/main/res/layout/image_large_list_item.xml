@@ -7,7 +7,9 @@
 
     fresco:actualImageScaleType="focusCrop"
 
-    fresco:fadeDuration="200"
+    android:background="@color/colorPrimary"
+
+    fresco:fadeDuration="300"
 
     fresco:failureImage="@color/colorAccent"
     fresco:failureImageScaleType="centerCrop"
