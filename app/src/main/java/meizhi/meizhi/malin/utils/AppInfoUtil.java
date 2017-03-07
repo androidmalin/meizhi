@@ -10,6 +10,8 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import meizhi.meizhi.malin.R;
+
 /**
  * 类描述:App信息获取的工具类
  * 创建人:malin.myemail@163.com
@@ -33,7 +35,7 @@ public final class AppInfoUtil {
     public static String getChannelName(Context context) {
         String channelName;
         try {
-            ApplicationInfo appInfo = context.getApplicationContext().getPackageManager().getApplicationInfo(context.getApplicationContext().getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = context.getApplicationContext().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
             channelName = appInfo.metaData.getString("PRODUCT");
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
@@ -48,15 +50,15 @@ public final class AppInfoUtil {
      *
      * @return Version Name
      */
-    public static String getAppVersionName(Context context, String defaultAppVersionName) {
+    public static String getAppVersionName(Context context) {
         String versionName;
         try {
-            PackageInfo applicationInfo = context.getApplicationContext().getPackageManager().getPackageInfo(context.getApplicationContext().getPackageName(), 0);
+            PackageInfo applicationInfo = context.getApplicationContext().getPackageManager().getPackageInfo(ProcessUtil.getAppPackageName(), 0);
             versionName = applicationInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
-            versionName = defaultAppVersionName;
+            versionName = context.getApplicationContext().getResources().getString(R.string.app_default_version);
         }
         return versionName;
     }
@@ -66,16 +68,8 @@ public final class AppInfoUtil {
      *
      * @return Package Name
      */
-    public static String getPackageName(Context context, String defaultPackageName) {
-        String packageName;
-        try {
-            packageName = context.getApplicationContext().getPackageName();
-        } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
-            e.printStackTrace();
-            packageName = defaultPackageName;
-        }
-        return packageName;
+    public static String getPackageName() {
+        return ProcessUtil.getAppPackageName();
     }
 
 

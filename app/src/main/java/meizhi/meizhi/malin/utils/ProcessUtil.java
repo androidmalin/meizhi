@@ -27,6 +27,7 @@ import meizhi.meizhi.malin.application.MApplication;
 public final class ProcessUtil {
 
     private static String processName = null;
+    private static String mPackageName = null;
 
     public static boolean isMainProcess() {
         String processName = getAppMainProcessName();
@@ -37,14 +38,14 @@ public final class ProcessUtil {
     /**
      * 获取APP的包名
      *
-     * @return
+     * @return AppPackageName
      */
-    private static String getAppPackageName() {
-        String name;
-        name = MApplication.getInstance().getApplicationContext().getPackageName();
-        if (!TextUtils.isEmpty(name)) return name;
-        name = MApplication.getInstance().getApplicationContext().getResources().getString(R.string.app_name);
-        if (!TextUtils.isEmpty(name)) return name;
+    public static String getAppPackageName() {
+        if (!TextUtils.isEmpty(mPackageName)) return mPackageName;
+        mPackageName = MApplication.getInstance().getApplicationContext().getPackageName();
+        if (!TextUtils.isEmpty(mPackageName)) return mPackageName;
+        mPackageName = MApplication.getInstance().getApplicationContext().getResources().getString(R.string.app_package_name);
+        if (!TextUtils.isEmpty(mPackageName)) return mPackageName;
         return "meizhi.meizhi.malin";
     }
 

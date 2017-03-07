@@ -9,11 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.Window;
@@ -91,7 +88,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initData(TextView textView) {
-        textView.setText(AppInfoUtil.getAppVersionName(this, getResources().getString(R.string.app_default_version)));
+        textView.setText(AppInfoUtil.getAppVersionName(this));
     }
 
     @Override

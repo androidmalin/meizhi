@@ -9,7 +9,6 @@ import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import meizhi.meizhi.malin.BuildConfig;
-import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageLoaderConfig;
@@ -54,8 +53,8 @@ public class MApplication extends Application {
         try {
             CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
             strategy.setAppChannel(AppInfoUtil.getChannelName(this));  //设置渠道
-            strategy.setAppVersion(AppInfoUtil.getAppVersionName(this, getResources().getString(R.string.app_default_version))); //App的版本
-            strategy.setAppPackageName(AppInfoUtil.getPackageName(this, getResources().getString(R.string.app_package_name)));  //App的包名
+            strategy.setAppVersion(AppInfoUtil.getAppVersionName(this)); //App的版本
+            strategy.setAppPackageName(AppInfoUtil.getPackageName());  //App的包名
             strategy.setAppReportDelay(10000);   //BugLy会在启动10s后联网同步数据
             Bugly.init(getApplicationContext(), "ee6ea51102", BuildConfig.LOG_DEBUG, strategy);
         } catch (Throwable e) {
