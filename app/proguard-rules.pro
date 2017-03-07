@@ -238,14 +238,6 @@
 #http://treesouth.github.io/2015/04/05/Android%E4%B8%ADProGuard%E6%B7%B7%E6%B7%86%E9%85%8D%E7%BD%AE%E5%92%8C%E6%80%BB%E7%BB%93/
 
 
--keep class com.bumptech.glide.integration.okhttp3.OkHttpGlideModule
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-
-
 ###Umeng
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
