@@ -96,16 +96,19 @@ android {
             manifestPlaceholders = [CHANNEL_VALUE: "BuglyTest"]
             minSdkVersion = rootProject.ext.android.minSdkVersion
         }
-
-        wandoujia {
-            manifestPlaceholders = [CHANNEL_VALUE: "wandoujia"]
-            minSdkVersion = rootProject.ext.android.minSdkVersion
-        }
-        googleplay {
-            manifestPlaceholders = [CHANNEL_VALUE: "googleplay"]
+        baidu {
+            manifestPlaceholders = [CHANNEL_VALUE: "baidu_channel"]
             minSdkVersion = rootProject.ext.android.minSdkVersion
         }
 
+        nineone {
+            manifestPlaceholders = [CHANNEL_VALUE: "nineone_channel"]
+            minSdkVersion = rootProject.ext.android.minSdkVersion
+        }
+        androidmarket {
+            manifestPlaceholders = [CHANNEL_VALUE: "androidmarket_channel"]
+            minSdkVersion = rootProject.ext.android.minSdkVersion
+        }
         //测试渠道，正式发布，请不要使用这个字符串 xiaomi
         xiaomi {
             manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
