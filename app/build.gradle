@@ -126,11 +126,13 @@ android {
     //apk包重新命名
     applicationVariants.all { Variant ->
         Variant.outputs.each { output ->
-            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && 'release'.equals(Variant.buildType.name)) {
+
+            Variant.buildType.debuggable;
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && !Variant.buildType.debuggable) {
                 def apkFile = new File(output.outputFile.getParent(), "APP_Release_${Variant.flavorName}_v${Variant.versionName}.apk")
                 output.outputFile = apkFile;
             }
-            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && 'debug'.equals(Variant.buildType.name)) {
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && Variant.buildType.debuggable) {
                 def apkFile = new File(output.outputFile.getParent(), "app_Debug_${Variant.flavorName}_v${Variant.versionName}.apk")
                 output.outputFile = apkFile;
             }
