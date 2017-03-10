@@ -85,3 +85,5 @@ http://tools.android.com/tech-docs/build-cache
 
 Recent Support Library Revisions
 https://developer.android.com/topic/libraries/support-library/revisions.html
+
+http://www.jianshu.com/p/a4a806567368

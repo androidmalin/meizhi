@@ -92,7 +92,6 @@ android {
 
     //productFlavors领域，定义渠道名，使用manifestPlaceholders制定要替换渠道占位符的值。
     productFlavors {
-        wandoujia {}
         baidu {}
         nineone {}
         androidmarket {}
