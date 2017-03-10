@@ -1,16 +1,17 @@
 package meizhi.meizhi.malin.utils;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.text.TextUtils;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.application.MApplication;
 
 /**
  * 类描述:App信息获取的工具类
@@ -32,10 +33,10 @@ public final class AppInfoUtil {
      *
      * @return Channel Name
      */
-    public static String getChannelName(Context context) {
+    public static String getChannelName() {
         String channelName;
         try {
-            ApplicationInfo appInfo = context.getApplicationContext().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = MApplication.getInstance().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
             channelName = appInfo.metaData.getString("PRODUCT");
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
@@ -50,15 +51,15 @@ public final class AppInfoUtil {
      *
      * @return Version Name
      */
-    public static String getAppVersionName(Context context) {
+    public static String getAppVersionName() {
         String versionName;
         try {
-            PackageInfo applicationInfo = context.getApplicationContext().getPackageManager().getPackageInfo(ProcessUtil.getAppPackageName(), 0);
+            PackageInfo applicationInfo = MApplication.getInstance().getApplicationContext().getPackageManager().getPackageInfo(ProcessUtil.getAppPackageName(), 0);
             versionName = applicationInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
-            versionName = context.getApplicationContext().getResources().getString(R.string.app_default_version);
+            versionName = MApplication.getInstance().getApplicationContext().getResources().getString(R.string.app_default_version);
         }
         return versionName;
     }
@@ -72,14 +73,25 @@ public final class AppInfoUtil {
         return ProcessUtil.getAppPackageName();
     }
 
-
-    private static String getStackTraceString(Throwable tr) {
-        if (tr == null) {
-            return "";
+    /**
+     * 启动到应用商店app详情界面
+     *
+     * @param activity  Activity
+     * @param marketPkg 应用商店包名 ,如果为""则由系统弹出应用商店列表供用户选择,否则调转到目标市场的应用详情界面，某些应用商店可能会失败
+     */
+    public static void launchAppDetail(Activity activity, String marketPkg) {
+        try {
+            if (activity == null || activity.isFinishing()) return;
+            Uri uri = Uri.parse("market://details?id=" + getPackageName());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            if (!TextUtils.isEmpty(marketPkg)) {
+                intent.setPackage(marketPkg);
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity.startActivity(intent);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            CrashReport.postCatchedException(e);
         }
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        tr.printStackTrace(pw);
-        return sw.toString();
     }
 }

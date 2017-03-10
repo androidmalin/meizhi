@@ -19,7 +19,7 @@
                 android:id="@+id/toolbar_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
+                android:background="@color/colorPrimary"
                 android:fitsSystemWindows="true"
                 android:gravity="center_vertical"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
@@ -86,8 +86,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_app_img"
+                    android:layout_width="@dimen/common_dimen_50dip"
+                    android:layout_height="@dimen/common_dimen_50dip"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/common_dimen_20dip"
                     android:contentDescription="@string/app_name"
@@ -117,12 +118,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/common_dimen_80dip"
                     android:paddingTop="@dimen/common_dimen_20dip"
                     android:text="@string/git_mm"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/common_dimen_16sp" />
 
+                <TextView
+                    android:id="@+id/tv_app_star"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_dimen_30dip"
+                    android:gravity="center"
+                    android:text="@string/click_give_star_tip"
+                    android:textColor="@color/about_text_color"
+                    android:textSize="@dimen/common_dimen_16sp" />
             </LinearLayout>
 
         </FrameLayout>

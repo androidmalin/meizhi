@@ -92,33 +92,22 @@ android {
 
     //productFlavors领域，定义渠道名，使用manifestPlaceholders制定要替换渠道占位符的值。
     productFlavors {
-        BuglyTest {
-            manifestPlaceholders = [CHANNEL_VALUE: "BuglyTest"]
-            minSdkVersion = rootProject.ext.android.minSdkVersion
-        }
-        baidu {
-            manifestPlaceholders = [CHANNEL_VALUE: "baidu_channel"]
-            minSdkVersion = rootProject.ext.android.minSdkVersion
-        }
-
-        nineone {
-            manifestPlaceholders = [CHANNEL_VALUE: "nineone_channel"]
-            minSdkVersion = rootProject.ext.android.minSdkVersion
-        }
-        androidmarket {
-            manifestPlaceholders = [CHANNEL_VALUE: "androidmarket_channel"]
-            minSdkVersion = rootProject.ext.android.minSdkVersion
-        }
-        //测试渠道，正式发布，请不要使用这个字符串 xiaomi
+        wandoujia {}
+        baidu {}
+        nineone {}
+        androidmarket {}
         xiaomi {
-            manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
             minSdkVersion = rootProject.ext.android.minSdkVersionDebug
         }
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
     }
 
     //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是 wandoujia，googleplay，xiaomi
     productFlavors.all { Flavor ->
-        Flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+        Flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         def androidManifest = new XmlSlurper().parse("${project.rootDir}/app/src/main/AndroidManifest.xml")
         println androidManifest['@android:versionName']
     }

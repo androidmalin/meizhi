@@ -52,8 +52,8 @@ public class MApplication extends Application {
     private void initBugLy() {
         try {
             CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
-            strategy.setAppChannel(AppInfoUtil.getChannelName(this));  //设置渠道
-            strategy.setAppVersion(AppInfoUtil.getAppVersionName(this)); //App的版本
+            strategy.setAppChannel(AppInfoUtil.getChannelName());  //设置渠道
+            strategy.setAppVersion(AppInfoUtil.getAppVersionName()); //App的版本
             strategy.setAppPackageName(AppInfoUtil.getPackageName());  //App的包名
             strategy.setAppReportDelay(10000);   //BugLy会在启动10s后联网同步数据
             Bugly.init(getApplicationContext(), "ee6ea51102", BuildConfig.LOG_DEBUG, strategy);

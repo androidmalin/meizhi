@@ -1,7 +1,6 @@
 package meizhi.meizhi.malin.activity;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,9 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,8 +35,6 @@ import meizhi.meizhi.malin.utils.UMengEvent;
  */
 
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String URL_THANKS = "http://gank.io/api";
     private Toolbar mToolbar;
 
     @Override
@@ -53,7 +48,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void initView() {
-        TextView mGitLinkTV = (TextView) findViewById(R.id.tv_git);
+
         TextView versionName = (TextView) findViewById(R.id.tv_app_version_name);
         findViewById(R.id.rl_git_log).setOnClickListener(this);
         findViewById(R.id.rl_about_back).setOnClickListener(this);
@@ -61,8 +56,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_about);
 
-        mGitLinkTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        mGitLinkTV.setOnClickListener(this);
+        findViewById(R.id.tv_git).setOnClickListener(this);
+        findViewById(R.id.iv_app_img).setOnClickListener(this);
+        findViewById(R.id.tv_app_star).setOnClickListener(this);
 
         initData(versionName);
     }
@@ -88,7 +84,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initData(TextView textView) {
-        textView.setText(AppInfoUtil.getAppVersionName(this));
+        textView.setText(AppInfoUtil.getAppVersionName());
     }
 
     @Override
@@ -105,6 +101,12 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            case R.id.iv_app_img:
+            case R.id.tv_app_star:{
+                AppInfoUtil.launchAppDetail(this,"");
+                break;
+            }
+
             case R.id.rl_about_back: {
                 this.finish();
                 break;
@@ -114,57 +116,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
-
-    private class ClickEvent extends ClickableSpan {
-
-        private int color;
-        private boolean isClick;
-
-        public ClickEvent(int color, boolean isClick) {
-            this.color = color;
-            this.isClick = isClick;
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (view != null) {
-                TextView textView = null;
-                if (view instanceof TextView) {
-                    textView = (TextView) view;
-                }
-                if (textView != null) {
-                    if (isClick) {
-                        MobclickAgent.onEvent(AboutActivity.this, UMengEvent.ClickGankLink);
-                        startBrowser(URL_THANKS);
-                    }
-                }
-                avoidHintColor(view);
-            }
-        }
-
-        @Override
-        public void updateDrawState(TextPaint ds) {
-            super.updateDrawState(ds);
-            //设定的是span超链接的文本颜色 ：动态设置
-            ds.setColor(color);
-            //文字下划线
-            ds.setUnderlineText(false);
-            ds.clearShadowLayer();
-        }
-    }
-
-    /**
-     * 更新点击后的背景颜色
-     *
-     * @param view View
-     */
-    private void avoidHintColor(View view) {
-        if (view instanceof TextView) {
-            ((TextView) view).setHighlightColor(ContextCompat.getColor(this, android.R.color.transparent));
-        }
-    }
-
 
     private void startBrowser(String url) {
         if (TextUtils.isEmpty(url)) return;
