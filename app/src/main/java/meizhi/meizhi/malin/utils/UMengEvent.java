@@ -24,4 +24,5 @@ public class UMengEvent {
     public static final String ClickAbout = "ClickAbout";
     public static final String ClickGithubLink = "ClickGithubLink";
     public static final String ClickGithubLogo = "ClickGithubLogo";
+    public static final String ClickToAppStore = "ClickToAppStore";
 }

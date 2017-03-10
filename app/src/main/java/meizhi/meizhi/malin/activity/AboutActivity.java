@@ -103,6 +103,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.iv_app_img:
             case R.id.tv_app_star:{
+                MobclickAgent.onEvent(this, UMengEvent.ClickToAppStore);
                 AppInfoUtil.launchAppDetail(this,"");
                 break;
             }
