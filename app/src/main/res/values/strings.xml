@@ -7,12 +7,11 @@
     <string name="down_load_success">下载成功！</string>
     <string name="git_mm">https://github.com/androidmalin/meizhi</string>
     <string name="click_tip">点击下面的链接即可访问源码</string>
-    <string name="click_give_star_tip">欢迎给个好评，支持一下</string>
+    <string name="click_give_star_tip">点击&#8212;&#8212;> 我要去应用市场，给个好评</string>
     <string name="no_browser_tip">您手机上没有浏览器</string>
-    <string name="about_mm_tip">关于小姐姐</string>
     <string name="app_default_version">4.0.4</string>
     <string name="app_package_name">meizhi.meizhi.malin</string>
-    <string name="load_more_no_data">╮(╯3╰)╭暂无新数据</string>
+    <string name="load_more_no_data">╮(╯3╰)╭ 暂无新数据</string>
     <string name="load_more_loading">加载中&#8230;</string>
     <string name="load_more_error_txt">加载失败,上拉重试</string>
 </resources>

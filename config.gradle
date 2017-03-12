@@ -10,8 +10,8 @@ ext {
             versionName       : "4.2.1",
 
             minSdkVersionDebug: 25,
-            versionCodeDebug  : 1,
-            versionNameDebug  : "1.0.0"
+            versionCodeDebug  : 19,
+            versionNameDebug  : "4.1.7"
 
     ]
 

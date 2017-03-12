@@ -87,3 +87,8 @@ Recent Support Library Revisions
 https://developer.android.com/topic/libraries/support-library/revisions.html
 
 http://www.jianshu.com/p/a4a806567368
+
+使用appcompat_v7，定义activity全屏或无标题栏
+http://blog.csdn.net/lpforever/article/details/40507143
+
+http://stackoverflow.com/questions/20653305/full-screen-theme-for-appcompat

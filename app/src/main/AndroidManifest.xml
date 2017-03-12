@@ -41,6 +41,7 @@
             android:name=".activity.ImageLargeActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:theme="@style/AppFullScreenAbout"
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" />
 
@@ -69,6 +70,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+
+        <!--Bmob支付-->
+        <activity
+            android:name="cn.bmob.pay.v3.act.PayAct"
+            android:theme="@style/AppFullScreen"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
