@@ -4,11 +4,14 @@ ext {
             compileSdkVersion : 25,
             buildToolsVersion : "25.0.2",
             minSdkVersion     : 15,
-            minSdkVersionDebug: 23,
             targetSdkVersion  : 22,
             applicationId     : "meizhi.meizhi.malin",
             versionCode       : 21,
-            versionName       : "4.2.1"
+            versionName       : "4.2.1",
+
+            minSdkVersionDebug: 25,
+            versionCodeDebug  : 19,
+            versionNameDebug  : "4.1.6"
 
     ]
 

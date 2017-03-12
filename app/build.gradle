@@ -97,6 +97,8 @@ android {
         androidmarket {}
         xiaomi {
             minSdkVersion = rootProject.ext.android.minSdkVersionDebug
+            versionCode = rootProject.ext.android.versionCodeDebug
+            versionName = rootProject.ext.android.versionNameDebug
         }
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]

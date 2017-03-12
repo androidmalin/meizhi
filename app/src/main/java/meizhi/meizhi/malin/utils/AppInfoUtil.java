@@ -37,7 +37,7 @@ public final class AppInfoUtil {
         String channelName;
         try {
             ApplicationInfo appInfo = MApplication.getInstance().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
-            channelName = appInfo.metaData.getString("PRODUCT");
+            channelName = appInfo.metaData.getString("UMENG_CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();

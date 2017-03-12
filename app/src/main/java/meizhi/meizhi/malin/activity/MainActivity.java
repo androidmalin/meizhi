@@ -21,9 +21,7 @@ import java.util.ArrayList;
 
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
-import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
-import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
@@ -60,12 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MobclickAgent.setDebugMode(BuildConfig.LOG_DEBUG);
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.enableEncrypt(true);
-        MobclickAgent.startWithConfigure(
-                new MobclickAgent.UMAnalyticsConfig(
-                        MApplication.getInstance().getApplicationContext(),
-                        "58934845f29d98070c001727",
-                        AppInfoUtil.getChannelName()
-                ));
     }
 
     private void setNavigationBarColor() {
