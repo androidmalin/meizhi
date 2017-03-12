@@ -91,6 +91,7 @@ android {
     }
 
     //productFlavors领域，定义渠道名，使用manifestPlaceholders制定要替换渠道占位符的值。
+    //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是xiaomi,BaiDu
     productFlavors {
         baidu {}
         nineone {}
@@ -106,24 +107,17 @@ android {
 
     }
 
-    //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是 wandoujia，googleplay，xiaomi
-    productFlavors.all { Flavor ->
-        Flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-        def androidManifest = new XmlSlurper().parse("${project.rootDir}/app/src/main/AndroidManifest.xml")
-        println androidManifest['@android:versionName']
-    }
-
     //apk包重新命名
     applicationVariants.all { Variant ->
         Variant.outputs.each { output ->
 
             Variant.buildType.debuggable;
             if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && !Variant.buildType.debuggable) {
-                def apkFile = new File(output.outputFile.getParent(), "APP_Release_${Variant.flavorName}_v${Variant.versionName}.apk")
+                def apkFile = new File(output.outputFile.getParent(), "Release_${Variant.flavorName}_v${Variant.versionName}.apk")
                 output.outputFile = apkFile;
             }
             if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && Variant.buildType.debuggable) {
-                def apkFile = new File(output.outputFile.getParent(), "app_Debug_${Variant.flavorName}_v${Variant.versionName}.apk")
+                def apkFile = new File(output.outputFile.getParent(), "Debug_${Variant.flavorName}_v${Variant.versionName}.apk")
                 output.outputFile = apkFile;
             }
         }
