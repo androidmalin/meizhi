@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import meizhi.meizhi.malin.BuildConfig;
-import meizhi.meizhi.malin.network.services.ImageService;
 import okhttp3.OkHttpClient;
 
 /**
@@ -43,7 +42,7 @@ public final class ImageLoaderConfig {
 
     public static ImageLoaderConfig getInstance() {
         if (instance == null) {
-            synchronized (ImageService.class) {
+            synchronized (ImageLoaderConfig.class) {
                 if (instance == null) {
                     instance = new ImageLoaderConfig();
                 }

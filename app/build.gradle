@@ -126,6 +126,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.makeramen:roundedimageview:2.2.1'
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["cardview"]
     compile rootProject.ext.dependencies["recyclerview"]
