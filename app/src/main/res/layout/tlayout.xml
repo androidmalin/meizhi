@@ -11,16 +11,13 @@
         android:id="@+id/image_round"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="visible"
-        fresco:actualImageScaleType="focusCrop"
+        fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
         fresco:failureImage="@color/colorPrimary"
-        fresco:failureImageScaleType="centerInside"
+        fresco:failureImageScaleType="centerCrop"
         fresco:placeholderImage="@color/colorPrimary"
         fresco:placeholderImageScaleType="centerCrop"
-        fresco:roundAsCircle="true"
-        fresco:roundingBorderColor="#FF0000"
-        fresco:roundingBorderWidth="5dip" />
+        fresco:roundAsCircle="true" />
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -39,10 +36,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:visibility="visible"
-        fresco:actualImageScaleType="focusCrop"
+        fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
         fresco:failureImage="@color/colorPrimary"
-        fresco:failureImageScaleType="centerInside"
+        fresco:failureImageScaleType="centerCrop"
         fresco:placeholderImage="@color/colorPrimary"
         fresco:placeholderImageScaleType="centerCrop"
         fresco:roundAsCircle="true"
@@ -58,16 +55,42 @@
         fresco:actualImageScaleType="focusCrop"
         fresco:fadeDuration="300"
         fresco:failureImage="@color/colorPrimary"
-        fresco:failureImageScaleType="centerInside"
+        fresco:failureImageScaleType="centerCrop"
         fresco:placeholderImage="@color/colorPrimary"
         fresco:placeholderImageScaleType="centerCrop"
         fresco:roundAsCircle="true"
         fresco:roundingBorderColor="#FF0000"
         fresco:roundingBorderWidth="5dip" />
 
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sv_local_file_img2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:fadeDuration="300"
+        fresco:failureImage="@drawable/square_app_icon"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:placeholderImage="@drawable/square_app_icon"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundAsCircle="true" />
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sv_local_file_img3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:fadeDuration="300"
+        fresco:failureImage="@drawable/square_app_icon"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:placeholderImage="@drawable/square_app_icon"
+        fresco:placeholderImageScaleType="centerCrop" />
+
     <ImageView
         android:id="@+id/image_image"
-        android:background="@color/colorPrimary"
         android:layout_width="100dip"
-        android:layout_height="100dip" />
+        android:layout_height="100dip"
+        android:background="@color/colorPrimary" />
 </LinearLayout>

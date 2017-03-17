@@ -82,7 +82,7 @@ public final class FrescoLoadUtil {
      * @param height height
      * @param drawable drawable
      */
-    public void LoadImageLocalRes(SimpleDraweeView simpleDraweeView,int width, int height, @DrawableRes int drawable) {
+    public void loadImageLocalRes(SimpleDraweeView simpleDraweeView, int width, int height, @DrawableRes int drawable) {
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
                 .path(String.valueOf(drawable))
