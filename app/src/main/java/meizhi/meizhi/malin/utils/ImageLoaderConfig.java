@@ -14,11 +14,6 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.ProgressiveJpegConfig;
 import com.facebook.imagepipeline.image.ImmutableQualityInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
-import com.facebook.imagepipeline.listener.RequestListener;
-import com.facebook.imagepipeline.listener.RequestLoggingListener;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import meizhi.meizhi.malin.BuildConfig;
 import okhttp3.OkHttpClient;
@@ -77,10 +72,6 @@ public final class ImageLoaderConfig {
             FLog.setMinimumLoggingLevel(FLog.ERROR);
         }
 
-        //支持调试时，显示图片加载的Log
-        Set<RequestListener> requestListeners = new HashSet<>();
-        requestListeners.add(new RequestLoggingListener());
-
         //替换网络实现为OkHttp3
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
@@ -101,7 +92,6 @@ public final class ImageLoaderConfig {
                         return ImmutableQualityInfo.of(scanNumber, isGoodEnough, false);
                     }
                 })
-                .setRequestListeners(requestListeners)
                 .setMemoryTrimmableRegistry(memoryTrimmableRegistry) // 报内存警告时的监听
                 .build();
         return mImagePipelineConfig;
