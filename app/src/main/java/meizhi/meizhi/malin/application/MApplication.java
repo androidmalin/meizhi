@@ -41,8 +41,8 @@ public class MApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initContext();
         if (ProcessUtil.isMainProcess()) {
-            initContext();
             initFresco();
             initBugLy();
             initPay();
