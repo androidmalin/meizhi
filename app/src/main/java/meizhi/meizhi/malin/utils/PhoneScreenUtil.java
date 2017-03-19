@@ -28,7 +28,7 @@ public class PhoneScreenUtil {
      * @return DisplayMetrics
      */
     private static DisplayMetrics obtain() {
-        WindowManager wm = (WindowManager) MApplication.getInstance().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) MApplication.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
         return dm;
@@ -58,7 +58,7 @@ public class PhoneScreenUtil {
      * @return density
      */
     private static float getDeviceDensity() {
-        return MApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics().density;
+        return MApplication.getContext().getResources().getDisplayMetrics().density;
     }
 
 
@@ -106,7 +106,7 @@ public class PhoneScreenUtil {
     public static int getNavigationBarHeight() {
         int navigationBarHeight = 0;
         try {
-            Resources rs = MApplication.getInstance().getApplicationContext().getResources();
+            Resources rs = MApplication.getContext().getResources();
             if (rs != null) {
                 int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
                 if (id > 0 && checkDeviceHasNavigationBar()) {
@@ -127,7 +127,7 @@ public class PhoneScreenUtil {
     private static boolean checkDeviceHasNavigationBar() {
         boolean hasNavigationBar = false;
         try {
-            Resources rs = MApplication.getInstance().getApplicationContext().getResources();
+            Resources rs = MApplication.getContext().getResources();
             int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
             if (id > 0) {
                 hasNavigationBar = rs.getBoolean(id);

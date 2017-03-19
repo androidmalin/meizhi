@@ -29,7 +29,7 @@ public class CatchUtil {
     public void displayBriefMemory() {
         // getMemoryClass 所获得的大小不受largeHeap配置影响，永远是heapgrowthlimit中大小。
         // getLargeMemoryClass则为heapsize大小，两者单位都为M。
-        ActivityManager activityManager = (ActivityManager) MApplication.getInstance().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager activityManager = (ActivityManager) MApplication.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         int singleAppM = activityManager.getMemoryClass();//adb pull /system/build.prop && cat build.prop | grep "dalvik.vm.heapgrowthlimit"
         int singleAppMLarge = activityManager.getLargeMemoryClass();//cat build.prop | grep "dalvik.vm.heapsize"
         LogUtil.d(TAG, "APP内存:" + (singleAppM) + "M");
@@ -84,7 +84,7 @@ public class CatchUtil {
             LogUtil.d(TAG, "立刻释放内存");
             Fresco.getImagePipeline().clearMemoryCaches();
         } else {
-            ActivityManager manager = (ActivityManager) MApplication.getInstance().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager manager = (ActivityManager) MApplication.getContext().getSystemService(Context.ACTIVITY_SERVICE);
             if (manager == null) return;
             int singleAppM = manager.getMemoryClass();
             long totalMemory = ((int) Runtime.getRuntime().totalMemory()) / 1024 / 1024;

@@ -28,6 +28,7 @@ public final class ProcessUtil {
 
     private static String processName = null;
     private static String mPackageName = null;
+    private static final String PACKAGE_NAME = "meizhi.meizhi.malin";
 
     public static boolean isMainProcess() {
         String processName = getAppMainProcessName();
@@ -42,11 +43,11 @@ public final class ProcessUtil {
      */
     public static String getAppPackageName() {
         if (!TextUtils.isEmpty(mPackageName)) return mPackageName;
-        mPackageName = MApplication.getInstance().getApplicationContext().getPackageName();
+        mPackageName = MApplication.getContext().getPackageName();
         if (!TextUtils.isEmpty(mPackageName)) return mPackageName;
-        mPackageName = MApplication.getInstance().getApplicationContext().getResources().getString(R.string.app_package_name);
+        mPackageName = MApplication.getContext().getResources().getString(R.string.app_package_name);
         if (!TextUtils.isEmpty(mPackageName)) return mPackageName;
-        return "meizhi.meizhi.malin";
+        return PACKAGE_NAME;
     }
 
     /**
@@ -71,7 +72,7 @@ public final class ProcessUtil {
     private static String getProcessNameViaManager() {
         int myPid = android.os.Process.myPid();
         if (myPid <= 0) return null;
-        ActivityManager activityManager = (ActivityManager) MApplication.getInstance().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager activityManager = (ActivityManager) MApplication.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (activityManager == null) return null;
         List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
         if (runningApps == null || runningApps.isEmpty()) return null;

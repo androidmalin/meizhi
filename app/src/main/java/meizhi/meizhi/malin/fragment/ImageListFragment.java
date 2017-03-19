@@ -130,7 +130,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             public void onLoadMore(final int currentPage) {
                 mEndlessListener.setLoadMoreFlag(true);
                 //设置正在加载更多
-                if (mIsHasData){
+                if (mIsHasData) {
                     mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
                     MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
                     getFangs(currentPage);
@@ -185,7 +185,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private void getFangs(final int currentPage) {
         CatchUtil.getInstance().releaseMemory(false);
         ImageApi aip = ImageService.getInstance().getImageList();
-        String path = "image_"+currentPage+".json";
+        String path = "image_" + currentPage + ".json";
         Observable<List<String>> observable = aip.getImageList(path);
         mSubscription = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -219,7 +219,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                         showLoadingView(false);
                         showErrorView(false);
                         setSuccessFlag(true);
-                        if (list == null ) return;
+                        if (list == null) return;
 
                         if (currentPage == 1) {
                             if (list.size() == 0) {
@@ -452,7 +452,8 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        RefWatcher refWatcher = MApplication.getInstance().getRefWatcher(MApplication.getInstance());
+        RefWatcher refWatcher = MApplication.getRefWatcher();
+        if (refWatcher == null) return;
         refWatcher.watch(this);
     }
 }

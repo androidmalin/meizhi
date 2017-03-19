@@ -36,7 +36,7 @@ public final class AppInfoUtil {
     public static String getChannelName() {
         String channelName;
         try {
-            ApplicationInfo appInfo = MApplication.getInstance().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = MApplication.getContext().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
             channelName = appInfo.metaData.getString("UMENG_CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
@@ -54,12 +54,12 @@ public final class AppInfoUtil {
     public static String getAppVersionName() {
         String versionName;
         try {
-            PackageInfo applicationInfo = MApplication.getInstance().getApplicationContext().getPackageManager().getPackageInfo(ProcessUtil.getAppPackageName(), 0);
+            PackageInfo applicationInfo = MApplication.getContext().getPackageManager().getPackageInfo(ProcessUtil.getAppPackageName(), 0);
             versionName = applicationInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
-            versionName = MApplication.getInstance().getApplicationContext().getResources().getString(R.string.app_default_version);
+            versionName = MApplication.getContext().getResources().getString(R.string.app_default_version);
         }
         return versionName;
     }

@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.services.ImageService;
 import okhttp3.HttpUrl;
@@ -117,7 +118,7 @@ public final class ImageDownLoadUtil {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(mContext.getApplicationContext(), R.string.down_load_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MApplication.getContext(), R.string.down_load_error, Toast.LENGTH_SHORT).show();
                         CrashReport.postCatchedException(e);
                         e.printStackTrace();
                     }

@@ -1,6 +1,8 @@
 package meizhi.meizhi.malin.application;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
@@ -28,19 +30,19 @@ import meizhi.meizhi.malin.utils.ProcessUtil;
  */
 public class MApplication extends Application {
 
-    public RefWatcher mRefWatcher;
+    private static RefWatcher mRefWatcher;
+    private static final String PAY_KEY = "7f04009c2a16ecfc280f10a691a8cce1";
+    private static final String BUGLY_KEY = "ee6ea51102";
 
-    private static MApplication application;
 
-    public static MApplication getInstance() {
-        return application;
-    }
+    @SuppressLint("StaticFieldLeak")
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        application = this;
         if (ProcessUtil.isMainProcess()) {
+            initContext();
             initFresco();
             initBugLy();
             initPay();
@@ -48,12 +50,19 @@ public class MApplication extends Application {
         }
     }
 
-    private void initPay(){
-        BP.init("7f04009c2a16ecfc280f10a691a8cce1");
+
+    public static Context getContext() {
+        return mContext;
     }
-    /**
-     * BugLy初始化
-     */
+
+    private void initContext() {
+        mContext = getApplicationContext();
+    }
+
+    private void initFresco() {
+        Fresco.initialize(this, ImageLoaderConfig.getInstance().getImagePipelineConfig(getApplicationContext()));
+    }
+
     private void initBugLy() {
         try {
             CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
@@ -61,33 +70,23 @@ public class MApplication extends Application {
             strategy.setAppVersion(AppInfoUtil.getAppVersionName()); //App的版本
             strategy.setAppPackageName(AppInfoUtil.getPackageName());  //App的包名
             strategy.setAppReportDelay(10000);   //BugLy会在启动10s后联网同步数据
-            Bugly.init(getApplicationContext(), "ee6ea51102", BuildConfig.LOG_DEBUG, strategy);
+            Bugly.init(getApplicationContext(), BUGLY_KEY, BuildConfig.LOG_DEBUG, strategy);
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
     }
 
+    private void initPay() {
+        BP.init(PAY_KEY);
+    }
+
     private void initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
         mRefWatcher = LeakCanary.install(this);
     }
 
-    private void initFresco() {
-        Fresco.initialize(this, ImageLoaderConfig.getInstance().getImagePipelineConfig(this));
-    }
-
-
-    public RefWatcher getRefWatcher(MApplication application) {
-        if (application != null && mRefWatcher != null) {
-            return application.mRefWatcher;
-        } else {
-            return LeakCanary.install(this);
-        }
+    public static RefWatcher getRefWatcher() {
+        return mRefWatcher;
     }
 
     //指导应用程序在不同的情况下进行自身的内存释放，以避免被系统直接杀掉，提高应用程序的用户体验.

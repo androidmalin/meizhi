@@ -25,6 +25,7 @@ import c.b.PListener;
 import c.b.QListener;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.UMengEvent;
@@ -71,7 +72,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     private void setNavigationBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//21
             if (getWindow() == null) return;
-            getWindow().setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(MApplication.getContext(),R.color.colorPrimary));
         }
     }
 
