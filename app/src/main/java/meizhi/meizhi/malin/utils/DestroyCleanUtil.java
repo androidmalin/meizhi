@@ -46,8 +46,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import java.lang.reflect.Field;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-
 /**
  * 类描述:清除View控件的资源依赖
  * 创建人:malin.myemail@163.com
@@ -69,7 +67,7 @@ public final class DestroyCleanUtil {
 
     public static void fixInputMethod(Context context) {
         if (context == null) return;
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager == null) return;
         String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView"};
         for (int i = 0; i < 3; i++) {
@@ -315,31 +313,31 @@ public final class DestroyCleanUtil {
 
                 WebView webView = (WebView) view;
                 try {
-                    (webView).stopLoading();
+                    webView.stopLoading();
                 } catch (Throwable ignored) {
                     CrashReport.postCatchedException(ignored);
                 }
 
                 try {
-                    (webView).removeAllViews();
+                    webView.removeAllViews();
                 } catch (Throwable ignored) {
                     CrashReport.postCatchedException(ignored);
                 }
 
                 try {
-                    (webView).setWebChromeClient(null);
+                    webView.setWebChromeClient(null);
                 } catch (Throwable ignored) {
                     CrashReport.postCatchedException(ignored);
                 }
 
                 try {
-                    (webView).setWebViewClient(null);
+                    webView.setWebViewClient(null);
                 } catch (Throwable ignored) {
                     CrashReport.postCatchedException(ignored);
                 }
 
                 try {
-                    (webView).destroy();
+                    webView.destroy();
                 } catch (Throwable ignored) {
                     CrashReport.postCatchedException(ignored);
                 }
