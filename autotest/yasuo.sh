@@ -1,3 +1,4 @@
+#!/bin/bash
 #压缩
 tar -czvf aa.tar.gz ./aaa
 #解压缩

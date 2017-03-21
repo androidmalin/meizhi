@@ -1,3 +1,4 @@
+#!/bin/bash
 adb shell
 run-as meizhi.meizhi.malin
 ls -l

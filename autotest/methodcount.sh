@@ -1,4 +1,4 @@
-
+#!/bin/bash
 #参数可以是apk,jar,dex
 dexdump -f $1 | grep "method_ids_size"
 
