@@ -95,3 +95,12 @@ http://stackoverflow.com/questions/20653305/full-screen-theme-for-appcompat
 
 Android动态库.so的适配
 http://blog.leanote.com/post/jankey103/configure-abis-in-gradle
+
+multidex
+https://developer.android.com/studio/build/multidex.html
+
+Android Dex 64k Method Size Limit 好文章
+https://www.zybuluo.com/linux1s1s/note/210623
+
+Method counts 统计
+http://stackoverflow.com/questions/16056442/cant-build-multiple-android-dex-files-with-ant-from-external-jars/16766238#16766238
