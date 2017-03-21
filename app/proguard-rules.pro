@@ -251,6 +251,7 @@
 
 
 #-------------------------------Freco混淆-------------------------------
+# https://github.com/facebook/fresco/blob/master/proguard-fresco.pro
 # Keep our interfaces so they can be used by other ProGuard rules.
 # See http://sourceforge.net/p/proguard/bugs/466/
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
