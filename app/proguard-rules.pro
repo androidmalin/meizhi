@@ -271,8 +271,9 @@
 -dontwarn okhttp3.**
 -dontwarn javax.annotation.**
 -dontwarn com.android.volley.toolbox.**
-#-------------------------------Freco混淆-------------------------------
 
 -keepclasseswithmembers class c.b.** { *; }
 -keep interface c.b.PListener{ *; }
 -keep interface c.b.QListener{ *; }
+-dontwarn com.facebook.**
+#-------------------------------Freco混淆-------------------------------

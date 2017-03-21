@@ -14,6 +14,7 @@
         fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
         fresco:failureImage="@color/colorPrimary"
+        android:visibility="visible"
         fresco:failureImageScaleType="centerCrop"
         fresco:placeholderImage="@color/colorPrimary"
         fresco:placeholderImageScaleType="centerCrop"
@@ -26,6 +27,7 @@
         android:layout_height="100dip"
         android:layout_gravity="center_vertical"
         android:scaleType="centerCrop"
+        android:visibility="visible"
         android:src="@drawable/square_app_icon"
         app:riv_border_color="#FF0000"
         app:riv_border_width="5dip"
@@ -35,7 +37,6 @@
         android:id="@+id/sv_local_drawable"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="visible"
         fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
         fresco:failureImage="@color/colorPrimary"
@@ -43,6 +44,7 @@
         fresco:placeholderImage="@color/colorPrimary"
         fresco:placeholderImageScaleType="centerCrop"
         fresco:roundAsCircle="true"
+        android:visibility="visible"
         fresco:roundingBorderColor="#FF0000"
         fresco:roundingBorderWidth="5dip" />
 
@@ -67,7 +69,7 @@
         android:id="@+id/sv_local_file_img2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="gone"
+        android:visibility="visible"
         fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
         fresco:failureImage="@drawable/square_app_icon"
@@ -83,13 +85,25 @@
         android:layout_height="100dp"
         fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
+        android:visibility="gone"
         fresco:failureImage="@drawable/square_app_icon"
         fresco:failureImageScaleType="centerCrop"
         fresco:placeholderImage="@drawable/square_app_icon"
         fresco:placeholderImageScaleType="centerCrop" />
 
+    <LinearLayout
+        android:id="@+id/ll_new_layout"
+        android:layout_width="100dip"
+        android:background="#FF00FF"
+        android:orientation="horizontal"
+        android:layout_height="100dip">
+
+
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/image_image"
+        android:visibility="gone"
         android:layout_width="100dip"
         android:layout_height="100dip"
         android:background="@color/colorPrimary" />

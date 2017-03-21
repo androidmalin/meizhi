@@ -3,6 +3,9 @@ package meizhi.meizhi.malin.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +14,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -33,6 +38,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import meizhi.meizhi.malin.R;
+import meizhi.meizhi.malin.utils.PhoneScreenUtil;
 
 /**
  * @author root on 17-3-15.
@@ -49,6 +55,7 @@ public class TActivity extends AppCompatActivity {
     private int mViewWidth;
     private int mViewHeight;
     private String TAG = TActivity.class.getSimpleName();
+    private LinearLayout mLinerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,8 +67,7 @@ public class TActivity extends AppCompatActivity {
         loadLocalData();
         testWH();
         javaRound();
-
-
+        newSimpleView();
         String dir = getSignSubDir(this, "md5", "level_avatar", true);
 
         File file = new File(dir, "key1");
@@ -78,6 +84,14 @@ public class TActivity extends AppCompatActivity {
         Log.d(TAG, file.getAbsolutePath());
 
         initFileImage();
+    }
+
+    private void newSimpleView() {
+        SimpleDraweeView simpleDraweeView = new SimpleDraweeView(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int)PhoneScreenUtil.dipToPx(100.0f),(int)PhoneScreenUtil.dipToPx(100.0f));
+        simpleDraweeView.setLayoutParams(layoutParams);
+        mLinerLayout.addView(simpleDraweeView,layoutParams);
+        FrescoLoadUtil.getInstance().loadImageLocalRes(simpleDraweeView,(int)PhoneScreenUtil.dipToPx(100.0f),(int)PhoneScreenUtil.dipToPx(100.0f),R.drawable.githu_logo);
     }
 
     private void javaRound() {
@@ -208,6 +222,7 @@ public class TActivity extends AppCompatActivity {
         mImageView = (ImageView) findViewById(R.id.image_image);
         mSVLocalFileView = (SimpleDraweeView) findViewById(R.id.sv_local_file_img);
         mSVJavaRoundView = (SimpleDraweeView) findViewById(R.id.sv_local_file_img3);
+        mLinerLayout = (LinearLayout) findViewById(R.id.ll_new_layout);
     }
 
     private void testWH() {
@@ -262,4 +277,19 @@ public class TActivity extends AppCompatActivity {
 //        simpleDraweeView.setController(controller);
 //    }
 
+
+    private void setGreyScale(View v, boolean greyScale) {
+        if (greyScale) {
+            // Create a paint object with 0 saturation (black and white)
+            ColorMatrix cm = new ColorMatrix();
+            cm.setSaturation(0);
+            Paint greyScalePaint = new Paint();
+            greyScalePaint.setColorFilter(new ColorMatrixColorFilter(cm));
+            // Create a hardware layer with the greyScale paint
+            v.setLayerType(View.LAYER_TYPE_HARDWARE, greyScalePaint);
+        } else {
+            // Remove the hardware layer
+            v.setLayerType(View.LAYER_TYPE_NONE, null);
+        }
+    }
 }

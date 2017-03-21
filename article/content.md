@@ -92,3 +92,6 @@ http://www.jianshu.com/p/a4a806567368
 http://blog.csdn.net/lpforever/article/details/40507143
 
 http://stackoverflow.com/questions/20653305/full-screen-theme-for-appcompat
+
+Android动态库.so的适配
+http://blog.leanote.com/post/jankey103/configure-abis-in-gradle
