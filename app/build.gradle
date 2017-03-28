@@ -214,3 +214,14 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.3'
     }
 }
+
+import java.security.MessageDigest
+def distribution = 'https://services.gradle.org/distributions/gradle-2.8-all.zip'
+task getWrapperDiskCacheName << {
+    MessageDigest messageDigest = MessageDigest.getInstance('MD5')
+    messageDigest.update(distribution.bytes)
+    name = new BigInteger(1, messageDigest.digest()).toString(32)
+    println("source: $distribution")
+    println("wrapper disk cache name : $name")
+
+}
