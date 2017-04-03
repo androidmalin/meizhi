@@ -34,10 +34,11 @@ android {
     }
     buildTypes {
         debug {
+            //https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            minifyEnabled false// 是否混淆
+            minifyEnabled false// 不启用通过 ProGuard 实现的代码压缩,代码压缩会拖慢构建速度，避免在调试构建中使用
             shrinkResources false // 是否去除无效的资源文件
-
+            zipAlignEnabled false
             // 优化Gradle编译速度，只能在Debug版本中使用，Release时一定不要使用
             // 禁用AAPT检查这一类的Task
             aaptOptions {
@@ -45,17 +46,18 @@ android {
             }
             //禁止 Link Task
             //也可以通过命令 gradle build -x lint 禁止Lint Task
-            //Task耗时的命令 gradle build -profile 生成的文件在这里，在浏览器中打开即可。bilibili/build/reports/profile/profile-xxxxxxx.html
+            //Task耗时的命令 gradle build --profile 生成的文件在这里，在浏览器中打开即可。projectRootName/build/reports/profile/profile-xxxxxxx.html
             project.gradle.startParameter.excludedTaskNames.add('lint')
         }
         release {
+            //https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //noinspection GroovyAssignabilityCheck
             debuggable false
             zipAlignEnabled true
             signingConfig signingConfigs.myConfig
-            minifyEnabled true
-            shrinkResources true // 是否去除无效的资源文件
+            minifyEnabled true //启用通过 ProGuard 实现的代码压缩
+            shrinkResources true // 去除无效的资源文件
             // proguard-android.txt 文件的位置 /sdk/tools/proguard/
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

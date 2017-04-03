@@ -104,3 +104,65 @@ https://www.zybuluo.com/linux1s1s/note/210623
 
 Method counts 统计
 http://stackoverflow.com/questions/16056442/cant-build-multiple-android-dex-files-with-ant-from-external-jars/16766238#16766238
+
+https://yrom.net/blog/2016/08/22/java-lang-verifyerror-on-android/
+
+http://frank-zhu.github.io/android/2015/06/15/android-release_app_build_gradle/
+
+
+http://www.jianshu.com/p/9dcec4a14c52
+
+https://developer.android.com/studio/command-line/apksigner.html
+
+https://developer.android.com/studio/publish/app-signing.html
+
+
+
+
+################################################################
+
+https://www.guardsquare.com/en/proguard/manual/versions
+
+
+Android Plugin for Gradle Release版本
+https://developer.android.com/studio/releases/gradle-plugin.html
+
+build-tools版本
+https://developer.android.com/studio/releases/build-tools.html
+
+SDK Tools 版本
+https://developer.android.com/studio/releases/sdk-tools.html
+
+platform-tools 版本
+https://developer.android.com/studio/releases/platform-tools.html
+
+support-library 版本
+https://developer.android.com/topic/libraries/support-library/revisions.html
+
+support-library 说明
+https://developer.android.com/topic/libraries/support-library/features.html
+
+https://developer.android.com/topic/libraries/support-library/features.html
+
+https://developer.android.com/reference/android/support/annotation/package-summary.html
+
+https://developer.android.com/topic/libraries/support-library/setup.html#add-library
+
+Android 开发者培训课程（很重要）
+https://developer.android.com/training/index.html#class-list
+
+Android 开发者指南（很重要）
+https://developer.android.com/guide/index.html
+
+构建系统概览（很重要）
+https://developer.android.com/studio/build/index.html
+
+performance性能优化
+https://developer.android.com/topic/performance/index.html
+
+
+使用Lint 和 Annotations来提升代码质量
+http://www.jianshu.com/p/561998f9c3f0
+
+提高代码质量－工具篇
+http://www.jianshu.com/p/d728b25777d4

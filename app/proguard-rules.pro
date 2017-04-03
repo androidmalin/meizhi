@@ -16,27 +16,108 @@
 #   public *;
 #}
 
-#-------------------------------压缩-------------------------------
-# 代码压缩级别
--optimizationpasses 5
-# 使用大小写混合
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
-# 混淆时预校验
--dontpreverify
-# 记录日志
--verbose
-# 混淆时所用的算法
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
-#-------------------------------压缩-------------------------------
+#参考文章
+#https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
 
--keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+#-------------------------------optimize-------------------------------
+#https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
+#/sdk/tools/proguard/proguard-android-optimize.txt
+# 混淆时所用的算法
+-optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
+
+#代码压缩级别
+-optimizationpasses 5
+
+#优化时允许访问并修改有修饰符的类和类的成员
+-allowaccessmodification
+
+#混淆时预校验
+-dontpreverify
+#-------------------------------optimize-------------------------------
+
+#使用大小写混合
+-dontusemixedcaseclassnames
+
+#混淆第三方jar
+-dontskipnonpubliclibraryclasses
+
+#记录日志
+-verbose
+
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+
+
+#忽略警告，避免打包时某些警告出现
 -ignorewarnings
 
 #保护本地代码
 -keepclasseswithmembernames,includedescriptorclasses class * {
     native <methods>;
 }
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# 保护给定的可选属性
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod,LocalVariableTable
+
+
+# keep setters in Views so that animations can still work.
+# see http://proguard.sourceforge.net/manual/examples.html#beans
+-keepclassmembers public class * extends android.view.View {
+   void set*(***);
+   *** get*();
+}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator CREATOR;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+-keep class **.R$* {*;}
+
+
+# The support library contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version.  We know about them, and they are safe.
+-dontwarn android.support.**
+
+# Understand the @Keep support annotation.
+-keep class android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class * {*;}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <init>(...);
+}
+
+#--------------------通用---------------------------------------------------
+
 
 #--------------------org.apache.http---------------------------------------------------
 -keep class org.apache.http.** { *; }
@@ -146,24 +227,6 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 
-# enum
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-
-#Parcelable
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
-}
-
--keep class **.R$* {*;}
-
--verbose
--keepclasseswithmembernames class * {
-    native <methods>;
-}
-
 
 -keep class com.squareup.okhttp.** { *; }
 -dontwarn okio.**
@@ -192,14 +255,6 @@
     public static int d(...);
     public static int e(...);
 }
-
-# 枚举需要keep see http://proguard.sourceforge.net/manual/examples.html#enumerations
--keepclassmembers enum * {
-    **[] $VALUES;
-    public *;
-}
-
-
 
 
 -keep interface android.support.v4.app.** { *; }
