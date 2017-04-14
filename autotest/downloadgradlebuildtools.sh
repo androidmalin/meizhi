@@ -1,3 +1,4 @@
+#find . -name "*.jar" -type f | sudo xargs rm -rf
 cd /opt/android-studio/gradle/m2repository/com/android/tools/build/gradle/2.3.0 && \
 wget -c https://search.maven.org/remotecontent?filepath=com/android/tools/build/gradle/2.3.0/gradle-2.3.0-sources.jar -O gradle-2.3.0-sources.jar && \
 wget -c https://search.maven.org/remotecontent?filepath=com/android/tools/build/gradle/2.3.0/gradle-2.3.0-javadoc.jar -O gradle-2.3.0-javadoc.jar && \
