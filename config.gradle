@@ -61,6 +61,8 @@ ext {
             'debug-db'                    : 'com.amitshekhar.android:debug-db:0.3.0',
             'glide'                       : 'com.github.bumptech.glide:glide:3.7.0',
             'okhttp3-integration'         : 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar',
-            'viewserver'                  : 'com.hanhuy.android:viewserver:1.0.3']
+            'viewserver'                  : 'com.hanhuy.android:viewserver:1.0.3',
+            'roundedimageview'            : 'com.makeramen:roundedimageview:2.2.1'
+    ]
 
 }
