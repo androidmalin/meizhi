@@ -247,7 +247,7 @@ public final class ImageDownLoadUtil {
             if (!TextUtils.isEmpty(host)) {
                 LogUtil.d(TAG, "host:" + host);
             }
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(128);
             sb.append(!TextUtils.isEmpty(scheme) ? scheme : "")
                     .append("://")
                     .append(!TextUtils.isEmpty(host) ? host : "")
