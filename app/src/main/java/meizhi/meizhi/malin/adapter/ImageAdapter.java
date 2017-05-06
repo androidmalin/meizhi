@@ -290,4 +290,20 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+
+    public void destroyData() {
+        if (mData != null) {
+            mData.clear();
+            mData = null;
+        }
+        if (mHandler != null) {
+            if (mRunnable != null) {
+                mHandler.removeCallbacks(mRunnable);
+            }
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+            mRunnable = null;
+        }
+    }
+
 }

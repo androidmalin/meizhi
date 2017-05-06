@@ -185,6 +185,14 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+
+    public void destroyData() {
+        if (mList != null) {
+            mList.clear();
+            mList = null;
+        }
+    }
+
     public int getDataSize() {
         return mList == null ? 0 : mList.size();
     }

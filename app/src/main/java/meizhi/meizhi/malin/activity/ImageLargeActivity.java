@@ -240,6 +240,13 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
         RxUtils.unSubscribeIfNotNull(mSubscription);
         DestroyCleanUtil.fixInputMethod(this);
         DestroyCleanUtil.unBindView(getWindow().getDecorView());
+        if (mAdapter != null) {
+            mAdapter.destroyData();
+        }
+        if (mList != null) {
+            mList.clear();
+            mList = null;
+        }
         super.onDestroy();
     }
 

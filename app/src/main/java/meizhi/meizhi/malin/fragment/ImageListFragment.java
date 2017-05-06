@@ -368,6 +368,10 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
         View rootView = mRootView.findViewById(R.id.fl_root_image_list_layout);
         DestroyCleanUtil.unBindView(rootView);
+
+        if (mAdapter!=null){
+            mAdapter.destroyData();
+        }
         super.onDestroy();
     }
 
