@@ -136,16 +136,20 @@ dependencies {
     compile rootProject.ext.dependencies["recyclerview"]
     compile rootProject.ext.dependencies["design"]
     //RxJava
-    compile rootProject.ext.dependencies["rxandroid"]
+    compile(rootProject.ext.dependencies["rxandroid"]) {
+        exclude module: 'rxjava'
+    }
     compile rootProject.ext.dependencies["rxjava"]
     //Retrofit2
     compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["converter-gson"]
+    compile(rootProject.ext.dependencies["converter-gson"]) {
+        exclude module: 'gson'
+    }
+    compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["adapter-rxjava"]
     //OkHttp
     compile rootProject.ext.dependencies["okhttp"]
     compile rootProject.ext.dependencies["umeng"]
-
     //Fresco
     compile(rootProject.ext.dependencies["fresco"]) {
         exclude module: 'support-core-utils'
@@ -157,12 +161,14 @@ dependencies {
         exclude module: 'support-core-utils'
         exclude module: 'support-compat'
         exclude module: 'support-annotations'
+        exclude module: 'okhttp'
     }
     //LeakCanary
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
     //BugLy
     compile rootProject.ext.dependencies["crashreport_upgrade"]
+    compile project(':libimage')
 }
 
 //花费超过50ms的任务时间打印出来
@@ -207,18 +213,18 @@ public class BuildTimeListener implements TaskExecutionListener, BuildListener {
 
 project.gradle.addListener(new BuildTimeListener())
 
-
 //dexCount
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.3'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4'
     }
 }
 
 import java.security.MessageDigest
+
 def distribution = 'https://services.gradle.org/distributions/gradle-2.8-all.zip'
 task getWrapperDiskCacheName << {
     MessageDigest messageDigest = MessageDigest.getInstance('MD5')

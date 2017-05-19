@@ -25,10 +25,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.utils.PhoneScreenUtil;
@@ -77,7 +73,6 @@ public class TActivity extends AppCompatActivity {
         Log.d(TAG, file.getAbsolutePath());
 
         initFileImage();
-        testS();
     }
 
 
@@ -102,9 +97,7 @@ public class TActivity extends AppCompatActivity {
 
         String path = null;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pay_log);
-        if (bitmap == null) {
-            return;
-        }
+        if (bitmap == null)return;
         String dir = getSignSubDir(this, "md5", "level_avatar", true);
         File file = new File(dir, "key");
         if (!file.exists()) {
@@ -226,53 +219,6 @@ public class TActivity extends AppCompatActivity {
         Toast.makeText(this, "w:" + mViewWidth + " " + "h:" + mViewHeight, Toast.LENGTH_SHORT).show();
     }
 
-
-//    private void sss(SimpleDraweeView simpleDraweeView,String url){
-//        ImageRequest imageRequest = ImageRequestBuilder
-//                .newBuilderWithSource(Uri.parse(url))
-//                //这里设置渐进式jpeg开关，记得在fresco初始化时设置progressiveJpegConfig
-//                .setProgressiveRenderingEnabled(true)
-//                //在解码之前修改图片尺寸
-//                .setResizeOptions(new ResizeOptions(100, 100))
-//                .setRotationOptions(RotationOptions.autoRotate())
-//                .build();
-//
-//
-//        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
-//            @Override
-//            public void onFinalImageSet(
-//                    String id,
-//                    @Nullable ImageInfo imageInfo,
-//                    @Nullable Animatable anim) {
-//                if (imageInfo == null) {
-//                    return;
-//                }
-//                QualityInfo qualityInfo = imageInfo.getQualityInfo();
-//            }
-//
-//            @Override
-//            public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
-//            }
-//
-//            @Override
-//            public void onFailure(String id, Throwable throwable) {
-//            }
-//        };
-//
-//        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-//                .setImageRequest(imageRequest)
-//                //在构建新的控制器时需要setOldController，这可以防止重新分配内存
-//                .setOldController(simpleDraweeView.getController())
-//                //tap-to-retry load image
-//                .setTapToRetryEnabled(true)
-//                //是否自动开启gif,webp动画,也可以在ControllerListener下手动启动动画
-//                .setAutoPlayAnimations(true)
-//                .setControllerListener(controllerListener)
-//                .build();
-//        simpleDraweeView.setController(controller);
-//    }
-
-
     private void setGreyScale(View v, boolean greyScale) {
         if (greyScale) {
             // Create a paint object with 0 saturation (black and white)
@@ -286,69 +232,5 @@ public class TActivity extends AppCompatActivity {
             // Remove the hardware layer
             v.setLayerType(View.LAYER_TYPE_NONE, null);
         }
-    }
-
-
-    private void testS() {
-        List l1 = new ArrayList();
-        l1.add(1);
-        l1.add(2);
-        l1.add(3);
-        l1.add(4);
-        List l2 = new ArrayList();
-        l2.add(2);
-        l2.add(3);
-        l2.add(4);
-        List intersectList = intersect(l1, l2);
-        System.out.println("交集：");
-        for (int i = 0; i < intersectList.size(); i++) {
-            System.out.print(intersectList.get(i) + " ");
-        }
-        System.out.println();
-        List unionList = union(l1, l2);
-        System.out.println("并集：");
-        for (int i = 0; i < unionList.size(); i++) {
-            System.out.print(unionList.get(i) + " ");
-        }
-        System.out.println();
-
-
-
-        List diffList = diff(l1, l2);
-        System.out.println("差集："+diffList.size());
-        for (int i = 0; i < diffList.size(); i++) {
-            System.out.print(diffList.get(i) + " ");
-            Log.d(TAG,"差集："+diffList.get(i) + " ");
-        }
-        System.out.println();
-
-        List diffList2 = diff(l2, l1);
-        System.out.println("差集2："+diffList2.size());
-        for (int i = 0; i < diffList2.size(); i++) {
-            System.out.print(diffList2.get(i) + " ");
-            Log.d(TAG,"差集2："+diffList2.get(i) + " ");
-        }
-
-    }
-
-    public List intersect(List ls, List ls2) {
-        List list = new ArrayList(Arrays.asList(new Object[ls.size()]));
-        Collections.copy(list, ls);
-        list.retainAll(ls2);
-        return list;
-    }
-
-    public List union(List ls, List ls2) {
-        List list = new ArrayList(Arrays.asList(new Object[ls.size()]));
-        Collections.copy(list, ls);
-        list.addAll(ls2);
-        return list;
-    }
-
-    public List diff(List ls, List ls2) {
-        List list = new ArrayList(Arrays.asList(new Object[ls.size()]));
-        Collections.copy(list, ls);
-        list.removeAll(ls2);
-        return list;
     }
 }
