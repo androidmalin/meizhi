@@ -7,6 +7,11 @@ import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.references.CloseableReference;
@@ -50,12 +55,13 @@ public final class FrescoLoadUtil {
 
     /**
      * 加载本地应用中file文件夹中的图片
+     *
      * @param simpleDraweeView SimpleDraweeView
-     * @param width width
-     * @param height height
-     * @param drawable drawable
+     * @param width            width
+     * @param height           height
+     * @param drawable         drawable
      */
-    public void LoadImageLocalFile(SimpleDraweeView simpleDraweeView,int width, int height, String drawable) {
+    public void LoadImageLocalFile(SimpleDraweeView simpleDraweeView, int width, int height, String drawable) {
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_FILE_SCHEME)
                 .path(String.valueOf(drawable))
@@ -77,10 +83,11 @@ public final class FrescoLoadUtil {
 
     /**
      * 加载Res文件夹中Drawable中的图片
+     *
      * @param simpleDraweeView SimpleDraweeView
-     * @param width width
-     * @param height height
-     * @param drawable drawable
+     * @param width            width
+     * @param height           height
+     * @param drawable         drawable
      */
     public void loadImageLocalRes(SimpleDraweeView simpleDraweeView, int width, int height, @DrawableRes int drawable) {
         Uri uri = new Uri.Builder()
@@ -101,15 +108,74 @@ public final class FrescoLoadUtil {
         simpleDraweeView.setController(controller);
     }
 
+    /**
+     * 加载Res文件夹中Drawable中的图片
+     *
+     * @param simpleDraweeView SimpleDraweeView
+     * @param width            width
+     * @param height           height
+     * @param drawable         drawable
+     */
+    public void loadImageLocalResLayout(SimpleDraweeView simpleDraweeView, int width, int height, @DrawableRes int drawable) {
+        if (simpleDraweeView == null) return;
+
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .path(String.valueOf(drawable))
+                .build();
+        ImageRequest imageRequest = ImageRequestBuilder
+                .newBuilderWithSource(uri)
+                .setProgressiveRenderingEnabled(true)
+                .setResizeOptions(new ResizeOptions(width, height))
+                .build();
+        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                .setImageRequest(imageRequest)
+                .setOldController(simpleDraweeView.getController())
+                .setTapToRetryEnabled(false)
+                .setAutoPlayAnimations(true)
+                .build();
+        simpleDraweeView.setController(controller);
+
+        freshLayoutParams(simpleDraweeView, width, height);
+
+    }
+
+
+    private void freshLayoutParams(SimpleDraweeView simpleDraweeView, int width, int height) {
+        if (simpleDraweeView == null) return;
+        ViewGroup.LayoutParams layoutParams = simpleDraweeView.getLayoutParams();
+        layoutParams.width = width;
+        layoutParams.height = height;
+
+        //1.LinearLayout
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
+            lp.gravity = Gravity.CENTER;
+        }
+
+        //2.RelativeLayout
+        else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) layoutParams;
+            lp.addRule(Gravity.CENTER);
+        }
+
+        //3.FrameLayout
+        else if (layoutParams instanceof FrameLayout.LayoutParams) {
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) layoutParams;
+            lp.gravity = Gravity.CENTER;
+        }
+    }
+
 
     /**
      * 加载一张网络图片
-     * @param simpleDraweeView　SimpleDraweeView
-     * @param width　width
-     * @param height height
-     * @param url http url
+     *
+     * @param simpleDraweeView 　SimpleDraweeView
+     * @param width            　width
+     * @param height           height
+     * @param url              http url
      */
-    public void loadImageNetWork(SimpleDraweeView simpleDraweeView,int width ,int height, String url) {
+    public void loadImageNetWork(SimpleDraweeView simpleDraweeView, int width, int height, String url) {
         ImageRequest imageRequest = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(url))
                 //这里设置渐进式jpeg开关，记得在fresco初始化时设置progressiveJpegConfig
@@ -136,9 +202,10 @@ public final class FrescoLoadUtil {
 
     /**
      * 加载一张网络图片，返回Bitmap
-     * @param url　http url
-     * @param width　ｗ
-     * @param height ｈ
+     *
+     * @param url      　http url
+     * @param width    　ｗ
+     * @param height   ｈ
      * @param callback FrescoBitmapCallback<Bitmap>
      */
     public final void loadImageBitmap(String url, final int width, final int height, FrescoBitmapCallback<Bitmap> callback) {

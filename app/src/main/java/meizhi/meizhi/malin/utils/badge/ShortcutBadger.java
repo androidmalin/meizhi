@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class ShortcutBadger {
-    private static final List<Class<? extends ShortcutBadger>> BADGERS = new LinkedList();
+    private static final List<Class<? extends ShortcutBadger>> BADGERS = new LinkedList<>();
     public static final int MAX_BADGE_COUNT = 99;
     public static final int MIN_BADGE_COUNT = 0;
     private static String TAG = "ShortcutBadger";

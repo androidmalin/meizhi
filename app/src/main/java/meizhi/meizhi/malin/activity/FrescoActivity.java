@@ -33,7 +33,7 @@ import meizhi.meizhi.malin.utils.PhoneScreenUtil;
  * @author root on 17-3-15.
  */
 
-public class TActivity extends AppCompatActivity {
+public class FrescoActivity extends AppCompatActivity {
 
     private SimpleDraweeView mSVRoundView;
     private SimpleDraweeView mSVLocalView;
@@ -43,7 +43,7 @@ public class TActivity extends AppCompatActivity {
     private static final String IMAGE_URL = "http://ww2.sinaimg.cn/large/7a8aed7bgw1es8c7ucr0rj20hs0qowhl.jpg";
     private int mViewWidth;
     private int mViewHeight;
-    private String TAG = TActivity.class.getSimpleName();
+    private String TAG = FrescoActivity.class.getSimpleName();
     private LinearLayout mLinerLayout;
 
     @Override
@@ -73,7 +73,13 @@ public class TActivity extends AppCompatActivity {
         Log.d(TAG, file.getAbsolutePath());
 
         initFileImage();
+        loadMonthView();
+        loadYearView();
     }
+
+
+    private SimpleDraweeView mIvMonth;
+    private SimpleDraweeView mIvYear;
 
 
     private void newSimpleView() {
@@ -97,7 +103,7 @@ public class TActivity extends AppCompatActivity {
 
         String path = null;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pay_log);
-        if (bitmap == null)return;
+        if (bitmap == null) return;
         String dir = getSignSubDir(this, "md5", "level_avatar", true);
         File file = new File(dir, "key");
         if (!file.exists()) {
@@ -175,30 +181,45 @@ public class TActivity extends AppCompatActivity {
     }
 
 
-    private void loadLocalData() {
-        FrescoLoadUtil.getInstance().loadImageLocalRes(mSVLocalView, 100, 100, R.drawable.square_app_icon);
+    private void loadMonthView() {
+        int w = (int) PhoneScreenUtil.dipToPx(13.3f);
+        int h = (int) PhoneScreenUtil.dipToPx(13.3f);
+
+        FrescoLoadUtil.getInstance().loadImageLocalResLayout(mIvMonth, w, h, R.drawable.month_icon);
+    }
+
+    private void loadYearView() {
+        int w = (int) PhoneScreenUtil.dipToPx(24.605f);
+        int h = (int) PhoneScreenUtil.dipToPx(13.3f);
+
+        FrescoLoadUtil.getInstance().loadImageLocalResLayout(mIvYear, w, h, R.drawable.year_icon);
     }
 
     private void loadSVRoundView() {
         FrescoLoadUtil.getInstance().loadImageNetWork(mSVRoundView, 100, 100, IMAGE_URL);
     }
 
+    private void loadLocalData() {
+        FrescoLoadUtil.getInstance().loadImageLocalRes(mSVLocalView, 100, 100, R.drawable.square_app_icon);
+    }
+
+
     private void getBitmap() {
         FrescoLoadUtil.getInstance().loadImageBitmap(IMAGE_URL, 100, 100, new FrescoBitmapCallback<Bitmap>() {
             @Override
             public void onSuccess(Uri uri, Bitmap result) {
-                Toast.makeText(TActivity.this, "onSuccess", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FrescoActivity.this, "onSuccess", Toast.LENGTH_SHORT).show();
                 mImageView.setImageBitmap(result);
             }
 
             @Override
             public void onFailure(Uri uri, Throwable throwable) {
-                Toast.makeText(TActivity.this, "onFailure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FrescoActivity.this, "onFailure", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel(Uri uri) {
-                Toast.makeText(TActivity.this, "onCancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FrescoActivity.this, "onCancel", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -211,6 +232,10 @@ public class TActivity extends AppCompatActivity {
         mSVLocalFileView = (SimpleDraweeView) findViewById(R.id.sv_local_file_img);
         mSVJavaRoundView = (SimpleDraweeView) findViewById(R.id.sv_local_file_img3);
         mLinerLayout = (LinearLayout) findViewById(R.id.ll_new_layout);
+
+        mIvMonth = (SimpleDraweeView) findViewById(R.id.image_month);
+        mIvYear = (SimpleDraweeView) findViewById(R.id.image_year);
+
     }
 
     private void testWH() {
