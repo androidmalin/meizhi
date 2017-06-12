@@ -1,7 +1,8 @@
 
-baseurl="https://search.maven.org/remotecontent?filepath=com/android/tools"
-version="2.3.0"
-path="/opt/android-studio/gradle/m2repository/com/android/tools"
+baseurl="https://dl.bintray.com/android/android-tools/com/android/tools"
+#baseurl="https://search.maven.org/remotecontent?filepath=com/android/tools"
+version="2.3.3"
+path="/home/malin/android-studio/android-studio-2.3.3/gradle/m2repository/com/android/tools"
 buildToolsVersion="25.3.0"
 localpath=""
 

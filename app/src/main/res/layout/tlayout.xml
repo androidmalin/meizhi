@@ -21,8 +21,8 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/image_round"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/common_dimen_100dip"
+                android:layout_height="@dimen/common_dimen_100dip"
                 android:visibility="visible"
                 fresco:actualImageScaleType="centerCrop"
                 fresco:fadeDuration="300"
@@ -34,7 +34,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/common_dimen_100dip"
                 android:layout_marginLeft="@dimen/common_dimen_30dip"
                 android:gravity="center_vertical"
                 android:text="SimpleDraweeView roundAsCircle" />
@@ -121,8 +121,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sv_local_drawable"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/common_dimen_100dip"
+            android:layout_height="@dimen/common_dimen_100dip"
             android:visibility="visible"
             fresco:actualImageScaleType="centerCrop"
             fresco:fadeDuration="300"
@@ -137,8 +137,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sv_local_file_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/common_dimen_100dip"
+            android:layout_height="@dimen/common_dimen_100dip"
             android:visibility="visible"
             fresco:actualImageScaleType="focusCrop"
             fresco:fadeDuration="300"
@@ -153,8 +153,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sv_local_file_img2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/common_dimen_100dip"
+            android:layout_height="@dimen/common_dimen_100dip"
             android:visibility="visible"
             fresco:actualImageScaleType="centerCrop"
             fresco:fadeDuration="300"
@@ -167,8 +167,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sv_local_file_img3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/common_dimen_100dip"
+            android:layout_height="@dimen/common_dimen_100dip"
             android:visibility="gone"
             fresco:actualImageScaleType="centerCrop"
             fresco:fadeDuration="300"
@@ -179,8 +179,8 @@
 
         <LinearLayout
             android:id="@+id/ll_new_layout"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
+            android:layout_width="@dimen/common_dimen_100dip"
+            android:layout_height="@dimen/common_dimen_100dip"
             android:background="#FF00FF"
             android:orientation="horizontal">
 
