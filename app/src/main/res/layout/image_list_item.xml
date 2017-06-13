@@ -13,18 +13,18 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/common_dimen_15dip"
         card_view:cardBackgroundColor="@android:color/white"
-        card_view:cardCornerRadius="15dp"
-        card_view:cardElevation="20dp">
+        card_view:cardCornerRadius="@dimen/common_dimen_15dip"
+        card_view:cardElevation="@dimen/common_dimen_20dip">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_item_list_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/common_dimen_100dip"
+            android:layout_height="@dimen/common_dimen_100dip"
             android:visibility="visible"
             fresco:actualImageScaleType="focusCrop"
             fresco:fadeDuration="300"
             fresco:failureImage="@color/colorPrimary"
-            fresco:failureImageScaleType="centerInside"
+            fresco:failureImageScaleType="centerCrop"
             fresco:placeholderImage="@color/colorPrimary"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:pressedStateOverlayImage="@color/pressed_color"

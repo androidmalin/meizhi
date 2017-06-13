@@ -25,6 +25,7 @@ public class PhoneScreenUtil {
 
     /**
      * 获取DisplayMetrics
+     *
      * @return DisplayMetrics
      */
     private static DisplayMetrics obtain() {
@@ -36,6 +37,7 @@ public class PhoneScreenUtil {
 
     /**
      * 获取屏幕宽度
+     *
      * @return width
      */
     private static int getDeviceWidth() {
@@ -45,6 +47,7 @@ public class PhoneScreenUtil {
 
     /**
      * 获取屏幕高度
+     *
      * @return height
      */
     private static int getDeviceHeight() {
@@ -55,6 +58,7 @@ public class PhoneScreenUtil {
 
     /**
      * 获取设备屏幕密度,像素的比例
+     *
      * @return density
      */
     private static float getDeviceDensity() {
@@ -65,7 +69,7 @@ public class PhoneScreenUtil {
     /**
      * 讲px值转变成dip
      *
-     * @param px      px
+     * @param px px
      * @return dp
      */
     public static float pxToDip(float px) {
@@ -75,7 +79,7 @@ public class PhoneScreenUtil {
     /**
      * 将dip值转成px
      *
-     * @param dip     dip
+     * @param dip dip
      * @return px
      */
     public static float dipToPx(float dip) {
@@ -85,6 +89,7 @@ public class PhoneScreenUtil {
 
     /**
      * 得到手机的高，包括状态栏和导航栏
+     *
      * @return int
      */
     public static int getPhoneHeight() {
@@ -93,6 +98,7 @@ public class PhoneScreenUtil {
 
     /**
      * 得到手机的高
+     *
      * @return int
      */
     public static int getPhoneWidth() {
@@ -101,17 +107,18 @@ public class PhoneScreenUtil {
 
     /**
      * 获取虚拟按键高度
+     *
      * @return int
      */
     public static int getNavigationBarHeight() {
         int navigationBarHeight = 0;
         try {
             Resources rs = MApplication.getContext().getResources();
-            if (rs != null) {
-                int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
-                if (id > 0 && checkDeviceHasNavigationBar()) {
-                    navigationBarHeight = rs.getDimensionPixelSize(id);
-                }
+
+            if (rs == null) return navigationBarHeight;
+            int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
+            if (id > 0 && checkDeviceHasNavigationBar()) {
+                navigationBarHeight = rs.getDimensionPixelSize(id);
             }
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);
@@ -122,6 +129,7 @@ public class PhoneScreenUtil {
 
     /**
      * 判断有没有虚拟按键
+     *
      * @return boolean
      */
     private static boolean checkDeviceHasNavigationBar() {

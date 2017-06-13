@@ -90,16 +90,15 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private String imageUrl;
 
-    private ViewGroup.LayoutParams mLayoutParams;
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            mLayoutParams = itemViewHolder.largeImage.getLayoutParams();
-            mLayoutParams.width = mItemWidth;
-            mLayoutParams.height = mItemHeight;
-            itemViewHolder.largeImage.setLayoutParams(mLayoutParams);
+            ViewGroup.LayoutParams layoutParams = itemViewHolder.largeImage.getLayoutParams();
+            layoutParams.width = mItemWidth;
+            layoutParams.height = mItemHeight;
+            itemViewHolder.largeImage.setLayoutParams(layoutParams);
             final int pos = getRealPosition(holder);
             String bean = mList.get(pos);
 
@@ -118,12 +117,10 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (mDownLoadClickListener != null) {
-                        if (mList != null && pos < mList.size() && mList.get(pos) != null) {
-                            String utrImg = mList.get(pos);
-                            mDownLoadClickListener.downImageListener(utrImg, pos, false);
-                        }
-                    }
+                    if (mDownLoadClickListener == null) return true;
+                    if (mList == null || pos >= mList.size() || TextUtils.isEmpty(mList.get(pos))) return true;
+                    String utrImg = mList.get(pos);
+                    mDownLoadClickListener.downImageListener(utrImg, pos, false);
                     return true;
                 }
             });

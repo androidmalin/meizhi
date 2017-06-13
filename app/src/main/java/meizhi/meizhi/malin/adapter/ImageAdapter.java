@@ -61,18 +61,14 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void addData(List<String> list) {
-        if (mData == null) {
-            mData = new ArrayList<>();
-        }
+        if (mData == null) mData = new ArrayList<>();
         mData.addAll(list);
-        // notifyDataSetChanged();
     }
 
 
     public void clearData() {
-        if (mData != null) {
-            mData.clear();
-        }
+        if (mData == null) return;
+        mData.clear();
         notifyDataSetChanged();
     }
 
@@ -92,9 +88,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public ArrayList<String> getData() {
-        if (mData == null) {
-            mData = new ArrayList<>();
-        }
+        if (mData == null) mData = new ArrayList<>();
         return mData;
     }
 
@@ -239,16 +233,16 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (manager != null && manager instanceof GridLayoutManager) {
-            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
-            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    //当前位置是FooterView的位置，那么该item占据2个单元格，正常情况下占据1个单元格
-                    return getItemViewType(position) == TYPE_FOOTER ? gridManager.getSpanCount() : 1;
-                }
-            });
-        }
+
+        if (manager == null || !(manager instanceof GridLayoutManager)) return;
+        final GridLayoutManager gridManager = ((GridLayoutManager) manager);
+        gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                //当前位置是FooterView的位置，那么该item占据2个单元格，正常情况下占据1个单元格
+                return getItemViewType(position) == TYPE_FOOTER ? gridManager.getSpanCount() : 1;
+            }
+        });
     }
 
 
@@ -256,10 +250,9 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
-            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
-            p.setFullSpan(holder.getLayoutPosition() == getDataSize());
-        }
+        if (lp == null || !(lp instanceof StaggeredGridLayoutManager.LayoutParams)) return;
+        StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+        p.setFullSpan(holder.getLayoutPosition() == getDataSize());
     }
 
     private Handler mHandler = new Handler();
