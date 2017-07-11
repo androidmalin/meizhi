@@ -42,9 +42,8 @@ android {
             zipAlignEnabled false
             // 优化Gradle编译速度，只能在Debug版本中使用，Release时一定不要使用
             // 禁用AAPT检查这一类的Task
-            aaptOptions {
-                cruncherEnabled = false
-            }
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
             //禁止 Link Task
             //也可以通过命令 gradle build -x lint 禁止Lint Task
             //Task耗时的命令 gradle build --profile 生成的文件在这里，在浏览器中打开即可。projectRootName/build/reports/profile/profile-xxxxxxx.html
@@ -114,8 +113,6 @@ android {
     //apk包重新命名
     applicationVariants.all { Variant ->
         Variant.outputs.each { output ->
-
-            Variant.buildType.debuggable;
             if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && !Variant.buildType.debuggable) {
                 def apkFile = new File(output.outputFile.getParent(), "Release_${Variant.flavorName}_v${Variant.versionName}.apk")
                 output.outputFile = apkFile;
@@ -165,8 +162,10 @@ dependencies {
 }
 
 //花费超过50ms的任务时间打印出来
-public class BuildTimeListener implements TaskExecutionListener, BuildListener {
-    private Clock clock
+//http://jiajixin.cn/2015/08/07/gradle-android/
+//耗时统计文件在项目rootProject/build/taskTime.txt
+class BuildTimeListener implements TaskExecutionListener, BuildListener {
+    private org.gradle.internal.time.Clock clock
     private times = []
 
     @Override
@@ -184,10 +183,62 @@ public class BuildTimeListener implements TaskExecutionListener, BuildListener {
     @Override
     void buildFinished(BuildResult result) {
         println "Task spend time:"
+        File file = new File('build/taskTime.txt')
+        if (!file.exists()) {
+            File dir = new File(file.getParent())
+            if (!dir.exists()) dir.mkdirs()
+            file.createNewFile()
+        } else {
+            file.delete()
+        }
+
+        def printWriter = file.newPrintWriter()
+        def timeFormat
+        def timeString
+        def taskNameString
+        def mapArrayList = new ArrayList<>()
+
         for (time in times) {
             if (time[0] >= 50) {
-                printf "%7sms  %s\n", time
+                timeFormat = String.valueOf(time).replace("[", "").replace("]", "").replace(",", "ms,")
+                time = timeFormat.split(",")[0].trim()
+                if (time.length() <= 9) {
+                    int diff = 9 - time.length()
+                    for (int i = 0; i < diff; i++) {
+                        time = time + " "
+                    }
+                }
+                ArrayList<String> oneList = new ArrayList<>()
+                taskNameString = timeFormat.split(",")[1].trim()
+                oneList.clear()
+                oneList.add(time)
+                oneList.add(taskNameString)
+                mapArrayList.add(oneList)
             }
+        }
+
+        Collections.sort(mapArrayList, new Comparator<ArrayList<String>>() {
+            @Override
+            int compare(ArrayList<String> o1, ArrayList<String> o2) {
+                int msgId1 = Integer.valueOf(o1[0].replace("ms", "").trim())
+                int msgId2 = Integer.valueOf(o2[0].replace("ms", "").trim())
+                return msgId2.numberAwareCompareTo(msgId1)
+            }
+        })
+
+        for (int i = 0; i < mapArrayList.size(); i++) {
+            timeString = mapArrayList.get(i).get(0)
+            taskNameString = mapArrayList.get(i).get(1)
+            printWriter.write(timeString + taskNameString + "\n")
+            printf "      " + timeString + taskNameString + "\n"
+
+        }
+
+        try {
+            printWriter.flush()
+            printWriter.close()
+        } catch (Exception e) {
+            e.printStackTrace()
         }
     }
 
@@ -205,6 +256,7 @@ public class BuildTimeListener implements TaskExecutionListener, BuildListener {
 }
 
 project.gradle.addListener(new BuildTimeListener())
+
 
 //dexCount
 buildscript {
