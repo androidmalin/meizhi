@@ -1,12 +1,8 @@
 #!/bin/bash
-#将debugable=true的应用中/data/data/packagename/中的文件夹拉到电脑中
+
 #./exec_out.sh -p com.example.myapplication -d databases
 #./exec_out.sh -p tv.panda.live.broadcast -d files
 #./exec_out.sh -p tv.panda.live.broadcast -d databases
-
-#要拉单个文件的话可以使用
-#adb exec-out screencap -p > Android_ScreenShot.png
-#adb exec-out run-as tv.panda.live.broadcast cat files/cover/cover.jpg > ./cover.jpg
 
 P=
 F=
