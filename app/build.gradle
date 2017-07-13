@@ -257,13 +257,14 @@ class BuildTimeListener implements TaskExecutionListener, BuildListener {
 
 project.gradle.addListener(new BuildTimeListener())
 
-
 //dexCount
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4'
+        classpath('com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4') {
+                    exclude module: 'com.android.tools.build'
+                }
     }
 }
