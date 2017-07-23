@@ -14,7 +14,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        resConfigs "zh", "xxhdpi"
+        resConfigs "zh"
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
@@ -96,9 +96,7 @@ android {
     //productFlavors领域，定义渠道名，使用manifestPlaceholders制定要替换渠道占位符的值。
     //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是xiaomi,BaiDu
     productFlavors {
-        baidu {}
-        nineone {}
-        androidmarket {}
+        google {}
         xiaomi {
             minSdkVersion = rootProject.ext.android.minSdkVersionDebug
             versionCode = rootProject.ext.android.versionCodeDebug
