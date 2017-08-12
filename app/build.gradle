@@ -97,6 +97,7 @@ android {
     //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是xiaomi,BaiDu
     productFlavors {
         google {}
+        kuApp{}
         xiaomi {
             minSdkVersion = rootProject.ext.android.minSdkVersionDebug
             versionCode = rootProject.ext.android.versionCodeDebug
@@ -156,7 +157,6 @@ dependencies {
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
     compile rootProject.ext.dependencies["crashreport_upgrade"]
-    compile project(':libimage')
 }
 
 //花费超过50ms的任务时间打印出来
