@@ -109,10 +109,10 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
 
     private void initView() {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.img_swipe_refresh);
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.img_list_rv);
-        mStubError = (ViewStub) mRootView.findViewById(R.id.view_stub_error);
-        mStubEmpty = (ViewStub) mRootView.findViewById(R.id.view_stub_empty);
+        mSwipeRefreshLayout = mRootView.findViewById(R.id.img_swipe_refresh);
+        mRecyclerView = mRootView.findViewById(R.id.img_list_rv);
+        mStubError = mRootView.findViewById(R.id.view_stub_error);
+        mStubEmpty = mRootView.findViewById(R.id.view_stub_empty);
     }
 
 
@@ -358,6 +358,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     @Override
     public void onDestroy() {
         DestroyCleanUtil.fixInputMethod(mActivity);
+        DestroyCleanUtil.fixTextLineCacheLeak();
         CatchUtil.getInstance().releaseMemory(true);
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
@@ -369,7 +370,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         View rootView = mRootView.findViewById(R.id.fl_root_image_list_layout);
         DestroyCleanUtil.unBindView(rootView);
 
-        if (mAdapter!=null){
+        if (mAdapter != null) {
             mAdapter.destroyData();
         }
         super.onDestroy();

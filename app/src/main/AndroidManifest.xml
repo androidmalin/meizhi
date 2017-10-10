@@ -25,7 +25,8 @@
         android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:theme">
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
@@ -41,9 +42,9 @@
             android:name=".activity.ImageLargeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:theme="@style/AppFullScreenAbout"
             android:name=".activity.AboutActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenAbout" />
 
         <!--UM-->
         <meta-data
@@ -58,8 +59,7 @@
         <!--BugLy升级-->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -75,8 +75,8 @@
         <!--Bmob支付-->
         <activity
             android:name="cn.bmob.pay.v3.act.PayAct"
-            android:theme="@style/AppFullScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreen" />
     </application>
 
 </manifest>

@@ -158,7 +158,7 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
     }
 
     private void initView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_large_layout);
+        mRecyclerView = findViewById(R.id.rv_large_layout);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);
     }

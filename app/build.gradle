@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 //BugLy
 apply plugin: 'bugly'
 apply plugin: 'project-report'
-apply plugin: 'com.getkeepsafe.dexcount'
 
 bugly {
     appId = rootProject.ext.common.appId
@@ -20,6 +19,10 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi-v7a'
+        }
     }
 
     signingConfigs {
@@ -97,7 +100,7 @@ android {
     //增加productFlavors.all领域对所有的productFlavors进行遍历，并使用那么作为渠道名。这些name实际上就是xiaomi,BaiDu
     productFlavors {
         google {}
-        kuApp{}
+        kuApp {}
         xiaomi {
             minSdkVersion = rootProject.ext.android.minSdkVersionDebug
             versionCode = rootProject.ext.android.versionCodeDebug
@@ -114,11 +117,11 @@ android {
         Variant.outputs.each { output ->
             if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && !Variant.buildType.debuggable) {
                 def apkFile = new File(output.outputFile.getParent(), "Release_${Variant.flavorName}_v${Variant.versionName}.apk")
-                output.outputFile = apkFile;
+                output.outputFile = apkFile
             }
             if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && Variant.buildType.debuggable) {
                 def apkFile = new File(output.outputFile.getParent(), "Debug_${Variant.flavorName}_v${Variant.versionName}.apk")
-                output.outputFile = apkFile;
+                output.outputFile = apkFile
             }
         }
     }
@@ -157,112 +160,4 @@ dependencies {
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
     compile rootProject.ext.dependencies["crashreport_upgrade"]
-}
-
-//花费超过50ms的任务时间打印出来
-//http://jiajixin.cn/2015/08/07/gradle-android/
-//耗时统计文件在项目rootProject/build/taskTime.txt
-class BuildTimeListener implements TaskExecutionListener, BuildListener {
-    private org.gradle.internal.time.Clock clock
-    private times = []
-
-    @Override
-    void beforeExecute(Task task) {
-        clock = new Clock()
-    }
-
-    @Override
-    void afterExecute(Task task, TaskState taskState) {
-        def ms = clock.timeInMs
-        times.add([ms, task.path])
-        //task.project.logger.warn "${task.path} spend ${ms}ms"
-    }
-
-    @Override
-    void buildFinished(BuildResult result) {
-        println "Task spend time:"
-        File file = new File('build/taskTime.txt')
-        if (!file.exists()) {
-            File dir = new File(file.getParent())
-            if (!dir.exists()) dir.mkdirs()
-            file.createNewFile()
-        } else {
-            file.delete()
-        }
-
-        def printWriter = file.newPrintWriter()
-        def timeFormat
-        def timeString
-        def taskNameString
-        def mapArrayList = new ArrayList<>()
-
-        for (time in times) {
-            if (time[0] >= 50) {
-                timeFormat = String.valueOf(time).replace("[", "").replace("]", "").replace(",", "ms,")
-                time = timeFormat.split(",")[0].trim()
-                if (time.length() <= 9) {
-                    int diff = 9 - time.length()
-                    for (int i = 0; i < diff; i++) {
-                        time = time + " "
-                    }
-                }
-                ArrayList<String> oneList = new ArrayList<>()
-                taskNameString = timeFormat.split(",")[1].trim()
-                oneList.clear()
-                oneList.add(time)
-                oneList.add(taskNameString)
-                mapArrayList.add(oneList)
-            }
-        }
-
-        Collections.sort(mapArrayList, new Comparator<ArrayList<String>>() {
-            @Override
-            int compare(ArrayList<String> o1, ArrayList<String> o2) {
-                int msgId1 = Integer.valueOf(o1[0].replace("ms", "").trim())
-                int msgId2 = Integer.valueOf(o2[0].replace("ms", "").trim())
-                return msgId2.numberAwareCompareTo(msgId1)
-            }
-        })
-
-        for (int i = 0; i < mapArrayList.size(); i++) {
-            timeString = mapArrayList.get(i).get(0)
-            taskNameString = mapArrayList.get(i).get(1)
-            printWriter.write(timeString + taskNameString + "\n")
-            printf "      " + timeString + taskNameString + "\n"
-
-        }
-
-        try {
-            printWriter.flush()
-            printWriter.close()
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
-    }
-
-    @Override
-    void buildStarted(Gradle gradle) {}
-
-    @Override
-    void projectsEvaluated(Gradle gradle) {}
-
-    @Override
-    void projectsLoaded(Gradle gradle) {}
-
-    @Override
-    void settingsEvaluated(Settings settings) {}
-}
-
-project.gradle.addListener(new BuildTimeListener())
-
-//dexCount
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath('com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4') {
-                    exclude module: 'com.android.tools.build'
-                }
-    }
 }

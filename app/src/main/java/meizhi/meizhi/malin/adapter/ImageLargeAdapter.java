@@ -118,7 +118,8 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public boolean onLongClick(View view) {
                     if (mDownLoadClickListener == null) return true;
-                    if (mList == null || pos >= mList.size() || TextUtils.isEmpty(mList.get(pos))) return true;
+                    if (mList == null || pos >= mList.size() || TextUtils.isEmpty(mList.get(pos)))
+                        return true;
                     String utrImg = mList.get(pos);
                     mDownLoadClickListener.downImageListener(utrImg, pos, false);
                     return true;
@@ -171,7 +172,7 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private ItemViewHolder(View itemView) {
             super(itemView);
-            largeImage = (SimpleDraweeView) itemView.findViewById(R.id.image_large_item_img);
+            largeImage = itemView.findViewById(R.id.image_large_item_img);
         }
     }
 

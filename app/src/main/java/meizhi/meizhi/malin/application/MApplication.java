@@ -10,7 +10,6 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
-import c.b.BP;
 import meizhi.meizhi.malin.BuildConfig;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
@@ -31,7 +30,6 @@ import meizhi.meizhi.malin.utils.ProcessUtil;
 public class MApplication extends Application {
 
     private static RefWatcher mRefWatcher;
-    private static final String PAY_KEY = "7f04009c2a16ecfc280f10a691a8cce1";
     private static final String BUGLY_KEY = "ee6ea51102";
 
 
@@ -45,7 +43,6 @@ public class MApplication extends Application {
         if (ProcessUtil.isMainProcess()) {
             initFresco();
             initBugLy();
-            initPay();
             initLeakCanary();
         }
     }
@@ -77,9 +74,6 @@ public class MApplication extends Application {
         }
     }
 
-    private void initPay() {
-        BP.init(PAY_KEY);
-    }
 
     private void initLeakCanary() {
         mRefWatcher = LeakCanary.install(this);

@@ -208,7 +208,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         private ItemViewHolder(View itemView) {
             super(itemView);
-            head = (SimpleDraweeView) itemView.findViewById(R.id.iv_item_list_img);
+            head = itemView.findViewById(R.id.iv_item_list_img);
             ViewGroup.LayoutParams mLayoutParams = head.getLayoutParams();
             mLayoutParams.width = mItemWidth;
             mLayoutParams.height = mItemHeight;
@@ -223,8 +223,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         private FooterViewHolder(View itemView) {
             super(itemView);
-            mTvLoadText = (TextView) itemView.findViewById(R.id.tv_foot_view);
-            mLoadProgressBar = (ProgressBar) itemView.findViewById(R.id.pd_foot_view);
+            mTvLoadText = itemView.findViewById(R.id.tv_foot_view);
+            mLoadProgressBar = itemView.findViewById(R.id.pd_foot_view);
         }
     }
 

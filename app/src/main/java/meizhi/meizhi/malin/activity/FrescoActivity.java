@@ -226,15 +226,15 @@ public class FrescoActivity extends AppCompatActivity {
 
 
     private void initView() {
-        mSVRoundView = (SimpleDraweeView) findViewById(R.id.image_round);
-        mSVLocalView = (SimpleDraweeView) findViewById(R.id.sv_local_drawable);
-        mImageView = (ImageView) findViewById(R.id.image_image);
-        mSVLocalFileView = (SimpleDraweeView) findViewById(R.id.sv_local_file_img);
-        mSVJavaRoundView = (SimpleDraweeView) findViewById(R.id.sv_local_file_img3);
-        mLinerLayout = (LinearLayout) findViewById(R.id.ll_new_layout);
+        mSVRoundView = findViewById(R.id.image_round);
+        mSVLocalView = findViewById(R.id.sv_local_drawable);
+        mImageView = findViewById(R.id.image_image);
+        mSVLocalFileView = findViewById(R.id.sv_local_file_img);
+        mSVJavaRoundView = findViewById(R.id.sv_local_file_img3);
+        mLinerLayout = findViewById(R.id.ll_new_layout);
 
-        mIvMonth = (SimpleDraweeView) findViewById(R.id.image_month);
-        mIvYear = (SimpleDraweeView) findViewById(R.id.image_year);
+        mIvMonth = findViewById(R.id.image_month);
+        mIvYear = findViewById(R.id.image_year);
 
     }
 

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         mActivity = MainActivity.this;
     }
 
@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         CatchUtil.getInstance().releaseMemory(true);
         DestroyCleanUtil.fixInputMethod(this);
+        DestroyCleanUtil.fixTextLineCacheLeak();
         DestroyCleanUtil.unBindView(getWindow().getDecorView());
         super.onDestroy();
     }
