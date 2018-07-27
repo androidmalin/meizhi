@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-//BugLy
 apply plugin: 'bugly'
 apply plugin: 'project-report'
 
@@ -19,6 +18,7 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        flavorDimensions "versionCode"
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi-v7a'
@@ -45,8 +45,7 @@ android {
             zipAlignEnabled false
             // 优化Gradle编译速度，只能在Debug版本中使用，Release时一定不要使用
             // 禁用AAPT检查这一类的Task
-            aaptOptions.cruncherEnabled = false
-            aaptOptions.useNewCruncher = false
+            crunchPngs false
             //禁止 Link Task
             //也可以通过命令 gradle build -x lint 禁止Lint Task
             //Task耗时的命令 gradle build --profile 生成的文件在这里，在浏览器中打开即可。projectRootName/build/reports/profile/profile-xxxxxxx.html
@@ -68,9 +67,10 @@ android {
 
     //Java编译版本
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+
     //打包忽略掉第三方jar相同的文件
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -111,53 +111,39 @@ android {
         }
 
     }
-
-    //apk包重新命名
-    applicationVariants.all { Variant ->
-        Variant.outputs.each { output ->
-            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && !Variant.buildType.debuggable) {
-                def apkFile = new File(output.outputFile.getParent(), "Release_${Variant.flavorName}_v${Variant.versionName}.apk")
-                output.outputFile = apkFile
-            }
-            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && Variant.buildType.debuggable) {
-                def apkFile = new File(output.outputFile.getParent(), "Debug_${Variant.flavorName}_v${Variant.versionName}.apk")
-                output.outputFile = apkFile
-            }
-        }
-    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile rootProject.ext.dependencies["roundedimageview"]
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["cardview"]
-    compile rootProject.ext.dependencies["recyclerview"]
-    compile rootProject.ext.dependencies["design"]
-    compile(rootProject.ext.dependencies["rxandroid"]) {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["roundedimageview"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["cardview"]
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation(rootProject.ext.dependencies["rxandroid"]) {
         exclude module: 'rxjava'
     }
-    compile rootProject.ext.dependencies["rxjava"]
-    compile rootProject.ext.dependencies["retrofit"]
-    compile(rootProject.ext.dependencies["converter-gson"]) {
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation(rootProject.ext.dependencies["converter-gson"]) {
         exclude module: 'gson'
     }
-    compile rootProject.ext.dependencies["gson"]
-    compile rootProject.ext.dependencies["adapter-rxjava"]
-    compile rootProject.ext.dependencies["okhttp"]
-    compile rootProject.ext.dependencies["umeng"]
-    compile(rootProject.ext.dependencies["fresco"]) {
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["adapter-rxjava"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["umeng"]
+    implementation(rootProject.ext.dependencies["fresco"]) {
         exclude module: 'support-core-utils'
         exclude module: 'support-compat'
         exclude module: 'support-annotations'
     }
-    compile(rootProject.ext.dependencies["fresco:imagepipeline-okhttp3"]) {
+    implementation(rootProject.ext.dependencies["fresco:imagepipeline-okhttp3"]) {
         exclude module: 'support-core-utils'
         exclude module: 'support-compat'
         exclude module: 'support-annotations'
         exclude module: 'okhttp'
     }
-    debugCompile rootProject.ext.dependencies["leakcanary-android"]
-    releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
-    compile rootProject.ext.dependencies["crashreport_upgrade"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+    implementation rootProject.ext.dependencies["crashreport_upgrade"]
 }

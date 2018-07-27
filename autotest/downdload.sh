@@ -1,7 +1,12 @@
 
 baseurl="https://search.maven.org/remotecontent?filepath=com/android/tools"
+
+#需要的gradle版本号
 version="2.3.0"
-path="/opt/android-studio/gradle/m2repository/com/android/tools"
+
+#andoridstudio:as的路径
+androidstudio="/home/malin/android-studio/android-studio-3.0"
+path=$androidstudio"/gradle/m2repository/com/android/tools"
 
 #gradle-2.3.0-sources.jar
 #gradle-2.3.0-javadoc.jar
