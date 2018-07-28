@@ -1,6 +1,5 @@
 package meizhi.meizhi.malin.utils;
 
-import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * 类描述:
@@ -31,9 +30,9 @@ public final class UrlUtils {
     public static final String large_ = "large";
 
 
-//    http://wwx.sinaimg.cn/thumbnail/xxx.jpg（缩略图）
-//    http://wwx.sinaimg.cn/small/xxx.jpg （小图）
-//    http://wwx.sinaimg.cn/large/xxx.jpg （最大的图）
+    //http://wwx.sinaimg.cn/thumbnail/xxx.jpg(缩略图)
+    //http://wwx.sinaimg.cn/small/xxx.jpg (小图)
+    //http://wwx.sinaimg.cn/large/xxx.jpg (最大的图)
     private UrlUtils() {
 
     }
@@ -44,6 +43,7 @@ public final class UrlUtils {
     public static String getUrl(String url, int type) {
         String result;
         try {
+            url = url.replace("http://", "https://");
             if (url.contains("sinaimg.cn")) {
                 if (url.contains(large_)) {
                     result = url.replaceFirst(large_, getImageFlag(type));
@@ -54,7 +54,6 @@ public final class UrlUtils {
                 result = url;
             }
         } catch (Exception e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
             result = url;
         }

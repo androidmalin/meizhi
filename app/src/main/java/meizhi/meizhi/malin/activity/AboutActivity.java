@@ -13,14 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.analytics.MobclickAgent;
-
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
-import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
  * 类描述: 关于页面
@@ -86,19 +82,16 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_git_log: {
-                MobclickAgent.onEvent(this, UMengEvent.ClickGithubLogo);
                 startBrowser(getResources().getString(R.string.git_mm));
                 break;
             }
 
             case R.id.tv_git: {
-                MobclickAgent.onEvent(this, UMengEvent.ClickGithubLink);
                 startBrowser(getResources().getString(R.string.git_mm));
                 break;
             }
 
             case R.id.tv_app_star: {
-                MobclickAgent.onEvent(this, UMengEvent.ClickToAppStore);
                 AppInfoUtil.launchAppDetail(this, "");
                 break;
             }
@@ -122,24 +115,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             intent.setData(content_url);
             startActivity(intent);
         } catch (Throwable e) {
-            // 主动上报开发者Catch的异常 您可能会关注某些重要异常的Catch情况。
-            // 我们提供了上报这类异常的接口。
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
             Toast.makeText(this, R.string.no_browser_tip, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     @Override

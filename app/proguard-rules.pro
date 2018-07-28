@@ -292,19 +292,6 @@
 #http://my.oschina.net/aibenben/blog/371889
 #http://treesouth.github.io/2015/04/05/Android%E4%B8%ADProGuard%E6%B7%B7%E6%B7%86%E9%85%8D%E7%BD%AE%E5%92%8C%E6%80%BB%E7%BB%93/
 
-
-###Umeng
--keepclassmembers class * {
-   public <init> (org.json.JSONObject);
-}
-
-
-#-------------------------------tencent.bugly-------------------------------
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
-#-------------------------------tencent.bugly-------------------------------
-
-
 #-------------------------------Freco混淆-------------------------------
 # https://github.com/facebook/fresco/blob/master/proguard-fresco.pro
 # Keep our interfaces so they can be used by other ProGuard rules.

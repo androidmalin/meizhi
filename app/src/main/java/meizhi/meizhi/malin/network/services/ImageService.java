@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ImageService {
 
-    private static final String BASE_URL = "http://mengmengdajson.oss-cn-shanghai.aliyuncs.com";
+    private static final String BASE_URL = "https://mengmengdajson.oss-cn-shanghai.aliyuncs.com";
 
     private ImageService() {
     }

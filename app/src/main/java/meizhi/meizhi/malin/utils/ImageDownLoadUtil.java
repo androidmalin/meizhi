@@ -7,8 +7,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -75,7 +73,6 @@ public final class ImageDownLoadUtil {
         HashMap<String, String> map = new HashMap<>();
         map.put("url", fileUrl);
         map.put("position", "" + position);
-        MobclickAgent.onEvent(mContext, singleClickDown ? UMengEvent.ClickDownLoadImage : UMengEvent.LongClickDownLoadImage, map);
 
         ImageApi biLiApi = ImageService.getInstance().getDownLoad(getBaseUrl(fileUrl));
         Call<ResponseBody> call = biLiApi.download(fileUrl);
@@ -111,7 +108,6 @@ public final class ImageDownLoadUtil {
                         try {
                             mContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + mPath)));
                         } catch (Throwable e) {
-                            CrashReport.postCatchedException(e);
                             e.printStackTrace();
                         }
                     }
@@ -119,7 +115,6 @@ public final class ImageDownLoadUtil {
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(MApplication.getContext(), R.string.down_load_error, Toast.LENGTH_SHORT).show();
-                        CrashReport.postCatchedException(e);
                         e.printStackTrace();
                     }
 
@@ -190,7 +185,6 @@ public final class ImageDownLoadUtil {
                 outputStream.flush();
                 return true;
             } catch (IOException e) {
-                CrashReport.postCatchedException(e);
                 return false;
             } finally {
                 if (inputStream != null) {
@@ -198,7 +192,6 @@ public final class ImageDownLoadUtil {
                         inputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        CrashReport.postCatchedException(e);
                     }
                     inputStream = null;
 
@@ -208,14 +201,12 @@ public final class ImageDownLoadUtil {
                         outputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        CrashReport.postCatchedException(e);
                     }
                     outputStream = null;
 
                 }
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
         return false;

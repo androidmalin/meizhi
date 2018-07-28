@@ -1,14 +1,9 @@
 apply plugin: 'com.android.application'
-apply plugin: 'bugly'
 apply plugin: 'project-report'
 
-bugly {
-    appId = rootProject.ext.common.appId
-    appKey = rootProject.ext.common.appKey
-}
+apply plugin: 'io.fabric'
 
 android {
-
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
@@ -61,7 +56,7 @@ android {
             minifyEnabled true //启用通过 ProGuard 实现的代码压缩
             shrinkResources true // 去除无效的资源文件
             // proguard-android.txt 文件的位置 /sdk/tools/proguard/
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -124,14 +119,17 @@ dependencies {
         exclude module: 'rxjava'
     }
     implementation rootProject.ext.dependencies["rxjava"]
-    implementation rootProject.ext.dependencies["retrofit"]
+    implementation(rootProject.ext.dependencies["retrofit"]) {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
     implementation(rootProject.ext.dependencies["converter-gson"]) {
         exclude module: 'gson'
     }
     implementation rootProject.ext.dependencies["gson"]
-    implementation rootProject.ext.dependencies["adapter-rxjava"]
+    implementation(rootProject.ext.dependencies["adapter-rxjava"]) {
+        exclude module: 'rxjava'
+    }
     implementation rootProject.ext.dependencies["okhttp"]
-    implementation rootProject.ext.dependencies["umeng"]
     implementation(rootProject.ext.dependencies["fresco"]) {
         exclude module: 'support-core-utils'
         exclude module: 'support-compat'
@@ -143,7 +141,11 @@ dependencies {
         exclude module: 'support-annotations'
         exclude module: 'okhttp'
     }
-    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    debugImplementation(rootProject.ext.dependencies["leakcanary-android"]) {
+        exclude module: 'support-core-utils'
+    }
     releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
-    implementation rootProject.ext.dependencies["crashreport_upgrade"]
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
+        transitive = true
+    }
 }

@@ -4,14 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 
-import meizhi.meizhi.malin.BuildConfig;
-import meizhi.meizhi.malin.utils.AppInfoUtil;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageLoaderConfig;
 import meizhi.meizhi.malin.utils.ProcessUtil;
@@ -42,7 +39,6 @@ public class MApplication extends Application {
         initContext();
         if (ProcessUtil.isMainProcess()) {
             initFresco();
-            initBugLy();
             initLeakCanary();
         }
     }
@@ -58,20 +54,7 @@ public class MApplication extends Application {
 
     private void initFresco() {
         Fresco.initialize(this, ImageLoaderConfig.getInstance().getImagePipelineConfig(getApplicationContext()));
-    }
-
-    private void initBugLy() {
-        try {
-            CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
-            strategy.setAppChannel(AppInfoUtil.getChannelName());  //设置渠道
-            strategy.setAppVersion(AppInfoUtil.getAppVersionName()); //App的版本
-            strategy.setAppPackageName(AppInfoUtil.getPackageName());  //App的包名
-            strategy.setAppReportDelay(10000);   //BugLy会在启动10s后联网同步数据
-            Bugly.init(getApplicationContext(), BUGLY_KEY, BuildConfig.LOG_DEBUG, strategy);
-        } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
-            e.printStackTrace();
-        }
+        FLog.setMinimumLoggingLevel(FLog.ERROR);
     }
 
 

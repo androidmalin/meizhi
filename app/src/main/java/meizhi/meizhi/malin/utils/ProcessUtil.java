@@ -4,8 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.tencent.bugly.crashreport.CrashReport;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.List;
@@ -83,7 +81,6 @@ public final class ProcessUtil {
                 }
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
         return null;
@@ -109,7 +106,6 @@ public final class ProcessUtil {
             }
             return processName;
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
         } finally {
             try {
@@ -120,7 +116,6 @@ public final class ProcessUtil {
                     reader.close();
                 }
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
                 e.printStackTrace();
             }
         }

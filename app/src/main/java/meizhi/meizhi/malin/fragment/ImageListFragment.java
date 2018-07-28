@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 
 import com.squareup.leakcanary.RefWatcher;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,6 @@ import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
 import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
 import meizhi.meizhi.malin.utils.RxUtils;
-import meizhi.meizhi.malin.utils.UMengEvent;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -87,7 +84,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         try {
             mRootView = inflater.inflate(R.layout.image_list_layout, container, false);
         } catch (InflateException e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
             if (getActivity() != null) {
                 getActivity().finish();
@@ -132,7 +128,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                 //设置正在加载更多
                 if (mIsHasData) {
                     mAdapter.changeMoreStatus(ImageAdapter.LOADING_MORE);
-                    MobclickAgent.onEvent(mActivity, UMengEvent.PullToLoadMore);
                     getFangs(currentPage);
                 }
                 //delayLoadMoreData(currentPage);
@@ -149,7 +144,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        MobclickAgent.onEvent(mActivity, UMengEvent.img_list_fresh);
                         mEndlessListener.setLoadMoreFlag(false);
                         getFangs(1);
                     }
@@ -210,7 +204,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                             }
                         }
                         mAdapter.changeMoreStatus(ImageAdapter.NO_LOAD_ERROR);
-                        CrashReport.postCatchedException(e);
                         e.printStackTrace();
                     }
 
@@ -444,14 +437,12 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("ImageListFragment");
     }
 
     @Override
     public void onPause() {
         CatchUtil.getInstance().releaseMemory(true);
         super.onPause();
-        MobclickAgent.onPageEnd("ImageListFragment");
     }
 
     @Override

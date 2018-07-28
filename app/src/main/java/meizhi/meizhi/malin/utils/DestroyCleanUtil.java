@@ -42,8 +42,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tencent.bugly.crashreport.CrashReport;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
@@ -92,7 +90,7 @@ public final class DestroyCleanUtil {
                     return;
                 }
             } catch (Throwable th) {
-                CrashReport.postCatchedException(th);
+                th.printStackTrace();
             }
         }
     }
@@ -107,42 +105,42 @@ public final class DestroyCleanUtil {
         try {
             view.setOnClickListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //2.
         try {
             view.setOnCreateContextMenuListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //3.
         try {
             view.setOnFocusChangeListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //4.
         try {
             view.setOnKeyListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //5.
         try {
             view.setOnLongClickListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //6.
         try {
             view.setOnTouchListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //7.
@@ -151,7 +149,7 @@ public final class DestroyCleanUtil {
                 view.setOnApplyWindowInsetsListener(null);
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //8.
@@ -160,7 +158,7 @@ public final class DestroyCleanUtil {
                 view.setOnContextClickListener(null);
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
 
@@ -170,21 +168,21 @@ public final class DestroyCleanUtil {
                 view.setOnScrollChangeListener(null);
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //10.
         try {
             view.setOnDragListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //11.
         try {
             view.setOnGenericMotionListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //12.
@@ -193,14 +191,14 @@ public final class DestroyCleanUtil {
                 view.setOnHoverListener(null);
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         //13.
         try {
             view.setOnSystemUiVisibilityChangeListener(null);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
         /**
@@ -215,7 +213,7 @@ public final class DestroyCleanUtil {
                     view.setBackground(null);
                 }
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
 
@@ -230,7 +228,7 @@ public final class DestroyCleanUtil {
                 imageView.setImageDrawable(null);
                 imageView.setImageBitmap(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
 
@@ -244,7 +242,7 @@ public final class DestroyCleanUtil {
                 }
                 textView.setCursorVisible(false);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
 
@@ -259,7 +257,7 @@ public final class DestroyCleanUtil {
                 imageButton.setImageDrawable(null);
                 imageButton.setImageBitmap(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
 
@@ -270,31 +268,31 @@ public final class DestroyCleanUtil {
             try {
                 listView.setAdapter(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
 
             try {
                 listView.setOnScrollListener(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
 
             try {
                 listView.setOnItemClickListener(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
 
             try {
                 listView.setOnItemLongClickListener(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
 
             try {
                 listView.setOnItemSelectedListener(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
 
@@ -310,7 +308,7 @@ public final class DestroyCleanUtil {
                 recyclerView.removeOnScrollListener(null);
                 recyclerView.setRecyclerListener(null);
             } catch (Throwable e) {
-                CrashReport.postCatchedException(e);
+                e.printStackTrace();
             }
         }
 
@@ -322,31 +320,31 @@ public final class DestroyCleanUtil {
             try {
                 webView.stopLoading();
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
 
             try {
                 webView.removeAllViews();
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
 
             try {
                 webView.setWebChromeClient(null);
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
 
             try {
                 webView.setWebViewClient(null);
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
 
             try {
                 webView.destroy();
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
 
             try {
@@ -354,7 +352,7 @@ public final class DestroyCleanUtil {
                     ((ViewGroup) view.getParent()).removeView(view);
                 }
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
 
         }
@@ -374,7 +372,7 @@ public final class DestroyCleanUtil {
                     }
                 }
             } catch (Throwable ignored) {
-                CrashReport.postCatchedException(ignored);
+                ignored.printStackTrace();
             }
         }
 

@@ -5,8 +5,6 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.tencent.bugly.crashreport.CrashReport;
-
 import java.lang.reflect.Method;
 
 import meizhi.meizhi.malin.application.MApplication;
@@ -121,7 +119,6 @@ public class PhoneScreenUtil {
                 navigationBarHeight = rs.getDimensionPixelSize(id);
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
         return navigationBarHeight;
@@ -150,7 +147,6 @@ public class PhoneScreenUtil {
                 hasNavigationBar = true;
             }
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
         return hasNavigationBar;

@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.tencent.bugly.crashreport.CrashReport;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.application.MApplication;
@@ -39,7 +38,6 @@ public final class AppInfoUtil {
             ApplicationInfo appInfo = MApplication.getContext().getPackageManager().getApplicationInfo(ProcessUtil.getAppPackageName(), PackageManager.GET_META_DATA);
             channelName = appInfo.metaData.getString("UMENG_CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
             channelName = "Exception Channel";
         }
@@ -57,7 +55,6 @@ public final class AppInfoUtil {
             PackageInfo applicationInfo = MApplication.getContext().getPackageManager().getPackageInfo(ProcessUtil.getAppPackageName(), 0);
             versionName = applicationInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
             versionName = MApplication.getContext().getResources().getString(R.string.app_default_version);
         }
@@ -91,7 +88,6 @@ public final class AppInfoUtil {
             activity.startActivity(intent);
         } catch (Throwable e) {
             e.printStackTrace();
-            CrashReport.postCatchedException(e);
         }
     }
 }

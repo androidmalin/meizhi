@@ -15,7 +15,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -224,7 +223,6 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
 
@@ -232,7 +230,6 @@ public class ImageLargeActivity extends AppCompatActivity implements ImageLargeA
     public void onPause() {
         CatchUtil.getInstance().releaseMemory(true);
         super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     @Override

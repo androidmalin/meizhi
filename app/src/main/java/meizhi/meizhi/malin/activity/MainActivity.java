@@ -14,17 +14,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.analytics.MobclickAgent;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
-import meizhi.meizhi.malin.BuildConfig;
+import io.fabric.sdk.android.Fabric;
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.fragment.ImageListFragment;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
-import meizhi.meizhi.malin.utils.UMengEvent;
 
 /**
  * 类描述:
@@ -45,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setNavigationBarColor();
-        initUM();
         setContentView(R.layout.activity_main);
         initView();
         initToolBar();
@@ -54,11 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setDefaultFragment();
     }
 
-    private void initUM() {
-        MobclickAgent.setDebugMode(BuildConfig.LOG_DEBUG);
-        MobclickAgent.openActivityDurationTrack(false);
-        MobclickAgent.enableEncrypt(true);
-    }
 
     private void setNavigationBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -108,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_about_content: {
-                MobclickAgent.onEvent(this, UMengEvent.ClickAbout);
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             }
@@ -127,14 +119,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         CatchUtil.getInstance().releaseMemory(true);
-        MobclickAgent.onPause(this);
     }
 
     //存储时间的数组
@@ -159,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
             //双击后具体的操作
             if (mImageListFragment == null) return;
-            MobclickAgent.onEvent(this, UMengEvent.DoubleClickTop);
             mImageListFragment.scrollToTop();
         }
     }
@@ -167,14 +156,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void itemClickListener(int position, ArrayList<String> list) {
         try {
-            MobclickAgent.onEvent(this, UMengEvent.ClickImageToBigImage);
-
             Intent intent = new Intent(this, ImageLargeActivity.class);
             intent.putExtra("position", position);
             intent.putStringArrayListExtra("datas", list);
             startActivityForResult(intent, 1000);
         } catch (Throwable e) {
-            CrashReport.postCatchedException(e);
             e.printStackTrace();
         }
     }
