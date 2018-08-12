@@ -6,7 +6,7 @@ ext {
             minSdkVersion     : 15,
             targetSdkVersion  : 22,
             applicationId     : "meizhi.meizhi.malin",
-            versionCode       : 27,
+            versionCode       : 50,
             versionName       : "5.0.0",
 
             minSdkVersionDebug: 21,
