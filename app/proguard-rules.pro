@@ -24,8 +24,9 @@
 #/sdk/tools/proguard/proguard-android-optimize.txt
 #-------------------------------common-------------------------------
 #https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
+#https://medium.com/google-developers/practical-proguard-rules-examples-5640a3907dc9
 # 混淆时所用的算法
--optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
+-optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*,!method/removal/parameter
 #代码压缩级别
 -optimizationpasses 7
 -dontshrink
@@ -236,3 +237,13 @@
 
 #http://my.oschina.net/aibenben/blog/371889
 #http://treesouth.github.io/2015/04/05/Android%E4%B8%ADProGuard%E6%B7%B7%E6%B7%86%E9%85%8D%E7%BD%AE%E5%92%8C%E6%80%BB%E7%BB%93/
+
+##---------------@Keep  ----------
+-dontwarn android.support.annotation.Keep
+#保留注解，如果不添加改行会导致我们的@Keep注解失效
+-keepattributes *Annotation*
+-keep @android.support.annotation.Keep class **{
+@android.support.annotation.Keep <fields>;
+@android.support.annotation.Keep <methods>;
+}
+##---------------@Keep  ----------
