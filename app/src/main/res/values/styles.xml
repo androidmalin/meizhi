@@ -36,27 +36,7 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
-    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title"></style>
-
-    <style name="rtb_style">
-        <item name="android:layout_width">@dimen/common_dimen_0dip</item>
-        <item name="android:layout_height">@dimen/common_dimen_30dip</item>
-        <item name="android:layout_marginLeft">@dimen/common_dimen_10dip</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:button">@null</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/common_dimen_16sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:background">@drawable/rb_bg_selector</item>
-    </style>
-
-    <style name="AppFullScreen" parent="AppBaseTheme">
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
     <style name="AppFullScreenAbout" parent="AppBaseTheme">
     </style>

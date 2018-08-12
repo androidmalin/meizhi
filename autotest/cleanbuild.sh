@@ -1,3 +1,2 @@
 #!/bin/bash
-#find . -name "*.jar" -type f | sudo xargs rm -rf
-cd .. && find . -name "*build*" -type d |sudo  xargs rm -rf
+rm -rf .idea .gradle && find . -name "*build*" -type d | xargs rm -rf && find . -name "*.iml" -type f | xargs rm -rf

@@ -15,19 +15,17 @@ android {
         versionName rootProject.ext.android.versionName
         flavorDimensions "versionCode"
         ndk {
-            // 设置支持的SO库架构
             abiFilters 'armeabi-v7a'
         }
     }
 
     signingConfigs {
-        myConfig {
+        signingConfigs {
+            v1SigningEnabled true
+            v2SigningEnabled true
             storeFile file(STOREFILE)
-            //noinspection GroovyAssignabilityCheck
             storePassword STOREPASSWORD
-            //noinspection GroovyAssignabilityCheck
             keyAlias KEYALIAS
-            //noinspection GroovyAssignabilityCheck
             keyPassword KEYPASSWORD
         }
     }
@@ -47,20 +45,16 @@ android {
             project.gradle.startParameter.excludedTaskNames.add('lint')
         }
         release {
-            //https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
             buildConfigField "boolean", "LOG_DEBUG", "false"
-            //noinspection GroovyAssignabilityCheck
             debuggable false
             zipAlignEnabled true
-            signingConfig signingConfigs.myConfig
-            minifyEnabled true //启用通过 ProGuard 实现的代码压缩
-            shrinkResources true // 去除无效的资源文件
-            // proguard-android.txt 文件的位置 /sdk/tools/proguard/
+            signingConfig signingConfigs.signingConfigs
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-    //Java编译版本
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -110,42 +104,42 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation rootProject.ext.dependencies["roundedimageview"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["cardview"]
     implementation rootProject.ext.dependencies["recyclerview"]
     implementation rootProject.ext.dependencies["design"]
     implementation(rootProject.ext.dependencies["rxandroid"]) {
-        exclude module: 'rxjava'
+        exclude group: 'io.reactivex', module: 'rxjava'
     }
     implementation rootProject.ext.dependencies["rxjava"]
     implementation(rootProject.ext.dependencies["retrofit"]) {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
     implementation(rootProject.ext.dependencies["converter-gson"]) {
-        exclude module: 'gson'
+        exclude group: 'com.squareup.retrofit2', module: 'retrofit'
+        exclude group: 'com.google.code.gson', module: 'gson'
     }
     implementation rootProject.ext.dependencies["gson"]
     implementation(rootProject.ext.dependencies["adapter-rxjava"]) {
-        exclude module: 'rxjava'
+        exclude group: 'io.reactivex', module: 'rxjava'
+        exclude group: 'com.squareup.retrofit2', module: 'retrofit'
     }
     implementation rootProject.ext.dependencies["okhttp"]
-    implementation(rootProject.ext.dependencies["fresco"]) {
-        exclude module: 'support-core-utils'
-        exclude module: 'support-compat'
-        exclude module: 'support-annotations'
-    }
+    implementation rootProject.ext.dependencies["fresco"]
     implementation(rootProject.ext.dependencies["fresco:imagepipeline-okhttp3"]) {
-        exclude module: 'support-core-utils'
-        exclude module: 'support-compat'
-        exclude module: 'support-annotations'
-        exclude module: 'okhttp'
+        exclude group: 'com.facebook.fresco', module: 'fbcore'
+        exclude group: 'com.facebook.fresco', module: 'imagepipeline'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
+    implementation rootProject.ext.dependencies["fresco:webpsupport"]
+
+
     debugImplementation(rootProject.ext.dependencies["leakcanary-android"]) {
-        exclude module: 'support-core-utils'
+        exclude group: 'com.android.support', module: 'support-core-utils'
     }
     releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
+
+    implementation(rootProject.ext.dependencies["crashlytics"]) {
         transitive = true
     }
 }

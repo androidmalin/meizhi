@@ -8,9 +8,4 @@
     <color name="tv_default_color">#999999</color>
 
 
-    <color name="gray_dark">#ff999999</color>
-
-    <color name="theme_color_primary">#fffb7299</color>
-    <color name="theme_color_primary_dark">#ffb85671</color>
-    <color name="color_pick_enable">#EFC5D1</color>
 </resources>

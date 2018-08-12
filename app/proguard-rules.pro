@@ -22,38 +22,66 @@
 #-------------------------------optimize-------------------------------
 #https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
 #/sdk/tools/proguard/proguard-android-optimize.txt
+#-------------------------------common-------------------------------
+#https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
 # 混淆时所用的算法
 -optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
-
 #代码压缩级别
--optimizationpasses 5
+-optimizationpasses 7
+-dontshrink
+-flattenpackagehierarchy
+-verbose
+-dontskipnonpubliclibraryclassmembers
+-ignorewarnings
 
-#优化时允许访问并修改有修饰符的类和类的成员
--allowaccessmodification
 
 #混淆时预校验
 -dontpreverify
-#-------------------------------optimize-------------------------------
 
 #使用大小写混合
 -dontusemixedcaseclassnames
 
-#混淆第三方jar
+# 指定不去忽略非公共的库类。
 -dontskipnonpubliclibraryclasses
+
+#优化时允许访问并修改有修饰符的类和类的成员
+-allowaccessmodification
 
 #记录日志
 -verbose
 
--keep public class com.google.vending.licensing.ILicensingService
--keep public class com.android.vending.licensing.ILicensingService
-
-
 #忽略警告，避免打包时某些警告出现
 -ignorewarnings
 
-#保护本地代码
--keepclasseswithmembernames,includedescriptorclasses class * {
-    native <methods>;
+# 保护给定的可选属性
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod,LocalVariableTable,*JavascriptInterface*
+
+
+# 保持哪些类不被混淆
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+-keep public class * extends java.lang.Throwable {*;}
+-keep public class * extends java.lang.Exception {*;}
+
+#如果有引用v4包可以添加下面这行
+-keep public class * extends android.support.v4.app.Fragment
+#-------------------------------common-------------------------------
+
+
+#-------------------------------通用混淆-------------------------------
+-renamesourcefileattribute SourceFile
+
+-keep class **.R
+-keepclassmembers class **.R$* {
+    public static <fields>;
 }
 
 # For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
@@ -61,9 +89,13 @@
     native <methods>;
 }
 
-# 保护给定的可选属性
--keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod,LocalVariableTable
-
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
 
 # keep setters in Views so that animations can still work.
 # see http://proguard.sourceforge.net/manual/examples.html#beans
@@ -83,89 +115,21 @@
     public static ** valueOf(java.lang.String);
 }
 
--keepclassmembers class * implements android.os.Parcelable {
+-keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator CREATOR;
 }
 
--keepclassmembers class **.R$* {
-    public static <fields>;
-}
-
--keep class **.R$* {*;}
-
-
-# The support library contains references to newer platform versions.
-# Don't warn about those in case this app is linking against an older
-# platform version.  We know about them, and they are safe.
--dontwarn android.support.**
-
-# Understand the @Keep support annotation.
--keep class android.support.annotation.Keep
-
--keep @android.support.annotation.Keep class * {*;}
-
+# 保持自定义控件类不被混淆
 -keepclasseswithmembers class * {
-    @android.support.annotation.Keep <methods>;
+    public <init>(android.content.Context, android.util.AttributeSet);
 }
 
+# 保持自定义控件类不被混淆
 -keepclasseswithmembers class * {
-    @android.support.annotation.Keep <fields>;
+    public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 
--keepclasseswithmembers class * {
-    @android.support.annotation.Keep <init>(...);
-}
-
-#--------------------通用---------------------------------------------------
-
-
-#--------------------org.apache.http---------------------------------------------------
--keep class org.apache.http.** { *; }
--dontwarn org.apache.http.**
--dontnote org.apache.http.**
-
--keep class android.net.http.** { *; }
--dontwarn android.net.http.**
--dontnote android.net.http.**
-#--------------------org.apache.http---------------------------------------------------
-
-
--keep class com.google.**
--dontwarn com.google.**
-
--keep class org.robovm.apple.**
--dontwarn org.robovm.apple.**
--dontnote org.robovm.apple.**
-
-
--keep class sun.security.ssl.SSLContextImpl
--dontwarn sun.security.ssl.SSLContextImpl
--dontnote sun.security.ssl.SSLContextImpl
-
--keep class com.android.org.conscrypt.SSLParametersImpl
--dontwarn com.android.org.conscrypt.SSLParametersImpl
--dontnote com.android.org.conscrypt.SSLParametersImpl
-
--keep class org.apache.harmony.xnet.provider.jsse.SSLParametersImpl
--dontwarn org.apache.harmony.xnet.provider.jsse.SSLParametersImpl
--dontnote org.apache.harmony.xnet.provider.jsse.SSLParametersImpl
-
-
--keep class java.util.Optional
--dontwarn java.util.Optional
--dontnote java.util.Optional
-
--keep class sun.misc.Unsafe
--dontwarn sun.misc.Unsafe
-
-
--dontwarn sun.**
--keep class sun.**
--dontnote sun.**
-
--keep class sun.misc.Unsafe
--dontwarn sun.misc.Unsafe
--dontnote sun.misc.Unsafe
+#-------------------------------通用混淆-------------------------------
 
 
 
@@ -185,20 +149,6 @@
 
 -dontnote rx.**
 #-------------------------------RxJava-------------------------------
-
-
-#-------------------------------retrofit2-------------------------------
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--dontwarn okio.**
-#-------------------------------retrofit2-------------------------------
-
-
-#-------------------------------okhttp3-------------------------------
- -keep class okhttp3.** {*; }
- -keep interface okhttp3.** {*; }
- -dontwarn okhttp3.**
-#-------------------------------okhttp3-------------------------------
 
 
 #R
@@ -223,28 +173,54 @@
 -keep interface android.support.** { *; }
 
 
-# Gson
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.stream.** { *; }
-
-
--keep class com.squareup.okhttp.** { *; }
+#-------------------------------okhttp3-------------------------------
+#https://github.com/square/okhttp
+-dontwarn okhttp3.**
 -dontwarn okio.**
 -dontnote okio.**
-
--keep interface com.squareup.okhttp.** { *; }
--dontwarn com.squareup.okhttp.**
-
--keep class com.squareup.okhttp.OkHttpClient
--dontwarn com.squareup.okhttp.OkHttpClient
--dontnote com.squareup.okhttp.OkHttpClient
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+#-------------------------------okhttp3-------------------------------
 
 
--dontwarn java.lang.invoke.*
+#-------------------------------retrofit2-------------------------------
+#https://github.com/square/retrofit
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain service method parameters.
+-keepclassmembernames,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+#-------------------------------retrofit2-------------------------------
 
+#---------------Begin: proguard configuration for Gson  ----------
+#https://github.com/google/gson/blob/master/examples/android-proguard-example/proguard.cfg
+# Gson uses generic type information stored in a class file when working with fields. Proguard
+# removes such information by default, so configure it to keep all of it.
+-keepattributes Signature
 
-# 保持混淆时类的实名及行号(——————— 调试时打开 ———————)
-#-keepattributes SourceFile,LineNumberTable
+# For using GSON @Expose annotation
+-keepattributes *Annotation*
+
+# Gson specific classes
+-dontwarn sun.misc.**
+#-keep class com.google.gson.stream.** { *; }
+
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.examples.android.model.** { *; }
+
+# Prevent proguard from stripping interface information from TypeAdapterFactory,
+# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+##---------------End: proguard configuration for Gson  ----------
+
 
 # Remove logging calls
 -assumenosideeffects class android.util.Log {
@@ -257,66 +233,6 @@
 }
 
 
--keep interface android.support.v4.app.** { *; }
--keep public class * extends android.support.v4.**
-
-# 保持哪些类不被混淆
--keep public class * extends android.app.Fragment
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
-#如果有引用v4包可以添加下面这行
--keep public class * extends android.support.v4.app.Fragment
-
-
-
-
-#####################记录生成的日志数据,gradle build时在本项目根目录输出################
-
-#apk 包内所有 class 的内部结构
--dump class_files.txt
-#未混淆的类和成员
--printseeds seeds.txt
-#列出从 apk 中删除的代码
--printusage unused.txt
-#混淆前后的映射
--printmapping mapping.txt
-
-#####################记录生成的日志数据，gradle build时 在本项目根目录输出-end################
 
 #http://my.oschina.net/aibenben/blog/371889
 #http://treesouth.github.io/2015/04/05/Android%E4%B8%ADProGuard%E6%B7%B7%E6%B7%86%E9%85%8D%E7%BD%AE%E5%92%8C%E6%80%BB%E7%BB%93/
-
-#-------------------------------Freco混淆-------------------------------
-# https://github.com/facebook/fresco/blob/master/proguard-fresco.pro
-# Keep our interfaces so they can be used by other ProGuard rules.
-# See http://sourceforge.net/p/proguard/bugs/466/
--keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
-
-# Do not strip any method/class that is annotated with @DoNotStrip
--keep @com.facebook.common.internal.DoNotStrip class *
--keepclassmembers class * {
-    @com.facebook.common.internal.DoNotStrip *;
-}
-
-# Keep native methods
--keepclassmembers class * {
-    native <methods>;
-}
-
--dontwarn okio.**
--dontwarn com.squareup.okhttp.**
--dontwarn okhttp3.**
--dontwarn javax.annotation.**
--dontwarn com.android.volley.toolbox.**
-
--keepclasseswithmembers class c.b.** { *; }
--keep interface c.b.PListener{ *; }
--keep interface c.b.QListener{ *; }
--dontwarn com.facebook.**
-#-------------------------------Freco混淆-------------------------------

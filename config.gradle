@@ -2,28 +2,26 @@ ext {
     android = [
 
             compileSdkVersion : 27,
-            buildToolsVersion : "28.0.1",
+            buildToolsVersion : "28.0.2",
             minSdkVersion     : 15,
             targetSdkVersion  : 22,
             applicationId     : "meizhi.meizhi.malin",
             versionCode       : 27,
-            versionName       : "4.7.0",
+            versionName       : "5.0.0",
 
             minSdkVersionDebug: 21,
             versionCodeDebug  : 19,
-            versionNameDebug  : "4.3.0"
+            versionNameDebug  : "5.0.0"
 
     ]
 
+
+
     dependencies = [
+
             'fresco'                      : 'com.facebook.fresco:fresco:1.10.0',
-            'fresco:fbcore'               : 'com.facebook.fresco:fbcore:1.10.0',
-            'fresco:imagepipeline-base'   : 'com.facebook.fresco:imagepipeline-base:1.10.0',
-            'fresco:imagepipeline'        : 'com.facebook.fresco:imagepipeline:1.10.0',
             'fresco:animated-gif'         : 'com.facebook.fresco:animated-gif:1.10.0',
             'fresco:imagepipeline-okhttp3': 'com.facebook.fresco:imagepipeline-okhttp3:1.10.0',
-            'fresco:drawee'               : 'com.facebook.fresco:drawee:1.10.0',
-            'fresco:animated-base'        : 'com.facebook.fresco:animated-base:1.10.0',
             'fresco:animated-webp'        : 'com.facebook.fresco:animated-webp:1.10.0',
             'fresco:webpsupport'          : 'com.facebook.fresco:webpsupport:1.10.0',
             'design'                      : 'com.android.support:design:27.1.1',
@@ -39,15 +37,10 @@ ext {
             'gson'                        : 'com.google.code.gson:gson:2.8.5',
             'adapter-rxjava'              : 'com.squareup.retrofit2:adapter-rxjava:2.4.0',
             'okhttp'                      : 'com.squareup.okhttp3:okhttp:3.11.0',
-            'persistentcookiejar'         : 'com.github.franmontiel:PersistentCookieJar:v1.0.1',
-            'picasso'                     : 'com.squareup.picasso:picasso:2.71828',
-            'stetho'                      : 'com.facebook.stetho:stetho:1.5.0',
-            'stetho-okhttp3'              : 'com.facebook.stetho:stetho-okhttp3:1.5.0',
             'leakcanary-android'          : 'com.squareup.leakcanary:leakcanary-android:1.6.1',
             'leakcanary-android-no-op'    : 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1',
-            'debug-db'                    : 'com.amitshekhar.android:debug-db:1.0.4',
-            'viewserver'                  : 'com.hanhuy.android:viewserver:1.0.3',
-            'roundedimageview'            : 'com.makeramen:roundedimageview:2.3.0'
+            'crashlytics'                 : 'com.crashlytics.sdk.android:crashlytics:2.9.4@aar'
+
     ]
 
 }
