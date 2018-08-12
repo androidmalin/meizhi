@@ -127,6 +127,7 @@ public final class ActivityLeakSolution {
         }
     }
 
+    @SuppressLint("PrivateApi")
     private static void fixTextWatcherLeak2() {
         try {
             Field declaredField = Class.forName("android.text.TextLine").getDeclaredField("sCached");

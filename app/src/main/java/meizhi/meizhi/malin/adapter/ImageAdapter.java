@@ -158,7 +158,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         ImageRequest imageRequestLow = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(lowUrl))
-                .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
                 .build();
 
@@ -166,8 +165,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         String imageHigh = UrlUtils.getUrl(url, UrlUtils.orj360);
         ImageRequest imageRequest = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(imageHigh))
-                //这里设置渐进式jpeg开关，记得在fresco初始化时设置progressiveJpegConfig
-                .setProgressiveRenderingEnabled(true)
                 //在解码之前修改图片尺寸
                 //缩放,在解码前修改内存中的图片大小, 配合Downsampling可以处理所有图片,否则只能处理jpg,
                 // 开启Downsampling:在初始化时设置.setDownsampleEnabled(true)

@@ -28,7 +28,6 @@ import meizhi.meizhi.malin.R;
 public class OhSwipeRefreshLayout extends InsetsSwipeRefreshLayout {
 
 
-
     public OhSwipeRefreshLayout(Context context) {
         this(context, null);
     }

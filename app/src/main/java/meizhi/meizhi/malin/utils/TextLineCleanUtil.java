@@ -1,5 +1,7 @@
 package meizhi.meizhi.malin.utils;
 
+import android.annotation.SuppressLint;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
@@ -12,6 +14,7 @@ import java.lang.reflect.Field;
  * blog:
  * http://snzang.leanote.com/post/c321f719cd02
  */
+@SuppressLint("PrivateApi")
 public final class TextLineCleanUtil {
     private TextLineCleanUtil() {
     }

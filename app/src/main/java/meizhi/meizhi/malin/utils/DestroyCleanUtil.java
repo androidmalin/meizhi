@@ -398,6 +398,7 @@ public final class DestroyCleanUtil {
      * blog:
      * http://snzang.leanote.com/post/c321f719cd02
      */
+    @SuppressLint("PrivateApi")
     public static void fixTextLineCacheLeak() {
         //if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) return;
         try {

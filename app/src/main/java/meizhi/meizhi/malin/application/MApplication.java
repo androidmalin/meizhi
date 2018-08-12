@@ -27,7 +27,6 @@ import meizhi.meizhi.malin.utils.ProcessUtil;
 public class MApplication extends Application {
 
     private static RefWatcher mRefWatcher;
-    private static final String BUGLY_KEY = "ee6ea51102";
 
 
     @SuppressLint("StaticFieldLeak")

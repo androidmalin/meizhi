@@ -1,5 +1,6 @@
 package meizhi.meizhi.malin.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
@@ -129,6 +130,7 @@ public class PhoneScreenUtil {
      *
      * @return boolean
      */
+    @SuppressLint("PrivateApi")
     private static boolean checkDeviceHasNavigationBar() {
         boolean hasNavigationBar = false;
         try {

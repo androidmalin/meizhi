@@ -11,9 +11,6 @@ import com.facebook.common.memory.NoOpMemoryTrimmableRegistry;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.facebook.imagepipeline.decoder.ProgressiveJpegConfig;
-import com.facebook.imagepipeline.image.ImmutableQualityInfo;
-import com.facebook.imagepipeline.image.QualityInfo;
 
 import meizhi.meizhi.malin.BuildConfig;
 import okhttp3.OkHttpClient;
@@ -76,25 +73,12 @@ public final class ImageLoaderConfig {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
         //网络实现层用okHttp3
-        ImagePipelineConfig mImagePipelineConfig = OkHttpImagePipelineConfigFactory.newBuilder(context, okHttpClient)
+        return OkHttpImagePipelineConfigFactory.newBuilder(context, okHttpClient)
                 // 要不要向下采样,它处理图片的速度比常规的裁剪scaling更快，
                 .setDownsampleEnabled(true) //在解码时改变图片的大小，支持PNG、JPG以及WEBP格式的图片，与ResizeOptions配合使用
                 .setBitmapsConfig(Bitmap.Config.RGB_565)// 若不是要求忒高清显示应用，就用使用RGB_565吧（默认是ARGB_8888)
-                //设置Jpeg格式的图片支持渐进式显示
-                .setProgressiveJpegConfig(new ProgressiveJpegConfig() {
-                    @Override
-                    public int getNextScanNumberToDecode(int scanNumber) {
-                        return scanNumber + 2;
-                    }
-
-                    public QualityInfo getQualityInfo(int scanNumber) {
-                        boolean isGoodEnough = (scanNumber >= 5);
-                        return ImmutableQualityInfo.of(scanNumber, isGoodEnough, false);
-                    }
-                })
                 .setMemoryTrimmableRegistry(memoryTrimmableRegistry) // 报内存警告时的监听
                 .build();
-        return mImagePipelineConfig;
     }
 
 }

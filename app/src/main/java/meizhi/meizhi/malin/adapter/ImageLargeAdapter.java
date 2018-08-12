@@ -139,14 +139,12 @@ public class ImageLargeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         ImageRequest imageRequestLow = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(lowUrl))
-                .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
                 .build();
 
         String imageUrlHigh = UrlUtils.getUrl(url, UrlUtils.large);
         ImageRequest imageRequest = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(imageUrlHigh))
-                .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(mItemWidth, mItemHeight))
                 .build();
 
