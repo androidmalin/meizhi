@@ -26,7 +26,7 @@
 #https://developer.android.com/studio/build/shrink-code.html#unused-alt-resources
 #https://medium.com/google-developers/practical-proguard-rules-examples-5640a3907dc9
 # 混淆时所用的算法
--optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*,!method/removal/parameter
+-optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
 #代码压缩级别
 -optimizationpasses 7
 -dontshrink
@@ -162,12 +162,11 @@
 #Binder
 -keep public class * extends android.os.Binder
 
-##实体类不参与混淆
--keep class meizhi.meizhi.malin.network.bean.** { *; }
-
 ##自定义控件不参与混淆
 -keep class meizhi.meizhi.malin.view.** { *; }
-
+-keep class meizhi.meizhi.malin.widget.** { *; }
+-dontwarn meizhi.meizhi.malin.view.**
+-dontwarn meizhi.meizhi.malin.widget.**
 
 # Keep the support library
 -keep class android.support.** { *; }
