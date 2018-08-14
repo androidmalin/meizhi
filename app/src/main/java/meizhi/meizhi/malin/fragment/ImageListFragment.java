@@ -2,14 +2,16 @@ package meizhi.meizhi.malin.fragment;
 
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.InflateException;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func0;
 import rx.schedulers.Schedulers;
 
 /**
@@ -48,8 +49,8 @@ import rx.schedulers.Schedulers;
  * 版本:
  */
 public class ImageListFragment extends Fragment implements ImageAdapter.itemClickListener {
-
-    private static final String TAG = ImageListFragment.class.getSimpleName();
+    private static final String TAG = "Life";
+    private static final String TAG1 = ImageListFragment.class.getSimpleName();
     private View mLayoutError;
     private View mLayoutEmpty;
     private ViewStub mStubError;
@@ -60,47 +61,36 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private EndlessRecyclerOnScrollListener mEndlessListener;
     private Activity mActivity;
-    private static final int NUMBER = 50;
     private Subscription mSubscription;
     private Subscription mSubscription2;
-
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private View mRootView;
 
-    public static ImageListFragment newInstance(Bundle bundle) {
-        ImageListFragment logFragment = new ImageListFragment();
-        logFragment.setArguments(bundle);
-        return logFragment;
+    public static ImageListFragment newInstance() {
+        return new ImageListFragment();
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        Log.d(TAG, TAG1 + "[onAttach] BEGIN");
+        super.onAttach(context);
+        Log.d(TAG, TAG1 + "[onAttach] END");
+        //如果要获取Activity对象，不建议调用getActivity()，而是在onAttach()中将Context对象强转为Activity对象
+        mActivity = (Activity) context;
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mRootView != null) {
-            ViewGroup parent = (ViewGroup) mRootView.getParent();
-            if (parent != null) {
-                parent.removeView(mRootView);
-            }
-        }
-        try {
-            mRootView = inflater.inflate(R.layout.image_list_layout, container, false);
-        } catch (InflateException e) {
-            e.printStackTrace();
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //返回Fragment的UI布局，需要注意的是inflate()的第三个参数是false，因为在Fragment内部实现中，会把该布局添加到container中，如果设为true，那么就会重复做两次添加，则会抛如下异常
+        Log.d(TAG, TAG1 + "[onCreateView]");
+        mRootView = inflater.inflate(R.layout.image_list_layout, container, false);
         initView();
         initData();
         initListener();
         initLoad();
         return mRootView;
-    }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mActivity = getActivity();
     }
 
 
@@ -111,8 +101,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         mStubEmpty = mRootView.findViewById(R.id.view_stub_empty);
     }
 
-
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
     private void initData() {
         mActivity = getActivity();
@@ -137,19 +125,10 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         mSwipeRefreshLayout.setColorSchemeResources(
                 R.color.colorAccent
         );
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mEndlessListener.setLoadMoreFlag(false);
-                        getFangs(1);
-                    }
-                }, 1000);
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> mHandler.postDelayed(() -> {
+            mEndlessListener.setLoadMoreFlag(false);
+            getFangs(1);
+        }, 1000));
     }
 
 
@@ -160,12 +139,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
      */
     private void delayLoadMoreData(final int currentPage) {
         showLoadingView(true);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getFangs(currentPage);
-            }
-        }, 1000);
+        mHandler.postDelayed(() -> getFangs(currentPage), 1000);
     }
 
 
@@ -279,15 +253,12 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         if (mLayoutError == null && mStubError != null) {
             mLayoutError = mStubError.inflate();
             mLayoutError.setVisibility(View.VISIBLE);
-            mLayoutError.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mLayoutError.setVisibility(View.GONE);
-                    if (mAdapter != null) {
-                        mAdapter.clearData();
-                    }
-                    initLoad();
+            mLayoutError.setOnClickListener(v -> {
+                mLayoutError.setVisibility(View.GONE);
+                if (mAdapter != null) {
+                    mAdapter.clearData();
                 }
+                initLoad();
             });
         } else {
             if (mLayoutError != null) {
@@ -305,34 +276,23 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
                 mLayoutEmpty.setVisibility(View.VISIBLE);
             }
         }
-        mLayoutEmpty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (mLayoutEmpty != null) {
+            mLayoutEmpty.setOnClickListener(v -> {
                 showEmptyView(false);
                 initLoad();
-            }
-        });
+            });
+        }
     }
 
     private void initLoad() {
         showLoadingView(true);
         if (mHandler == null) return;
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getFangs(1);
-            }
-        }, 1000);
+        mHandler.postDelayed(() -> getFangs(1), 1000);
     }
 
     private void showLoadingView(final boolean isShow) {
         if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(isShow);
-                }
-            });
+            mSwipeRefreshLayout.post(() -> mSwipeRefreshLayout.setRefreshing(isShow));
         }
     }
 
@@ -350,6 +310,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
 
     @Override
     public void onDestroy() {
+        Log.d(TAG, TAG1 + "[onDestroy] BEGIN");
         DestroyCleanUtil.fixInputMethod(mActivity);
         DestroyCleanUtil.fixTextLineCacheLeak();
         CatchUtil.getInstance().releaseMemory(true);
@@ -367,10 +328,11 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
             mAdapter.destroyData();
         }
         super.onDestroy();
+        Log.d(TAG, TAG1 + "[onDestroy] END");
     }
 
     public interface itemClickListener {
-        void itemClickListener(int position, ArrayList<String> list);
+        void onItemClick(int position, ArrayList<String> list);
     }
 
     private itemClickListener mItemClickListener;
@@ -382,16 +344,11 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     @Override
     public void itemOnClick(int position) {
         if (mActivity == null || mActivity.isFinishing()) return;
-        mItemClickListener.itemClickListener(position, mAdapter.getData());
+        mItemClickListener.onItemClick(position, mAdapter.getData());
     }
 
     public Observable<Boolean> createObservable(final ArrayList<String> list1, final ArrayList<String> list2) {
-        return Observable.defer(new Func0<Observable<Boolean>>() {
-            @Override
-            public Observable<Boolean> call() {
-                return Observable.just(isContain(list1, list2));
-            }
-        });
+        return Observable.defer(() -> Observable.just(isContain(list1, list2)));
     }
 
     /**
@@ -434,22 +391,74 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         mRecyclerView.scrollToPosition(pos);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void onPause() {
         CatchUtil.getInstance().releaseMemory(true);
+        Log.d(TAG, TAG1 + "[onPause] BEGIN");
         super.onPause();
+        Log.d(TAG, TAG1 + "[onPause] END");
     }
 
     @Override
     public void onDestroyView() {
+        Log.d(TAG, TAG1 + "[onDestroyView] BEGIN");
         super.onDestroyView();
+        Log.d(TAG, TAG1 + "[onDestroyView] END");
         RefWatcher refWatcher = MApplication.getRefWatcher();
         if (refWatcher == null) return;
         refWatcher.watch(this);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, TAG1 + "[onCreate] BEGIN");
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, TAG1 + "[onCreate] END");
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, TAG1 + "[onViewCreated] BEGIN");
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, TAG1 + "[onViewCreated] END");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, TAG1 + "[onActivityCreated] BEGIN");
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, TAG1 + "[onActivityCreated] END");
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, TAG1 + "[onStart] BEGIN");
+        super.onStart();
+        Log.d(TAG, TAG1 + "[onStart] END");
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(TAG, TAG1 + "[onResume] BEGIN");
+        super.onResume();
+        Log.d(TAG, TAG1 + "[onResume] END");
+    }
+
+
+    @Override
+    public void onStop() {
+        Log.d(TAG, TAG1 + "[onStop] BEGIN");
+        super.onStop();
+        Log.d(TAG, TAG1 + "[onStop] END");
+    }
+
+
+    @Override
+    public void onDetach() {
+        Log.d(TAG, TAG1 + "[onDetach] BEGIN");
+        super.onDetach();
+        Log.d(TAG, TAG1 + "[onDetach] END");
     }
 }

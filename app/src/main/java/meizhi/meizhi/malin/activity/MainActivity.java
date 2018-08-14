@@ -1,15 +1,18 @@
 package meizhi.meizhi.malin.activity;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,25 +36,58 @@ import meizhi.meizhi.malin.utils.DestroyCleanUtil;
  * 修改时间:
  * 修改备注:
  * 版本:
+ * https://www.jianshu.com/p/28ca4cbe190c
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ImageListFragment.itemClickListener {
 
+    private static final String TAG = "FFFF";
+    private static final String TAG1 = MainActivity.class.getSimpleName();
     private ImageListFragment mImageListFragment;
     private Toolbar mToolbar;
     private Activity mActivity;
+    private static final String IMAGE_FRAGMENT_KEY = "ImageListFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        Log.d(TAG, TAG1 + "[onCreate] BEGIN");
         setNavigationBarColor();
         setContentView(R.layout.activity_main);
         initView();
         initToolBar();
         initListener();
-        setDefaultFragment();
+        initFragment(savedInstanceState);
+        Log.d(TAG, TAG1 + "[onCreate] END");
+
     }
 
+    private void initFragment(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            mImageListFragment = (ImageListFragment) getSupportFragmentManager().getFragment(savedInstanceState, IMAGE_FRAGMENT_KEY);
+            mImageListFragment.setOnItemClickListener(this);
+        } else {
+            setDefaultFragment();
+        }
+    }
+
+    private void setDefaultFragment() {
+        mImageListFragment = ImageListFragment.newInstance();
+        mImageListFragment.setOnItemClickListener(this);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_content_layout, mImageListFragment, "ImageListFragment");
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mImageListFragment != null) {
+            getSupportFragmentManager().putFragment(outState, IMAGE_FRAGMENT_KEY, mImageListFragment);
+        }
+    }
 
     private void setNavigationBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -84,18 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void setDefaultFragment() {
-        if (mImageListFragment == null) {
-            Bundle bundle = new Bundle();
-            mImageListFragment = ImageListFragment.newInstance(bundle);
-        }
-        mImageListFragment.setOnItemClickListener(this);
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_content_layout, mImageListFragment, "ImageListFragment");
-        fragmentTransaction.commitAllowingStateLoss();
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -116,14 +140,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void onPause() {
+        Log.d(TAG, TAG1 + "[onPause] BEGIN");
         super.onPause();
+        Log.d(TAG, TAG1 + "[onPause] END");
         CatchUtil.getInstance().releaseMemory(true);
     }
 
@@ -134,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 双击事件响应
      */
     public void doubleClick() {
-        /**
+        /*
          * arraycopy,拷贝数组
          * src 要拷贝的源数组
          * srcPos 源数组开始拷贝的下标位置
@@ -154,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void itemClickListener(int position, ArrayList<String> list) {
+    public void onItemClick(int position, ArrayList<String> list) {
         try {
             Intent intent = new Intent(this, ImageLargeActivity.class);
             intent.putExtra("position", position);
@@ -167,11 +189,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
+        Log.d(TAG, TAG1 + "[onDestroy] BEGIN");
         CatchUtil.getInstance().releaseMemory(true);
         DestroyCleanUtil.fixInputMethod(this);
         DestroyCleanUtil.fixTextLineCacheLeak();
         DestroyCleanUtil.unBindView(getWindow().getDecorView());
         super.onDestroy();
+        Log.d(TAG, TAG1 + "[onDestroy] END");
     }
 
     @Override
@@ -193,5 +217,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, TAG1 + "[onPostCreate] BEGIN");
+        super.onPostCreate(savedInstanceState);
+        Log.d(TAG, TAG1 + "[onPostCreate] END");
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        Log.d(TAG, TAG1 + "[onAttachFragment] BEGIN");
+        super.onAttachFragment(fragment);
+        Log.d(TAG, TAG1 + "[onAttachFragment] END");
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d(TAG, TAG1 + "[onStart] BEGIN");
+        super.onStart();
+        Log.d(TAG, TAG1 + "[onStart] END");
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, TAG1 + "[onResume] BEGIN");
+        super.onResume();
+        Log.d(TAG, TAG1 + "[onResume] END");
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        Log.d(TAG, TAG1 + "[onAttachedToWindow] BEGIN");
+        super.onAttachedToWindow();
+        Log.d(TAG, TAG1 + "[onAttachedToWindow] END");
+    }
+
+    @Override
+    protected void onPostResume() {
+        Log.d(TAG, TAG1 + "[onPostResume] BEGIN");
+        super.onPostResume();
+        Log.d(TAG, TAG1 + "[onPostResume] END");
+    }
+
+
+    @Override
+    protected void onRestart() {
+        Log.d(TAG, TAG1 + "[onRestart] BEGIN");
+        super.onRestart();
+        Log.d(TAG, TAG1 + "[onRestart] END");
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, TAG1 + "[onStop] BEGIN");
+        super.onStop();
+        Log.d(TAG, TAG1 + "[onStop] END");
     }
 }
