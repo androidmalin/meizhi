@@ -19,7 +19,7 @@
 package meizhi.meizhi.malin.utils;
 
 import android.annotation.SuppressLint;
-import android.support.v4.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsCompat;
 import android.view.Gravity;
 
 public final class WindowInsetsCompatUtil {

@@ -2,12 +2,13 @@ package meizhi.meizhi.malin.utils;
 
 import android.content.Context;
 import android.graphics.PointF;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 /**
@@ -45,9 +46,9 @@ public class FastScrollLinearLayoutManager extends StaggeredGridLayoutManager {
                 //LogUtil.d("滑动1像素毫秒数: " + mTime);
 
                 /*
-                  *1个像素要25ms,可用减少
-                  * float v = super.calculateSpeedPerPixel(displayMetrics);
-                  * return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
+                 *1个像素要25ms,可用减少
+                 * float v = super.calculateSpeedPerPixel(displayMetrics);
+                 * return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
                  */
 
 
@@ -129,28 +130,27 @@ public class FastScrollLinearLayoutManager extends StaggeredGridLayoutManager {
         try {
             super.collectAdjacentPrefetchPositions(dx, dy, state, layoutPrefetchRegistry);
         } catch (IllegalArgumentException e) {
-            LogUtil.e("FastScrollLinearLayoutManager","catch IllegalArgumentException");
+            LogUtil.e("FastScrollLinearLayoutManager", "catch IllegalArgumentException");
         }
     }
 /**
  * https://code.google.com/p/android/issues/detail?id=230295
-    AndroidRuntime  E  FATAL EXCEPTION: main
-    E  Process: meizhi.meizhi.malin, PID: 31432
-    E  java.lang.IllegalArgumentException: Pixel distance must be non-negative
-    E      at android.support.v7.widget.GapWorker$LayoutPrefetchRegistryImpl.addPosition(GapWorker.java:110)
-    E      at android.support.v7.widget.StaggeredGridLayoutManager.collectAdjacentPrefetchPositions(StaggeredGridLayoutManager.java:2109)
-    E      at android.support.v7.widget.GapWorker$LayoutPrefetchRegistryImpl.collectPrefetchPositionsFromView(GapWorker.java:94)
-    E      at android.support.v7.widget.GapWorker.buildTaskList(GapWorker.java:213)
-    E      at android.support.v7.widget.GapWorker.prefetch(GapWorker.java:343)
-    E      at android.support.v7.widget.GapWorker.run(GapWorker.java:370)
-    E      at android.os.Handler.handleCallback(Handler.java:751)
-    E      at android.os.Handler.dispatchMessage(Handler.java:95)
-    E      at android.os.Looper.loop(Looper.java:154)
-    E      at android.app.ActivityThread.main(ActivityThread.java:6119)
-    E      at java.lang.reflect.Method.invoke(Native Method)
-    E      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)
-    E      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)
-
+ AndroidRuntime  E  FATAL EXCEPTION: main
+ E  Process: meizhi.meizhi.malin, PID: 31432
+ E  java.lang.IllegalArgumentException: Pixel distance must be non-negative
+ E      at android.support.v7.widget.GapWorker$LayoutPrefetchRegistryImpl.addPosition(GapWorker.java:110)
+ E      at android.support.v7.widget.StaggeredGridLayoutManager.collectAdjacentPrefetchPositions(StaggeredGridLayoutManager.java:2109)
+ E      at android.support.v7.widget.GapWorker$LayoutPrefetchRegistryImpl.collectPrefetchPositionsFromView(GapWorker.java:94)
+ E      at android.support.v7.widget.GapWorker.buildTaskList(GapWorker.java:213)
+ E      at android.support.v7.widget.GapWorker.prefetch(GapWorker.java:343)
+ E      at android.support.v7.widget.GapWorker.run(GapWorker.java:370)
+ E      at android.os.Handler.handleCallback(Handler.java:751)
+ E      at android.os.Handler.dispatchMessage(Handler.java:95)
+ E      at android.os.Looper.loop(Looper.java:154)
+ E      at android.app.ActivityThread.main(ActivityThread.java:6119)
+ E      at java.lang.reflect.Method.invoke(Native Method)
+ E      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)
+ E      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)
  ***/
 
 }

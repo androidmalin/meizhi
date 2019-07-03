@@ -5,32 +5,29 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
-import com.squareup.leakcanary.RefWatcher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.adapter.ImageAdapter;
-import meizhi.meizhi.malin.application.MApplication;
 import meizhi.meizhi.malin.network.api.ImageApi;
 import meizhi.meizhi.malin.network.services.ImageService;
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.DestroyCleanUtil;
 import meizhi.meizhi.malin.utils.EndlessRecyclerOnScrollListener;
-import meizhi.meizhi.malin.utils.FastScrollLinearLayoutManager;
 import meizhi.meizhi.malin.utils.RxUtils;
 import rx.Observable;
 import rx.Subscriber;
@@ -63,7 +60,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private Activity mActivity;
     private Subscription mSubscription;
     private Subscription mSubscription2;
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private GridLayoutManager mStaggeredGridLayoutManager;
     private View mRootView;
 
     public static ImageListFragment newInstance() {
@@ -105,7 +102,7 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     private void initData() {
         mActivity = getActivity();
         mAdapter = new ImageAdapter(mActivity);
-        mStaggeredGridLayoutManager = new FastScrollLinearLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mStaggeredGridLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
@@ -374,16 +371,16 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
     }
 
     public void scrollToTop() {
-        if (mRecyclerView == null) return;
-        int[] lastVisibleItemPositions = mStaggeredGridLayoutManager.findFirstVisibleItemPositions(null);
-        if (lastVisibleItemPositions != null && lastVisibleItemPositions.length > 0) {
-            int firstVisibleItemPosition = lastVisibleItemPositions[0];
-            int mVisibleCount = mStaggeredGridLayoutManager.getItemCount();
-            if (firstVisibleItemPosition > mVisibleCount) {
-                mRecyclerView.scrollToPosition(mVisibleCount);
-            }
-            mRecyclerView.smoothScrollToPosition(0);
-        }
+//        if (mRecyclerView == null) return;
+//        int[] lastVisibleItemPositions = mStaggeredGridLayoutManager.findFirstVisibleItemPositions(null);
+//        if (lastVisibleItemPositions != null && lastVisibleItemPositions.length > 0) {
+//            int firstVisibleItemPosition = lastVisibleItemPositions[0];
+//            int mVisibleCount = mStaggeredGridLayoutManager.getItemCount();
+//            if (firstVisibleItemPosition > mVisibleCount) {
+//                mRecyclerView.scrollToPosition(mVisibleCount);
+//            }
+//            mRecyclerView.smoothScrollToPosition(0);
+//        }
     }
 
     public void scrollPosition(int pos) {
@@ -405,9 +402,6 @@ public class ImageListFragment extends Fragment implements ImageAdapter.itemClic
         Log.d(TAG, TAG1 + "[onDestroyView] BEGIN");
         super.onDestroyView();
         Log.d(TAG, TAG1 + "[onDestroyView] END");
-        RefWatcher refWatcher = MApplication.getRefWatcher();
-        if (refWatcher == null) return;
-        refWatcher.watch(this);
     }
 
 

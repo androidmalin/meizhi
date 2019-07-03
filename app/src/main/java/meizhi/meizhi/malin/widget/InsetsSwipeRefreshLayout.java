@@ -20,8 +20,9 @@ package meizhi.meizhi.malin.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import meizhi.meizhi.malin.view.WindowInsetsHandler;
 import meizhi.meizhi.malin.view.WindowInsetsHelper;

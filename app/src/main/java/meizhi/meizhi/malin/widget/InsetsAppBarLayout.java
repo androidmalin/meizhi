@@ -20,10 +20,12 @@ package meizhi.meizhi.malin.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import meizhi.meizhi.malin.view.WindowInsetsHandler;
 import meizhi.meizhi.malin.view.WindowInsetsHelper;

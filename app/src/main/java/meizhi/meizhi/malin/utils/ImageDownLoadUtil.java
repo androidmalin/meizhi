@@ -7,7 +7,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -185,6 +184,7 @@ public final class ImageDownLoadUtil {
                 outputStream.flush();
                 return true;
             } catch (IOException e) {
+                e.printStackTrace();
                 return false;
             } finally {
                 if (inputStream != null) {

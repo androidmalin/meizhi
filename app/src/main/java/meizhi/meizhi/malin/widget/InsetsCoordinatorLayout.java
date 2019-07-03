@@ -21,11 +21,12 @@ package meizhi.meizhi.malin.widget;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.WindowInsetsCompat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import meizhi.meizhi.malin.utils.WindowInsetsCompatUtil;
 
@@ -44,7 +45,7 @@ public class InsetsCoordinatorLayout extends CoordinatorLayout {
     @SuppressWarnings("unchecked")
     public InsetsCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ViewCompat.setOnApplyWindowInsetsListener(this, new android.support.v4.view.OnApplyWindowInsetsListener() {
+        ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
                 if (insets.isConsumed()) {

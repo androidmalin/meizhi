@@ -6,8 +6,6 @@ import android.content.Context;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import meizhi.meizhi.malin.utils.CatchUtil;
 import meizhi.meizhi.malin.utils.ImageLoaderConfig;
@@ -26,7 +24,6 @@ import meizhi.meizhi.malin.utils.ProcessUtil;
  */
 public class MApplication extends Application {
 
-    private static RefWatcher mRefWatcher;
 
 
     @SuppressLint("StaticFieldLeak")
@@ -38,7 +35,6 @@ public class MApplication extends Application {
         initContext();
         if (ProcessUtil.isMainProcess()) {
             initFresco();
-            initLeakCanary();
         }
     }
 
@@ -48,21 +44,12 @@ public class MApplication extends Application {
     }
 
     private void initContext() {
-        mContext = getApplicationContext();
+        mContext = this;
     }
 
     private void initFresco() {
         Fresco.initialize(this, ImageLoaderConfig.getInstance().getImagePipelineConfig(getApplicationContext()));
         FLog.setMinimumLoggingLevel(FLog.ERROR);
-    }
-
-
-    private void initLeakCanary() {
-        mRefWatcher = LeakCanary.install(this);
-    }
-
-    public static RefWatcher getRefWatcher() {
-        return mRefWatcher;
     }
 
     //指导应用程序在不同的情况下进行自身的内存释放，以避免被系统直接杀掉，提高应用程序的用户体验.

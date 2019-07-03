@@ -20,12 +20,13 @@ package meizhi.meizhi.malin.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.WindowInsetsCompat;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import meizhi.meizhi.malin.R;
 import meizhi.meizhi.malin.view.WindowInsetsHandler;
@@ -44,7 +45,7 @@ public class InsetsToolbar extends Toolbar implements WindowInsetsHandler {
 
     public InsetsToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ViewCompat.setOnApplyWindowInsetsListener(this, new android.support.v4.view.OnApplyWindowInsetsListener() {
+        ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
                 final int l = insets.getSystemWindowInsetLeft();
