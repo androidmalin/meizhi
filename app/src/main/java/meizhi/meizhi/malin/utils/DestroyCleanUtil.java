@@ -55,12 +55,13 @@ import java.lang.reflect.Field;
  * 修改时间:
  * 修改备注:
  * 版本:
+ * https://blog.csdn.net/tijjyire/article/details/68484491
  */
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
 public final class DestroyCleanUtil {
-    private static final String CIRCLE_CLASS = "android.support.v4.widget.CircleImageView";
+    private static final String CIRCLE_CLASS = "androidx.swiperefreshlayout.widget.CircleImageView";
 
     private DestroyCleanUtil() {
     }
